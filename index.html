@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leidenfrost Droplet Impact - Complete Analysis Plots</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 20px; }
+  header { text-align: center; padding: 20px 0; border-bottom: 1px solid #334155; margin-bottom: 25px; }
+  h1 { font-size: 26px; margin: 0 0 10px 0; color: #38bdf8; }
+  p.subtitle { color: #94a3b8; font-size: 15px; margin: 0; }
+  .nav-tabs { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 25px; }
+  .tab-btn { background: #1e293b; color: #cbd5e1; border: 1px solid #334155; padding: 10px 16px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s; }
+  .tab-btn:hover { background: #334155; color: #fff; }
+  .tab-btn.active { background: #0284c7; color: #fff; border-color: #38bdf8; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); gap: 20px; }
+  .card { background: #1e293b; border: 1px solid #334155; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); }
+  .card-header { padding: 12px 16px; font-size: 14px; font-weight: 600; background: #0f172a; color: #38bdf8; border-bottom: 1px solid #334155; }
+  .card img { width: 100%; height: auto; display: block; cursor: pointer; transition: transform 0.2s; }
+  .card img:hover { transform: scale(1.01); }
+  .card-footer { padding: 10px 16px; font-size: 12px; color: #94a3b8; line-height: 1.4; }
+  
+  /* Modal zoom */
+  .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
+  .modal img { max-width: 95%; max-height: 95%; border-radius: 6px; }
+  .modal-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 35px; cursor: pointer; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Leidenfrost Droplet Impact Dynamics — Experimental Plots Dashboard</h1>
+  <p class="subtitle">Normalized Height, Spreading Dynamics, Weber Number Scaling & Concentration Effects across 10 Fluid Systems (936 Cases)</p>
+</header>
+
+<div class="nav-tabs">
+  <button class="tab-btn active" onclick="openTab(event, '01_height_vs_normalized_time')">1. Height vs. Dimensionless Time (H/D0 vs. t*)</button>
+  <button class="tab-btn " onclick="openTab(event, '02_spreading_vs_normalized_time')">2. Spreading Factor vs. Dimensionless Time (β vs. t*)</button>
+  <button class="tab-btn " onclick="openTab(event, '03_max_height_vs_weber_number')">3. Maximum Height vs. Weber Number (Hmax/D0 vs. We)</button>
+  <button class="tab-btn " onclick="openTab(event, '04_concentration_effects')">4. Effect of Solvent Concentration (Acetone, Ethanol, Methanol)</button>
+  <button class="tab-btn " onclick="openTab(event, '05_scaling_and_regime_maps')">5. Scaling Laws, Regime Maps & Restitution</button>
+</div>
+
+<div id="01_height_vs_normalized_time" class="tab-content active">
+  <h2 style="font-size: 18px; color: #93c5fd; margin-bottom: 16px;">1. Height vs. Dimensionless Time (H/D0 vs. t*)</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card-header">Height Vs Time 20 Perc Acetone</div>
+      <img src="01_height_vs_normalized_time/height_vs_time_20_perc_acetone.png" alt="Height Vs Time 20 Perc Acetone" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>01_height_vs_normalized_time/height_vs_time_20_perc_acetone.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Height Vs Time 20 Perc Ethanol</div>
+      <img src="01_height_vs_normalized_time/height_vs_time_20_perc_ethanol.png" alt="Height Vs Time 20 Perc Ethanol" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>01_height_vs_normalized_time/height_vs_time_20_perc_ethanol.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Height Vs Time 25 Perc Methanol</div>
+      <img src="01_height_vs_normalized_time/height_vs_time_25_perc_methanol.png" alt="Height Vs Time 25 Perc Methanol" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>01_height_vs_normalized_time/height_vs_time_25_perc_methanol.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Height Vs Time 40 Perc Acetone</div>
+      <img src="01_height_vs_normalized_time/height_vs_time_40_perc_acetone.png" alt="Height Vs Time 40 Perc Acetone" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>01_height_vs_normalized_time/height_vs_time_40_perc_acetone.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Height Vs Time 40 Perc Methanol</div>
+      <img src="01_height_vs_normalized_time/height_vs_time_40_perc_methanol.png" alt="Height Vs Time 40 Perc Methanol" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>01_height_vs_normalized_time/height_vs_time_40_perc_methanol.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Height Vs Time 40 Percent Ethanol</div>
+      <img src="01_height_vs_normalized_time/height_vs_time_40_percent_ethanol.png" alt="Height Vs Time 40 Percent Ethanol" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>01_height_vs_normalized_time/height_vs_time_40_percent_ethanol.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Height Vs Time 60 Perc Acetone</div>
+      <img src="01_height_vs_normalized_time/height_vs_time_60_perc_acetone.png" alt="Height Vs Time 60 Perc Acetone" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>01_height_vs_normalized_time/height_vs_time_60_perc_acetone.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Height Vs Time 60 Perc Ethanol</div>
+      <img src="01_height_vs_normalized_time/height_vs_time_60_perc_ethanol.png" alt="Height Vs Time 60 Perc Ethanol" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>01_height_vs_normalized_time/height_vs_time_60_perc_ethanol.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Height Vs Time 60 Perc Methanol</div>
+      <img src="01_height_vs_normalized_time/height_vs_time_60_perc_methanol.png" alt="Height Vs Time 60 Perc Methanol" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>01_height_vs_normalized_time/height_vs_time_60_perc_methanol.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Height Vs Time Pure Water</div>
+      <img src="01_height_vs_normalized_time/height_vs_time_pure_water.png" alt="Height Vs Time Pure Water" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>01_height_vs_normalized_time/height_vs_time_pure_water.png</code> (Click image to expand full-screen)</div>
+    </div>
+  </div>
+</div>
+
+<div id="02_spreading_vs_normalized_time" class="tab-content ">
+  <h2 style="font-size: 18px; color: #93c5fd; margin-bottom: 16px;">2. Spreading Factor vs. Dimensionless Time (β vs. t*)</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card-header">Spreading Vs Time 20 Perc Acetone</div>
+      <img src="02_spreading_vs_normalized_time/spreading_vs_time_20_perc_acetone.png" alt="Spreading Vs Time 20 Perc Acetone" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>02_spreading_vs_normalized_time/spreading_vs_time_20_perc_acetone.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Spreading Vs Time 20 Perc Ethanol</div>
+      <img src="02_spreading_vs_normalized_time/spreading_vs_time_20_perc_ethanol.png" alt="Spreading Vs Time 20 Perc Ethanol" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>02_spreading_vs_normalized_time/spreading_vs_time_20_perc_ethanol.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Spreading Vs Time 25 Perc Methanol</div>
+      <img src="02_spreading_vs_normalized_time/spreading_vs_time_25_perc_methanol.png" alt="Spreading Vs Time 25 Perc Methanol" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>02_spreading_vs_normalized_time/spreading_vs_time_25_perc_methanol.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Spreading Vs Time 40 Perc Acetone</div>
+      <img src="02_spreading_vs_normalized_time/spreading_vs_time_40_perc_acetone.png" alt="Spreading Vs Time 40 Perc Acetone" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>02_spreading_vs_normalized_time/spreading_vs_time_40_perc_acetone.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Spreading Vs Time 40 Perc Methanol</div>
+      <img src="02_spreading_vs_normalized_time/spreading_vs_time_40_perc_methanol.png" alt="Spreading Vs Time 40 Perc Methanol" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>02_spreading_vs_normalized_time/spreading_vs_time_40_perc_methanol.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Spreading Vs Time 40 Percent Ethanol</div>
+      <img src="02_spreading_vs_normalized_time/spreading_vs_time_40_percent_ethanol.png" alt="Spreading Vs Time 40 Percent Ethanol" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>02_spreading_vs_normalized_time/spreading_vs_time_40_percent_ethanol.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Spreading Vs Time 60 Perc Acetone</div>
+      <img src="02_spreading_vs_normalized_time/spreading_vs_time_60_perc_acetone.png" alt="Spreading Vs Time 60 Perc Acetone" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>02_spreading_vs_normalized_time/spreading_vs_time_60_perc_acetone.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Spreading Vs Time 60 Perc Ethanol</div>
+      <img src="02_spreading_vs_normalized_time/spreading_vs_time_60_perc_ethanol.png" alt="Spreading Vs Time 60 Perc Ethanol" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>02_spreading_vs_normalized_time/spreading_vs_time_60_perc_ethanol.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Spreading Vs Time 60 Perc Methanol</div>
+      <img src="02_spreading_vs_normalized_time/spreading_vs_time_60_perc_methanol.png" alt="Spreading Vs Time 60 Perc Methanol" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>02_spreading_vs_normalized_time/spreading_vs_time_60_perc_methanol.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Spreading Vs Time Pure Water</div>
+      <img src="02_spreading_vs_normalized_time/spreading_vs_time_pure_water.png" alt="Spreading Vs Time Pure Water" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>02_spreading_vs_normalized_time/spreading_vs_time_pure_water.png</code> (Click image to expand full-screen)</div>
+    </div>
+  </div>
+</div>
+
+<div id="03_max_height_vs_weber_number" class="tab-content ">
+  <h2 style="font-size: 18px; color: #93c5fd; margin-bottom: 16px;">3. Maximum Height vs. Weber Number (Hmax/D0 vs. We)</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card-header">Max Height Vs Weber All 10 Fluids</div>
+      <img src="03_max_height_vs_weber_number/max_height_vs_weber_all_10_fluids.png" alt="Max Height Vs Weber All 10 Fluids" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>03_max_height_vs_weber_number/max_height_vs_weber_all_10_fluids.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Max Height Vs Weber Leidenfrost Comparison</div>
+      <img src="03_max_height_vs_weber_number/max_height_vs_weber_leidenfrost_comparison.png" alt="Max Height Vs Weber Leidenfrost Comparison" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>03_max_height_vs_weber_number/max_height_vs_weber_leidenfrost_comparison.png</code> (Click image to expand full-screen)</div>
+    </div>
+  </div>
+</div>
+
+<div id="04_concentration_effects" class="tab-content ">
+  <h2 style="font-size: 18px; color: #93c5fd; margin-bottom: 16px;">4. Effect of Solvent Concentration (Acetone, Ethanol, Methanol)</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card-header">Concentration Cross Solvent Comparison</div>
+      <img src="04_concentration_effects/concentration_cross_solvent_comparison.png" alt="Concentration Cross Solvent Comparison" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>04_concentration_effects/concentration_cross_solvent_comparison.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Concentration Effect Acetone</div>
+      <img src="04_concentration_effects/concentration_effect_acetone.png" alt="Concentration Effect Acetone" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>04_concentration_effects/concentration_effect_acetone.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Concentration Effect Ethanol</div>
+      <img src="04_concentration_effects/concentration_effect_ethanol.png" alt="Concentration Effect Ethanol" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>04_concentration_effects/concentration_effect_ethanol.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Concentration Effect Methanol</div>
+      <img src="04_concentration_effects/concentration_effect_methanol.png" alt="Concentration Effect Methanol" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>04_concentration_effects/concentration_effect_methanol.png</code> (Click image to expand full-screen)</div>
+    </div>
+  </div>
+</div>
+
+<div id="05_scaling_and_regime_maps" class="tab-content ">
+  <h2 style="font-size: 18px; color: #93c5fd; margin-bottom: 16px;">5. Scaling Laws, Regime Maps & Restitution</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card-header">Regime Maps Weber Vs Temperature</div>
+      <img src="05_scaling_and_regime_maps/regime_maps_weber_vs_temperature.png" alt="Regime Maps Weber Vs Temperature" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>05_scaling_and_regime_maps/regime_maps_weber_vs_temperature.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Restitution Coefficient Vs Temperature</div>
+      <img src="05_scaling_and_regime_maps/restitution_coefficient_vs_temperature.png" alt="Restitution Coefficient Vs Temperature" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>05_scaling_and_regime_maps/restitution_coefficient_vs_temperature.png</code> (Click image to expand full-screen)</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Scaling Law Beta Max Vs Weber</div>
+      <img src="05_scaling_and_regime_maps/scaling_law_beta_max_vs_weber.png" alt="Scaling Law Beta Max Vs Weber" onclick="zoomImage(this.src)">
+      <div class="card-footer">File: <code>05_scaling_and_regime_maps/scaling_law_beta_max_vs_weber.png</code> (Click image to expand full-screen)</div>
+    </div>
+  </div>
+</div>
+
+<div id="imageModal" class="modal" onclick="closeModal()">
+  <span class="modal-close">&times;</span>
+  <img id="modalImg" src="">
+</div>
+
+<script>
+function openTab(evt, tabId) {
+  var contents = document.getElementsByClassName("tab-content");
+  for (var i = 0; i < contents.length; i++) {
+    contents[i].classList.remove("active");
+  }
+  var buttons = document.getElementsByClassName("tab-btn");
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].classList.remove("active");
+  }
+  document.getElementById(tabId).classList.add("active");
+  evt.currentTarget.classList.add("active");
+}
+
+function zoomImage(src) {
+  var modal = document.getElementById("imageModal");
+  var modalImg = document.getElementById("modalImg");
+  modal.style.display = "flex";
+  modalImg.src = src;
+}
+
+function closeModal() {
+  document.getElementById("imageModal").style.display = "none";
+}
+</script>
+</body>
+</html>
