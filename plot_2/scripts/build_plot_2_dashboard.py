@@ -1,0 +1,961 @@
+# -*- coding: utf-8 -*-
+"""
+Generate publication-grade academic dashboard for Plot_2 Suite.
+"""
+
+import os
+import json
+
+PLOT2_DIR = r"C:\Users\Pablo\Desktop\Analysis\plot_2"
+
+FIGURES = {
+    "01_spreading": {
+        "title": "1. Spreading Dynamics vs. Dimensionless Time (Non-Bursting)",
+        "badge": "10 Multi-Panel Plots",
+        "desc": "Spreading ratio β(t*) = D_spread(t) / D₀ plotted against dimensionless time t* = t / τ (where τ = D₀ / √(2gh)) across substrate temperatures from 100°C to 400°C. Strictly excludes all explosive bursting / atomization cases to show true coherent lamella expansion and capillary recoiling dynamics.",
+        "items": [
+            {
+                "file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_pure_water.png",
+                "title": "Pure Water (0% Additive) — Non-Bursting Spreading Subplots",
+                "fluid": "pure_water",
+                "fig_num": "Fig. 2.1.01",
+                "caption": "Multi-panel temperature subplots for Pure Water across non-bursting conditions. Shows smooth capillary recoil above 220°C and stable film levitation up to 400°C without lamella rupture."
+            },
+            {
+                "file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_20_perc_acetone.png",
+                "title": "Water + 20% Acetone — Non-Bursting Spreading Subplots",
+                "fluid": "acetone",
+                "fig_num": "Fig. 2.1.02",
+                "caption": "Multi-panel temperature subplots for 20% Acetone. Verified with manual ground-truth data. At T ≥ 220°C, clean Leidenfrost bouncing occurs for h ≤ 5.1 cm with rapid capillary retraction and airborne oscillations."
+            },
+            {
+                "file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_40_perc_acetone.png",
+                "title": "Water + 40% Acetone — Non-Bursting Spreading Subplots",
+                "fluid": "acetone",
+                "fig_num": "Fig. 2.1.03",
+                "caption": "Multi-panel temperature subplots for 40% Acetone. Low surface tension (31.8 mN/m) enables high expansion ratio (β_max ≈ 2.8) prior to retraction on the vapor cushion."
+            },
+            {
+                "file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_60_perc_acetone.png",
+                "title": "Water + 60% Acetone — Non-Bursting Spreading Subplots",
+                "fluid": "acetone",
+                "fig_num": "Fig. 2.1.04",
+                "caption": "Multi-panel temperature subplots for 60% Acetone. Highly volatile mixture with stable non-bursting film levitation at low drop heights."
+            },
+            {
+                "file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_20_perc_ethanol.png",
+                "title": "Water + 20% Ethanol — Non-Bursting Spreading Subplots",
+                "fluid": "ethanol",
+                "fig_num": "Fig. 2.1.05",
+                "caption": "Multi-panel temperature subplots for 20% Ethanol (verified with manual ground-truth data). Clean rebound for h ≤ 2.9 cm across Leidenfrost temperatures."
+            },
+            {
+                "file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_40_percent_ethanol.png",
+                "title": "Water + 40% Ethanol — Non-Bursting Spreading Subplots",
+                "fluid": "ethanol",
+                "fig_num": "Fig. 2.1.06",
+                "caption": "Multi-panel temperature subplots for 40% Ethanol. Demonstrates viscous attenuation of spreading oscillations near the binary viscosity peak (μ ≈ 2.35 mPa·s)."
+            },
+            {
+                "file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_60_perc_ethanol.png",
+                "title": "Water + 60% Ethanol — Non-Bursting Spreading Subplots",
+                "fluid": "ethanol",
+                "fig_num": "Fig. 2.1.07",
+                "caption": "Multi-panel temperature subplots for 60% Ethanol showing coherent thin-film expansion and gentle recoiling."
+            },
+            {
+                "file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_25_perc_methanol.png",
+                "title": "Water + 25% Methanol — Non-Bursting Spreading Subplots",
+                "fluid": "methanol",
+                "fig_num": "Fig. 2.1.08",
+                "caption": "Multi-panel temperature subplots for 25% Methanol across non-bursting trials. Rapid initial expansion followed by distinct liftoff."
+            },
+            {
+                "file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_40_perc_methanol.png",
+                "title": "Water + 40% Methanol — Non-Bursting Spreading Subplots",
+                "fluid": "methanol",
+                "fig_num": "Fig. 2.1.09",
+                "caption": "Multi-panel temperature subplots for 40% Methanol. Coherent spreading dynamics with high repeatability across low release heights."
+            },
+            {
+                "file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_60_perc_methanol.png",
+                "title": "Water + 60% Methanol — Non-Bursting Spreading Subplots",
+                "fluid": "methanol",
+                "fig_num": "Fig. 2.1.10",
+                "caption": "Multi-panel temperature subplots for 60% Methanol showing extended non-bursting film boiling regimes at elevated temperatures."
+            }
+        ]
+    },
+    "02_height_weber": {
+        "title": "2. Maximum Bounce Height vs. Weber Number (Leidenfrost Only)",
+        "badge": "2 Comprehensive Plots",
+        "desc": "Post-impact vertical restitution H_cm,max / D₀ plotted against the impact Weber number We = ρV²D₀ / σ strictly for cases undergoing true Leidenfrost film-boiling rebound. Completely filters out resting puddles and fragmented mist.",
+        "items": [
+            {
+                "file": "02_max_bounce_height_vs_weber/max_bounce_height_vs_weber_10_fluids_grid.png",
+                "title": "10-Panel Weber Scaling Grid: Leidenfrost Bounce Height",
+                "fluid": "all",
+                "fig_num": "Fig. 2.2.01",
+                "caption": "Ten-panel matrix showing normalized center-of-mass bounce height (H_cm/D₀) vs. Weber number for each fluid system. Points are colored by substrate temperature (160°C to 400°C) with quadratic restitution fits. Rebound reaches peak efficiency at We ≈ 20–50 before dynamic shattering suppresses coherent liftoff."
+            },
+            {
+                "file": "02_max_bounce_height_vs_weber/max_bounce_height_vs_weber_unified_comparison.png",
+                "title": "Unified Cross-Fluid Rebound Trajectory vs. Weber Number",
+                "fluid": "all",
+                "fig_num": "Fig. 2.2.02",
+                "caption": "Direct overlay of all 10 fluid systems in the Leidenfrost regime with fitted trendlines. Demonstrates how solvent volatile fraction modulates vertical restitution efficiency."
+            }
+        ]
+    },
+    "03_height_temp": {
+        "title": "3. Maximum Bounce Height vs. Substrate Temperature",
+        "badge": "2 Thermal Transition Plots",
+        "desc": "Normalized bounce height H_cm / D₀ as a function of substrate temperature (100°C to 400°C). Non-rebounding conditions (wetting deposition and explosive shattering) are set to 0 to clearly delineate the thermal threshold T_LD where bouncing ignites.",
+        "items": [
+            {
+                "file": "03_max_bounce_height_vs_temperature/max_bounce_height_vs_temp_10_fluids_grid.png",
+                "title": "10-Panel Thermal Rebound Grid: Height vs. Temperature",
+                "fluid": "all",
+                "fig_num": "Fig. 2.3.01",
+                "caption": "Bounce height vs. substrate temperature across all release heights for 10 fluids. Sharp step transition from 0 (inelastic deposition) to H_cm/D₀ > 1.5 indicates the dynamic Leidenfrost temperature T_LD."
+            },
+            {
+                "file": "03_max_bounce_height_vs_temperature/max_bounce_height_vs_temp_unified_comparison.png",
+                "title": "Unified Thermal Rebound Comparison (Release Height h = 1.3 cm)",
+                "fluid": "all",
+                "fig_num": "Fig. 2.3.02",
+                "caption": "Comparative thermal onset of Leidenfrost bouncing at release height 1.3 cm across all 10 fluid formulations, illustrating the depression of T_LD by volatile organic solvents."
+            }
+        ]
+    },
+    "04_3d_rebound": {
+        "title": "4. 3D Tri-Axial Rebound Surfaces & 2D Contour Maps",
+        "badge": "2 Tri-Axial Visualizations",
+        "desc": "Simultaneous representation of rebound dynamics across three physical dimensions: Impact Weber Number (X), Substrate Temperature (Y), and Normalized Center-of-Mass Bounce Height (Z).",
+        "items": [
+            {
+                "file": "04_3D_rebound_height_temp_weber/3D_rebound_surface_master.png",
+                "title": "3D Rebound Response Surfaces (Weber, Temperature, Max Height)",
+                "fluid": "all",
+                "fig_num": "Fig. 2.4.01",
+                "caption": "Master 4-panel 3D perspective surface plot comparing Pure Water, Acetone mixtures, Ethanol mixtures, and Methanol mixtures. Clearly depicts the bounded 'island of restitution' where vapor layer pressure supports coherent droplet liftoff."
+            },
+            {
+                "file": "04_3D_rebound_height_temp_weber/2D_rebound_contour_maps.png",
+                "title": "Iso-Height 2D Contour Maps: Leidenfrost Rebound Islands",
+                "fluid": "all",
+                "fig_num": "Fig. 2.4.02",
+                "caption": "Filled iso-height contour maps with labeled elevation contours of H_cm/D₀(T, We). Visualizes optimal bouncing parameters and dynamic boundaries across chemical families."
+            }
+        ]
+    },
+    "05_regime_maps": {
+        "title": "5. Empirical Impact Regime Maps with Continuous Territorial Domains",
+        "badge": "12 Publication Phase Maps",
+        "desc": "Hydrodynamic phase diagrams mapping impact Weber number against substrate temperature (100°C–400°C). Features continuous territorial domains calculated via calibrated SVM decision boundaries: (I) Contact Sticking / Deposition (Soft Blue), (II) Explosive Bursting / Splashing (Soft Rose), and (III) Leidenfrost Film Boiling / Clean Rebound (Soft Emerald Green), overlaid with all 936 classified experimental impact trials.",
+        "items": [
+            {
+                "file": "05_impact_regime_maps_weber_vs_temp/regime_map_master_10_fluids_grid.png",
+                "title": "10-Panel Impact Regime Matrix with Continuous Territorial Domains (936 Trials Classified)",
+                "fluid": "all",
+                "fig_num": "Fig. 2.5.01",
+                "caption": "Ten-panel continuous phase territory matrix mapping Sticking (Blue domain & diamonds), Explosive Bursting / Shattering (Rose domain & crosses), and Leidenfrost Film Boiling (Emerald green domain & circles). Includes physics guide and territory legends."
+            },
+            {
+                "file": "05_impact_regime_maps_weber_vs_temp/regime_map_cross_solvent_comparison.png",
+                "title": "Comparative Dynamic Leidenfrost Boundary Curves Across All 10 Fluids",
+                "fluid": "all",
+                "fig_num": "Fig. 2.5.02",
+                "caption": "Direct comparison of the dynamic Leidenfrost boundary curves T_LD(We) across all 10 fluid systems, delineating the threshold between coherent film-boiling rebound and violent impact shattering."
+            },
+            {
+                "file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_pure_water.png",
+                "title": "Pure DI Water Impact Regime Phase Diagram",
+                "fluid": "water",
+                "fig_num": "Fig. 2.5.03",
+                "caption": "Continuous phase territory map for Pure DI Water showing wide Leidenfrost rebound envelope above 200°C for We < 110."
+            },
+            {
+                "file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_20_perc_acetone.png",
+                "title": "Water + 20% Acetone Impact Regime Phase Diagram",
+                "fluid": "acetone",
+                "fig_num": "Fig. 2.5.04",
+                "caption": "Continuous phase territory map for 20% Acetone showing Leidenfrost threshold depressed to ~160°C."
+            },
+            {
+                "file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_40_perc_acetone.png",
+                "title": "Water + 40% Acetone Impact Regime Phase Diagram",
+                "fluid": "acetone",
+                "fig_num": "Fig. 2.5.05",
+                "caption": "Continuous phase territory map for 40% Acetone with low-temperature film boiling envelope."
+            },
+            {
+                "file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_60_perc_acetone.png",
+                "title": "Water + 60% Acetone Impact Regime Phase Diagram",
+                "fluid": "acetone",
+                "fig_num": "Fig. 2.5.06",
+                "caption": "Continuous phase territory map for 60% Acetone showing strong volatility-induced vapor film stability at moderate Weber numbers."
+            },
+            {
+                "file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_20_perc_ethanol.png",
+                "title": "Water + 20% Ethanol Impact Regime Phase Diagram",
+                "fluid": "ethanol",
+                "fig_num": "Fig. 2.5.07",
+                "caption": "Continuous phase territory map for 20% Ethanol with ground-truth calibrated boundaries."
+            },
+            {
+                "file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_40_percent_ethanol.png",
+                "title": "Water + 40% Ethanol Impact Regime Phase Diagram",
+                "fluid": "ethanol",
+                "fig_num": "Fig. 2.5.08",
+                "caption": "Continuous phase territory map for 40% Ethanol showing sharp transition between nucleate bursting and film boiling."
+            },
+            {
+                "file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_60_perc_ethanol.png",
+                "title": "Water + 60% Ethanol Impact Regime Phase Diagram",
+                "fluid": "ethanol",
+                "fig_num": "Fig. 2.5.09",
+                "caption": "Continuous phase territory map for 60% Ethanol illustrating enhanced bouncing range at low-to-mid Weber numbers."
+            },
+            {
+                "file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_25_perc_methanol.png",
+                "title": "Water + 25% Methanol Impact Regime Phase Diagram",
+                "fluid": "methanol",
+                "fig_num": "Fig. 2.5.10",
+                "caption": "Continuous phase territory map for 25% Methanol showing distinct Sticking, Bursting, and Leidenfrost regions."
+            },
+            {
+                "file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_40_perc_methanol.png",
+                "title": "Water + 40% Methanol Impact Regime Phase Diagram",
+                "fluid": "methanol",
+                "fig_num": "Fig. 2.5.11",
+                "caption": "Continuous phase territory map for 40% Methanol showing low Leidenfrost onset temperature."
+            },
+            {
+                "file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_60_perc_methanol.png",
+                "title": "Water + 60% Methanol Impact Regime Phase Diagram",
+                "fluid": "methanol",
+                "fig_num": "Fig. 2.5.12",
+                "caption": "Continuous phase territory map for 60% Methanol with expanded Leidenfrost regime."
+            }
+        ]
+    },
+    "06_novel": {
+        "title": "6. Novel High-Impact Research Contributions",
+        "badge": "3 Breakthrough Physics Plots",
+        "desc": "Advanced physical models rarely or never reported in literature: Clanet universal spreading collapse, Rayleigh-Biance contact time invariance breakdown under binary flash vaporization, and Leidenfrost temperature depression scaling with additive volatility.",
+        "items": [
+            {
+                "file": "06_novel_research_plots/novel_01_clanet_universal_master_collapse.png",
+                "title": "Universal Clanet Spreading Collapse: β(t*) / We^(1/4) vs. t*",
+                "fluid": "all",
+                "fig_num": "Fig. 2.6.01",
+                "caption": "All 10 fluid systems collapsed onto a single universal dimensionless trajectory when rescaled by We^(1/4). Peaks align tightly with Clanet's theoretical limit (β_max / We^(1/4) ≈ 1.34), confirming near-frictionless expansion over the vapor cushion."
+            },
+            {
+                "file": "06_novel_research_plots/novel_02_contact_time_invariance_vs_weber.png",
+                "title": "Contact Time Invariance Testing: τ_c / τ_Rayleigh vs. Weber Number",
+                "fluid": "all",
+                "fig_num": "Fig. 2.6.02",
+                "caption": "Tests the classical Rayleigh-Biance contact time invariance (τ_c ≈ 2.22 τ_Rayleigh). Reveals that volatile binary mixtures break the invariance at higher Weber numbers due to rapid vapor expansion thrust."
+            },
+            {
+                "file": "06_novel_research_plots/novel_03_leidenfrost_temperature_depression_vs_volatility.png",
+                "title": "Dynamic Leidenfrost Temperature Depression vs. Solvent Volatility",
+                "fluid": "all",
+                "fig_num": "Fig. 2.6.03",
+                "caption": "Two-panel quantitative scaling of Leidenfrost temperature depression (ΔT_LD = T_LD,water - T_LD,mix): (Left) ΔT_LD vs. volumetric concentration; (Right) Correlation with pure solvent boiling point (Acetone: 56.1°C, Methanol: 64.7°C, Ethanol: 78.4°C)."
+            }
+        ]
+    }
+}
+
+HTML_TEMPLATE = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plot_2 Research Suite — Leidenfrost Droplet Impact Dynamics</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-canvas: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-subtle: #f1f5f9;
+      --border-subtle: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-subtle: #64748b;
+      --primary: #1e3a8a;
+      --primary-hover: #172554;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    [data-theme="dark"] {
+      --bg-canvas: #090d16;
+      --bg-surface: #111827;
+      --bg-surface-subtle: #1f2937;
+      --border-subtle: #1f2937;
+      --border-strong: #374151;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --text-subtle: #6b7280;
+      --primary: #3b82f6;
+      --primary-hover: #60a5fa;
+      --primary-light: #1e3a8a33;
+      --primary-border: #1d4ed8;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      line-height: 1.5;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .top-bar {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 12px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+      color: #ffffff;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .brand-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 7px 14px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-muted);
+    }
+
+    .btn:hover {
+      background: var(--bg-surface-subtle);
+      color: var(--text-main);
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 32px 32px 64px 32px;
+    }
+
+    .paper-hero {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 30px 36px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .paper-tagline {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary);
+      background: var(--primary-light);
+      border: 1px solid var(--primary-border);
+      padding: 4px 10px;
+      border-radius: 9999px;
+      margin-bottom: 12px;
+    }
+
+    .paper-title {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin-bottom: 10px;
+    }
+
+    .paper-abstract {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      max-width: 1100px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+    }
+
+    .tabs-wrapper {
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      padding: 6px 12px 0 12px;
+    }
+
+    .tabs-nav {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+      background: var(--bg-surface-subtle);
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+      font-weight: 600;
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .tab-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 9999px;
+      background: var(--bg-surface-subtle);
+      color: var(--text-subtle);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .tab-header-banner {
+      margin-bottom: 20px;
+      padding: 16px 20px;
+      background: var(--bg-surface);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tab-header-banner h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .tab-header-banner p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(560px, 1fr));
+      gap: 24px;
+    }
+
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.15s ease;
+    }
+
+    .card:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-header {
+      padding: 12px 18px;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-fig-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--primary-light);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--primary-border);
+    }
+
+    .card-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .card-media {
+      background: #ffffff;
+      padding: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      cursor: zoom-in;
+      border-bottom: 1px solid var(--border-subtle);
+      min-height: 280px;
+    }
+
+    .card-media img {
+      width: 100%;
+      height: auto;
+      max-height: 480px;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.2s;
+    }
+
+    .card-media:hover img {
+      transform: scale(1.008);
+    }
+
+    .card-footer {
+      padding: 14px 18px;
+      background: var(--bg-surface);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    .card-caption {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .card-caption strong {
+      color: var(--text-main);
+    }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 11px;
+    }
+
+    .card-path-code {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-subtle);
+    }
+
+    .action-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(6px);
+      flex-direction: column;
+    }
+
+    .modal-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+    }
+
+    .modal-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .modal-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .modal-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .modal-btn:hover { background: rgba(255, 255, 255, 0.2); }
+
+    .modal-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    .modal-body img {
+      max-width: 95%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: var(--radius-md);
+      background: #ffffff;
+    }
+
+    .modal-caption-bar {
+      padding: 12px 24px;
+      background: rgba(15, 23, 42, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-subtle);
+      text-align: center;
+      color: var(--text-subtle);
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-bar">
+    <div class="brand-mark">
+      <div class="brand-logo">P2</div>
+      <div>
+        <div class="brand-title">Plot_2 Research Suite: Calibrated Dynamics</div>
+        <div class="brand-sub">Non-Bursting Spreading & Leidenfrost Rebound Investigation</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <a class="btn" href="./master_summary_plot_2_rectified.csv" download="master_summary_plot_2_rectified.csv">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Calibrated Dataset (.csv)
+      </a>
+      <button class="btn" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+        🌓 Theme
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="paper-hero">
+      <div class="paper-tagline">Plot_2 Scientific Compendium</div>
+      <h1 class="paper-title">Calibrated Hydrodynamics of Coherent Binary Droplets & Leidenfrost Bouncing Restitution</h1>
+      <p class="paper-abstract">
+        This refined suite evaluates the experimental dynamics across 10 liquid systems with manual ground-truth calibration. Spreading diameter trajectories are strictly isolated to coherent, non-bursting regimes. Maximum rebound heights are evaluated exclusively for true film-boiling Leidenfrost bouncing, eliminating splatter and resting puddle bias. Includes full 3D tri-axial response surfaces and 3 novel research contributions (Clanet universal collapse, Rayleigh contact time invariance testing, and Leidenfrost temperature depression scaling).
+      </p>
+
+      <div class="stats-strip">
+        <div class="stat-item">
+          <span class="stat-value">936</span>
+          <span class="stat-label">Total Impact Runs</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">180</span>
+          <span class="stat-label">Leidenfrost Bouncing Runs</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">172</span>
+          <span class="stat-label">Contact Sticking Runs</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">584</span>
+          <span class="stat-label">Explosive Bursting Runs</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">1000 kg/m³</span>
+          <span class="stat-label">Standard Water Density</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="tabs-wrapper">
+      <nav class="tabs-nav" id="categoryNav"></nav>
+    </div>
+
+    <div id="tabPanelsContainer"></div>
+
+    <footer>
+      <div><strong>Leidenfrost Droplet Dynamics Portal (Plot_2 Suite)</strong> • 4,000 FPS High-Speed Research</div>
+      <div>Calibrated with Manual Ground-Truth Observations • Density ρ_water = 1000 kg/m³</div>
+    </footer>
+
+  </main>
+
+  <div id="imageModal" class="modal" onclick="closeModal()">
+    <div class="modal-top">
+      <div class="modal-title" id="modalTitle">Figure Viewer</div>
+      <div class="modal-controls">
+        <a class="modal-btn" id="modalDownload" href="#" download>Download PNG</a>
+        <button class="modal-btn" onclick="closeModal()">✕ Close (Esc)</button>
+      </div>
+    </div>
+    <div class="modal-body" id="modalBody">
+      <img id="modalImg" src="" alt="Enlarged Figure" onclick="event.stopPropagation()">
+    </div>
+    <div class="modal-caption-bar" id="modalCaption"></div>
+  </div>
+
+  <script>
+    let currentTabId = "01_spreading";
+    const CATEGORIES = __CATEGORIES_JSON__;
+
+    function init() {
+      renderTabs();
+      openCategory("01_spreading");
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+      });
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute("data-theme");
+      const next = current === "dark" ? "light" : "dark";
+      html.setAttribute("data-theme", next);
+      localStorage.setItem("theme_p2", next);
+    }
+
+    if (localStorage.getItem("theme_p2") === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+
+    function renderTabs() {
+      const nav = document.getElementById("categoryNav");
+      nav.innerHTML = "";
+      Object.keys(CATEGORIES).forEach((key, idx) => {
+        const cat = CATEGORIES[key];
+        const btn = document.createElement("button");
+        btn.className = "tab-btn" + (idx === 0 ? " active" : "");
+        btn.id = "btn-" + key;
+        btn.onclick = () => openCategory(key);
+        btn.innerHTML = `${cat.title} <span class="tab-badge">${cat.items.length}</span>`;
+        nav.appendChild(btn);
+      });
+    }
+
+    function openCategory(key) {
+      currentTabId = key;
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      const activeBtn = document.getElementById("btn-" + key);
+      if (activeBtn) activeBtn.classList.add("active");
+
+      document.querySelectorAll(".category-panel").forEach(p => p.style.display = "none");
+      const activePanel = document.getElementById("panel-" + key);
+      if (activePanel) activePanel.style.display = "block";
+    }
+
+    function openModalWithSrc(src, title, caption) {
+      document.getElementById("modalImg").src = src;
+      document.getElementById("modalTitle").textContent = title;
+      document.getElementById("modalCaption").innerHTML = caption;
+      document.getElementById("modalDownload").href = src;
+      document.getElementById("modalDownload").setAttribute("download", src.split("/").pop());
+      document.getElementById("imageModal").style.display = "flex";
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      document.getElementById("imageModal").style.display = "none";
+      document.body.style.overflow = "auto";
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
+"""
+
+def generate_dashboard():
+    panels_html = []
+    
+    for cat_key, cat_data in FIGURES.items():
+        panel_id = f"panel-{cat_key}"
+        panel_html = [f'<div id="{panel_id}" class="category-panel" style="display: none;">']
+        
+        panel_html.append(f'''
+        <div class="tab-header-banner">
+          <h2>{cat_data["title"]}</h2>
+          <p>{cat_data["desc"]}</p>
+        </div>
+        <div class="grid">
+        ''')
+        
+        for item in cat_data["items"]:
+            rel_path = "./" + item["file"]
+            safe_caption = item["caption"].replace("'", "&#39;")
+            safe_title = item["title"].replace("'", "&#39;")
+            card_html = f'''
+          <div class="card" data-fluid="{item.get('fluid', 'all')}">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">{item['fig_num']}</span>
+                <span class="card-title">{item['title']}</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('{rel_path}', '{safe_title}', '{safe_caption}')">
+              <img src="{rel_path}" alt="{item['title']}" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>{item['fig_num']}:</strong> {item['caption']}
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">{item['file']}</span>
+                <a class="action-link" href="{rel_path}" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            '''
+            panel_html.append(card_html)
+            
+        panel_html.append('</div></div>')
+        panels_html.append('\n'.join(panel_html))
+        
+    all_panels = '\n'.join(panels_html)
+    categories_json = json.dumps(FIGURES)
+    full_html = HTML_TEMPLATE.replace('__CATEGORIES_JSON__', categories_json)
+    full_html = full_html.replace('<div id="tabPanelsContainer"></div>', f'<div id="tabPanelsContainer">{all_panels}</div>')
+    
+    out_html = os.path.join(PLOT2_DIR, "index.html")
+    with open(out_html, "w", encoding="utf-8") as f:
+        f.write(full_html)
+    print(f"Plot_2 dashboard created: {out_html}")
+
+if __name__ == "__main__":
+    generate_dashboard()
