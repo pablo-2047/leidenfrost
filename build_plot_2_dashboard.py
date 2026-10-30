@@ -269,79 +269,79 @@ FIGURES = {
         ]
     },
     "07_four_regimes": {
-        "title": "7. 4-Regime Contact Diameter Array (First 20 Frames, All Heights)",
-        "badge": "10 2x2 Regime Arrays",
-        "desc": "2×2 subplot arrays for each of the fluids comparing substrate contact diameter ratio β_c(t*) = D_c(t) / D₀ over normalized time t* = (t - t_contact) / τ (first 20 frames after impact) across 4 representative regime temperatures: (I) Sticking / Wetting Deposition, (II) Transition / Bounce without Leidenfrost, (III) Vigorous Thermal Bursting, and (IV) Leidenfrost Film Boiling. Plots all drop release heights using raw, unflattened OpenCV measurements.",
+        "title": "7. Sticking vs. Leidenfrost Contact Dynamics Array (All Heights)",
+        "badge": "10 1x2 Regime Arrays",
+        "desc": "1×2 subplot arrays for each of the fluids comparing substrate contact diameter ratio β_c(t*) = D_c(t) / D₀ over normalized time t* = (t - t_contact) / τ (first 20 frames after impact) across the two well-defined thermodynamic boundaries: (I) Sticking / Wetting Deposition, and (II) Leidenfrost Film Boiling. Transition and Bursting regimes are excluded due to droplet fragmentation rendering optical contact interfaces chaotic. Plots all drop release heights using raw, unflattened OpenCV measurements.",
         "items": [
             {
                 "file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_pure_water.png",
-                "title": "Pure Water (0%) — 4-Regime Contact Diameter Array (130°C, 160°C, 190°C, 340°C)",
+                "title": "Pure Water (0%) — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)",
                 "fluid": "pure_water",
                 "fig_num": "Fig. 2.7.01",
-                "caption": "2×2 regime array for Pure Water across Sticking (130°C), Bounce without Leidenfrost / Nucleate Transition (160°C), Vigorous Bursting (190°C), and Leidenfrost Film Boiling (340°C) for all 9 drop heights."
+                "caption": "1×2 regime array for Pure Water comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 9 drop release heights."
             },
             {
                 "file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_20_perc_acetone.png",
-                "title": "Water + 20% Acetone — 4-Regime Contact Diameter Array (130°C, 160°C, 190°C, 340°C)",
+                "title": "Water + 20% Acetone — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)",
                 "fluid": "acetone",
                 "fig_num": "Fig. 2.7.02",
-                "caption": "2×2 regime array for 20% Acetone comparing Sticking (130°C), Transition (160°C), Bursting (190°C), and Leidenfrost (340°C) across all 8 drop release heights."
+                "caption": "1×2 regime array for 20% Acetone comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) across all 8 drop release heights."
             },
             {
                 "file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_40_perc_acetone.png",
-                "title": "Water + 40% Acetone — 4-Regime Contact Diameter Array (130°C, 160°C, 190°C, 340°C)",
+                "title": "Water + 40% Acetone — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)",
                 "fluid": "acetone",
                 "fig_num": "Fig. 2.7.03",
-                "caption": "2×2 regime array for 40% Acetone across Sticking (130°C), Transition (160°C), Bursting (190°C), and Leidenfrost (340°C) for all 8 drop release heights."
+                "caption": "1×2 regime array for 40% Acetone comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 8 drop release heights."
             },
             {
                 "file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_60_perc_acetone.png",
-                "title": "Water + 60% Acetone — 4-Regime Contact Diameter Array (100°C, 130°C, 190°C, 340°C)",
+                "title": "Water + 60% Acetone — Sticking vs. Leidenfrost Contact Dynamics (100°C, 340°C)",
                 "fluid": "acetone",
                 "fig_num": "Fig. 2.7.04",
-                "caption": "2×2 regime array for 60% Acetone across Sticking (100°C), Transition (130°C), Bursting (190°C), and Leidenfrost (340°C) for all 8 drop release heights."
+                "caption": "1×2 regime array for 60% Acetone comparing Sticking (100°C) and Leidenfrost Film Boiling (340°C) for all 8 drop release heights."
             },
             {
                 "file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_20_perc_ethanol.png",
-                "title": "Water + 20% Ethanol — 4-Regime Contact Diameter Array (130°C, 160°C, 190°C, 340°C)",
+                "title": "Water + 20% Ethanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)",
                 "fluid": "ethanol",
                 "fig_num": "Fig. 2.7.05",
-                "caption": "2×2 regime array for 20% Ethanol across Sticking (130°C), Transition (160°C), Bursting (190°C), and Leidenfrost (340°C) for all 8 drop release heights."
+                "caption": "1×2 regime array for 20% Ethanol comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 8 drop release heights."
             },
             {
                 "file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_40_percent_ethanol.png",
-                "title": "Water + 40% Ethanol — 4-Regime Contact Diameter Array (130°C, 160°C, 190°C, 340°C)",
+                "title": "Water + 40% Ethanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)",
                 "fluid": "ethanol",
                 "fig_num": "Fig. 2.7.06",
-                "caption": "2×2 regime array for 40% Ethanol across Sticking (130°C), Transition (160°C), Bursting (190°C), and Leidenfrost (340°C) for all 8 drop release heights."
+                "caption": "1×2 regime array for 40% Ethanol comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 8 drop release heights."
             },
             {
                 "file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_60_perc_ethanol.png",
-                "title": "Water + 60% Ethanol — 4-Regime Contact Diameter Array (130°C, 160°C, 190°C, 340°C)",
+                "title": "Water + 60% Ethanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)",
                 "fluid": "ethanol",
                 "fig_num": "Fig. 2.7.07",
-                "caption": "2×2 regime array for 60% Ethanol across Sticking (130°C), Transition (160°C), Bursting (190°C), and Leidenfrost (340°C) for all 8 drop release heights."
+                "caption": "1×2 regime array for 60% Ethanol comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 8 drop release heights."
             },
             {
                 "file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_25_perc_methanol.png",
-                "title": "Water + 25% Methanol — 4-Regime Contact Diameter Array (130°C, 160°C, 190°C, 340°C)",
+                "title": "Water + 25% Methanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)",
                 "fluid": "methanol",
                 "fig_num": "Fig. 2.7.08",
-                "caption": "2×2 regime array for 25% Methanol across Sticking (130°C), Transition (160°C), Bursting (190°C), and Leidenfrost (340°C) for all 9 drop release heights."
+                "caption": "1×2 regime array for 25% Methanol comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 9 drop release heights."
             },
             {
                 "file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_40_perc_methanol.png",
-                "title": "Water + 40% Methanol — 4-Regime Contact Diameter Array (130°C, 160°C, 190°C, 340°C)",
+                "title": "Water + 40% Methanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)",
                 "fluid": "methanol",
                 "fig_num": "Fig. 2.7.09",
-                "caption": "2×2 regime array for 40% Methanol across Sticking (130°C), Transition (160°C), Bursting (190°C), and Leidenfrost (340°C) for all 9 drop release heights."
+                "caption": "1×2 regime array for 40% Methanol comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 9 drop release heights."
             },
             {
                 "file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_60_perc_methanol.png",
-                "title": "Water + 60% Methanol — 4-Regime Contact Diameter Array (130°C, 160°C, 190°C, 340°C)",
+                "title": "Water + 60% Methanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)",
                 "fluid": "methanol",
                 "fig_num": "Fig. 2.7.10",
-                "caption": "2×2 regime array for 60% Methanol across Sticking (130°C), Transition (160°C), Bursting (190°C), and Leidenfrost (340°C) for all 9 drop release heights."
+                "caption": "1×2 regime array for 60% Methanol comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 9 drop release heights."
             }
         ]
     }

@@ -1278,16 +1278,15 @@ def extract_raw_20frame_contact_dia(df_case, tau):
 
 def generate_category_7_four_regime_array(df):
     """
-    Plot Category 7: 2x2 Array of 4 Representative Regime Temperatures per Fluid.
-    Each panel corresponds to one distinct regime temperature:
+    Plot Category 7: 1x2 Array of Substrate Contact Dynamics per Fluid.
+    Compares the two well-defined thermodynamic boundaries:
       1. Sticking / Wetting Deposition (130°C, or 100°C for 60% Acetone)
-      2. Transition / Bounce without Leidenfrost (160°C, or 130°C for 60% Acetone)
-      3. Vigorous Thermal Bursting (190°C)
-      4. Leidenfrost Film Boiling Rebound (340°C)
-    Within each panel, all drop release heights (h = 1.3 cm .. 32.0 cm) are plotted
-    over the first 20 frames after contact using raw, unflattened OpenCV measurements.
+      2. Leidenfrost Film Boiling Rebound (340°C)
+    (Bursting and Transition regimes are excluded because droplet fragmentation
+    renders baseline optical contact diameter chaotic/non-physical).
+    Within each panel, all drop release heights are plotted over the first 20 frames.
     """
-    print("\n--- Generating Category 7: 4-Regime Temperature Array (2x2 Grid, All Heights, First 20 Frames) ---")
+    print("\n--- Generating Category 7: Sticking vs. Leidenfrost Contact Dynamics (1x2 Array, All Heights) ---")
 
     out_dir = SUBDIRS['four_regimes']
     os.makedirs(out_dir, exist_ok=True)
@@ -1300,26 +1299,22 @@ def generate_category_7_four_regime_array(df):
         safe_name = fl.replace(' ', '_')
         label = p['label']
 
+        # Two well-defined thermodynamic boundaries: Sticking/Wetting and Leidenfrost Film Boiling
+        # (Bursting and Transition regimes are removed due to disintegrating/chaotic contact interfaces)
         if fl == '60 perc acetone':
             regime_panels = [
                 (100, "Case I: Sticking / Wetting Deposition", "#1e40af"),
-                (130, "Case II: Transition / Partial Rebound", "#0f766e"),
-                (190, "Case III: Vigorous Thermal Bursting", "#b91c1c"),
-                (340, "Case IV: Leidenfrost Film Boiling", "#15803d"),
+                (340, "Case II: Leidenfrost Film Boiling", "#15803d"),
             ]
         elif fl == 'pure water':
             regime_panels = [
                 (130, "Case I: Sticking / Wetting Deposition", "#1e40af"),
-                (160, "Case II: Bounce without Leidenfrost (Nucleate Transition)", "#0f766e"),
-                (190, "Case III: Vigorous Thermal Bursting", "#b91c1c"),
-                (340, "Case IV: Leidenfrost Film Boiling", "#15803d"),
+                (340, "Case II: Leidenfrost Film Boiling", "#15803d"),
             ]
         else:
             regime_panels = [
                 (130, "Case I: Sticking / Wetting Deposition", "#1e40af"),
-                (160, "Case II: Transition / Nucleate Onset", "#0f766e"),
-                (190, "Case III: Vigorous Thermal Bursting", "#b91c1c"),
-                (340, "Case IV: Leidenfrost Film Boiling", "#15803d"),
+                (340, "Case II: Leidenfrost Film Boiling", "#15803d"),
             ]
 
         panel_curves = {}
@@ -1338,11 +1333,6 @@ def generate_category_7_four_regime_array(df):
                 c_fld = str(r_case['Case_Folder'])
                 we = float(r_case['Weber_Number'])
                 reg = str(r_case['Final_Regime'])
-
-                # For 20% acetone at 190°C (Case III: Vigorous Thermal Bursting),
-                # 1.3 cm and 2.9 cm undergo non-bursting Leidenfrost rebound rather than bursting
-                if fl == '20 perc acetone' and temp_val == 190 and h_cm in [1.3, 2.9]:
-                    continue
 
                 csv_path = os.path.join(fl_dir, h_fld, c_fld, 'measurements_data.csv')
                 if not os.path.isfile(csv_path):
@@ -1383,20 +1373,19 @@ def generate_category_7_four_regime_array(df):
         p98_beta = float(np.percentile(all_betas, 98)) if all_betas else 4.0
         max_beta_limit = max(3.5, min(6.5, float(np.ceil(p98_beta * 2) / 2) + 0.5))
 
-        fig, axes = plt.subplots(2, 2, figsize=(15, 11), sharex=True, sharey=True)
-        axes = axes.flatten()
+        fig, axes = plt.subplots(1, 2, figsize=(15, 6.2), sharex=True, sharey=True)
 
         fig.suptitle(
-            f"4-Regime Substrate Contact Dynamics Array (First 20 Frames Post-Impact)\n"
+            f"Substrate Contact Dynamics: Sticking vs. Leidenfrost Regimes (First 20 Frames Post-Impact)\n"
             f"{label} — All Drop Heights Included (Raw Unflattened Measurements)",
-            fontsize=14.5, fontweight='bold', y=0.98, color='#0f172a'
+            fontsize=14.0, fontweight='bold', y=0.98, color='#0f172a'
         )
 
         for idx, (temp_val, reg_title, title_color) in enumerate(regime_panels):
             ax = axes[idx]
             curves = panel_curves.get(temp_val, [])
 
-            ax.set_title(f"T = {int(temp_val)}°C — {reg_title}", fontsize=11.5, fontweight='bold', color=title_color, pad=8)
+            ax.set_title(f"T = {int(temp_val)}°C — {reg_title}", fontsize=12.0, fontweight='bold', color=title_color, pad=9)
             ax.grid(True, linestyle='--', alpha=0.65)
             ax.set_xlim(0, max_t_limit)
             ax.set_ylim(0, max_beta_limit)
@@ -1413,14 +1402,13 @@ def generate_category_7_four_regime_array(df):
 
             handles, _ = ax.get_legend_handles_labels()
             if handles:
-                ax.legend(fontsize=8.0, loc='upper right', ncol=2, framealpha=0.90, edgecolor='#cbd5e1')
+                ax.legend(fontsize=8.5, loc='upper right', ncol=2, framealpha=0.90, edgecolor='#cbd5e1')
 
-            if idx % 2 == 0:
+            if idx == 0:
                 ax.set_ylabel(r"Contact Diameter Ratio $\beta_c = D_c(t)/D_0$", fontsize=11, fontweight='bold')
-            if idx >= 2:
-                ax.set_xlabel(r"Normalized Time $t^* = (t - t_{\mathrm{contact}})/\tau$", fontsize=11, fontweight='bold')
+            ax.set_xlabel(r"Normalized Time $t^* = (t - t_{\mathrm{contact}})/\tau$", fontsize=11, fontweight='bold')
 
-        plt.tight_layout(rect=[0.02, 0.02, 0.98, 0.93])
+        plt.tight_layout(rect=[0.02, 0.03, 0.98, 0.92])
         out_png = os.path.join(out_dir, f"contact_dia_4_regimes_{safe_name}.png")
         saved = False
         for attempt in range(3):
