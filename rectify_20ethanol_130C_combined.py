@@ -56,7 +56,7 @@ CASES = {
         'y_top_cut': 135,
     },
     '08_10_2022_5.1cm': {
-        'y_contact': 566,
+        'y_contact': 570,
         't0': 11,
         't_contact': 12,
         'd0_eq_px': 110.0,
