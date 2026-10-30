@@ -269,9 +269,9 @@ FIGURES = {
         ]
     },
     "07_four_regimes": {
-        "title": "7. 4-Regime Contact Diameter Array (First 20 Frames / 5.0 ms, All Heights)",
+        "title": "7. 4-Regime Contact Diameter Array (First 20 Frames, All Heights)",
         "badge": "10 2x2 Regime Arrays",
-        "desc": "2×2 subplot arrays for each of the fluids comparing substrate contact diameter ratio β_c(t) = D_c(t) / D₀ over uniform physical elapsed post-impact time (0 to 5.0 ms, first 20 frames at 4000 fps) across 4 representative regime temperatures: (I) Sticking / Wetting Deposition, (II) Transition / Bounce without Leidenfrost, (III) Vigorous Thermal Bursting, and (IV) Leidenfrost Film Boiling. All drop release heights are plotted over the uniform 5.0 ms physical duration using raw, unflattened OpenCV measurements.",
+        "desc": "2×2 subplot arrays for each of the fluids comparing substrate contact diameter ratio β_c(t*) = D_c(t) / D₀ over normalized time t* = (t - t_contact) / τ (first 20 frames after impact) across 4 representative regime temperatures: (I) Sticking / Wetting Deposition, (II) Transition / Bounce without Leidenfrost, (III) Vigorous Thermal Bursting, and (IV) Leidenfrost Film Boiling. Plots all drop release heights using raw, unflattened OpenCV measurements.",
         "items": [
             {
                 "file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_pure_water.png",

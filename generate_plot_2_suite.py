@@ -1247,15 +1247,12 @@ def generate_category_6_novel_plots(df):
     print(f"  [+] Saved: {out_nov3}")
 
 
-def extract_raw_20frame_contact_dia(df_case, tau=None):
+def extract_raw_20frame_contact_dia(df_case, tau):
     """
-    Extract raw, unsmoothed Contact Diameter ratio beta_c(t) = D_c(t) / D0
+    Extract raw, unsmoothed Contact Diameter ratio beta_c(t*) = D_c(t) / D0
     for the first 20 frames after initial substrate contact.
-    - Frame i0 (1 frame prior to contact): t_ms = 0.0 ms, beta_c = 0.0
+    - Frame i0 (1 frame prior to contact): t* = 0.0, beta_c = 0.0
     - Frames first_c .. first_c + 19: exact raw OpenCV measurements from CSV.
-    Returns:
-      t_ms: post-impact physical elapsed time in ms = (sub['Time_s'] - t0) * 1000.0
-      beta_c: raw contact diameter ratio
     """
     df_c = df_case.sort_values('Time_s').reset_index(drop=True)
     c_mask = (df_c['Beta_Contact_Dc_D0'] > 0.05) | (df_c['Contact_Status'] == 'IN CONTACT')
@@ -1271,12 +1268,12 @@ def extract_raw_20frame_contact_dia(df_case, tau=None):
     if len(sub) < 2:
         return None, None
 
-    t_ms = ((sub['Time_s'] - t0) * 1000.0).values.astype(float)
+    t_star = ((sub['Time_s'] - t0) / tau).values.astype(float)
     beta_c = sub['Beta_Contact_Dc_D0'].values.astype(float).copy()
     if i0 < first_c:
         beta_c[0] = 0.0
 
-    return t_ms, np.maximum(0.0, beta_c)
+    return t_star, np.maximum(0.0, beta_c)
 
 
 def generate_category_7_four_regime_array(df):
@@ -1288,10 +1285,9 @@ def generate_category_7_four_regime_array(df):
       3. Vigorous Thermal Bursting (190°C)
       4. Leidenfrost Film Boiling Rebound (340°C)
     Within each panel, all drop release heights (h = 1.3 cm .. 32.0 cm) are plotted
-    over the first 20 frames (uniform 5.0 ms physical duration) after contact using
-    raw, unflattened OpenCV measurements.
+    over the first 20 frames after contact using raw, unflattened OpenCV measurements.
     """
-    print("\n--- Generating Category 7: 4-Regime Temperature Array (2x2 Grid, All Heights, First 20 Frames / 5.0 ms) ---")
+    print("\n--- Generating Category 7: 4-Regime Temperature Array (2x2 Grid, All Heights, First 20 Frames) ---")
 
     out_dir = SUBDIRS['four_regimes']
     os.makedirs(out_dir, exist_ok=True)
@@ -1327,7 +1323,7 @@ def generate_category_7_four_regime_array(df):
             ]
 
         panel_curves = {}
-        all_times = []
+        all_t_stars = []
         all_betas = []
 
         for temp_val, reg_title, _ in regime_panels:
@@ -1357,12 +1353,12 @@ def generate_category_7_four_regime_array(df):
                 d0 = float(r_case['D0_m'])
                 tau = d0 / max(0.01, v)
 
-                t_ms, beta_c = extract_raw_20frame_contact_dia(df_case, tau)
-                if t_ms is None or len(t_ms) == 0:
+                t_star, beta_c = extract_raw_20frame_contact_dia(df_case, tau)
+                if t_star is None or len(t_star) == 0:
                     continue
 
-                curves.append((h_cm, we, reg, t_ms, beta_c, h_fld, c_fld))
-                all_times.extend(t_ms)
+                curves.append((h_cm, we, reg, t_star, beta_c, h_fld, c_fld))
+                all_t_stars.extend(t_star)
                 # Filter out extreme full-frame glare (> 8.0) when computing axis y-limit
                 valid_b = [b for b in beta_c if b <= 8.0]
                 all_betas.extend(valid_b)
@@ -1383,7 +1379,7 @@ def generate_category_7_four_regime_array(df):
 
             panel_curves[temp_val] = curves
 
-        max_t_limit = 5.0
+        max_t_limit = max(1.0, float(np.ceil(max(all_t_stars) * 2) / 2)) if all_t_stars else 3.0
         p98_beta = float(np.percentile(all_betas, 98)) if all_betas else 4.0
         max_beta_limit = max(3.5, min(6.5, float(np.ceil(p98_beta * 2) / 2) + 0.5))
 
@@ -1391,7 +1387,7 @@ def generate_category_7_four_regime_array(df):
         axes = axes.flatten()
 
         fig.suptitle(
-            f"4-Regime Substrate Contact Dynamics Array (First 20 Frames / 5.0 ms Post-Impact)\n"
+            f"4-Regime Substrate Contact Dynamics Array (First 20 Frames Post-Impact)\n"
             f"{label} — All Drop Heights Included (Raw Unflattened Measurements)",
             fontsize=14.5, fontweight='bold', y=0.98, color='#0f172a'
         )
@@ -1405,12 +1401,12 @@ def generate_category_7_four_regime_array(df):
             ax.set_xlim(0, max_t_limit)
             ax.set_ylim(0, max_beta_limit)
 
-            for h_cm, we, reg, t_ms, beta_c, _, _ in curves:
+            for h_cm, we, reg, t_star, beta_c, _, _ in curves:
                 color = get_height_color(h_cm)
                 short_reg = "Stick" if reg == "Sticking" else ("LF" if reg == "Leidenfrost" else "Burst")
                 lbl = f"h = {h_cm:.1f} cm (We≈{we:.0f}) [{short_reg}]"
                 ax.plot(
-                    t_ms, beta_c,
+                    t_star, beta_c,
                     color=color, lw=2.0, marker='o', markersize=3.4,
                     alpha=0.9, label=lbl
                 )
@@ -1422,7 +1418,7 @@ def generate_category_7_four_regime_array(df):
             if idx % 2 == 0:
                 ax.set_ylabel(r"Contact Diameter Ratio $\beta_c = D_c(t)/D_0$", fontsize=11, fontweight='bold')
             if idx >= 2:
-                ax.set_xlabel(r"Post-Impact Time $t - t_{\mathrm{contact}}$ (ms)", fontsize=11, fontweight='bold')
+                ax.set_xlabel(r"Normalized Time $t^* = (t - t_{\mathrm{contact}})/\tau$", fontsize=11, fontweight='bold')
 
         plt.tight_layout(rect=[0.02, 0.02, 0.98, 0.93])
         out_png = os.path.join(out_dir, f"contact_dia_4_regimes_{safe_name}.png")
