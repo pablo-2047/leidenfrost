@@ -40,23 +40,23 @@ TOTAL_FRAMES_TO_PROCESS = 250
 
 CASES = {
     '08_10_2022_1.3cm': {
-        'y_contact': 570,
-        't0': 19,
-        't_contact': 20,
+        'y_contact': 586,
+        't0': 22,
+        't_contact': 23,
         'd0_eq_px': 109.0,
         'scale_px_per_mm': 34.9314,
         'y_top_cut': 135,
     },
     '08_10_2022_2.9cm': {
-        'y_contact': 566,
-        't0': 25,
-        't_contact': 26,
+        'y_contact': 574,
+        't0': 29,
+        't_contact': 30,
         'd0_eq_px': 110.0,
         'scale_px_per_mm': 35.2518,
         'y_top_cut': 135,
     },
     '08_10_2022_5.1cm': {
-        'y_contact': 566,
+        'y_contact': 573,
         't0': 11,
         't_contact': 12,
         'd0_eq_px': 110.0,
@@ -64,9 +64,9 @@ CASES = {
         'y_top_cut': 135,
     },
     '08_10_2022_8 cm': {
-        'y_contact': 568,
-        't0': 3,
-        't_contact': 4,
+        'y_contact': 577,
+        't0': 4,
+        't_contact': 5,
         'd0_eq_px': 109.0,
         'scale_px_per_mm': 34.9314,
         'y_top_cut': 135,

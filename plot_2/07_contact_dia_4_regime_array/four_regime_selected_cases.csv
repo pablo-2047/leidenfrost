@@ -43,10 +43,10 @@ pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,8.0,67.3,Leiden
 60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,25.8,513.0,Sticking,13_11_2022_25.8cm,100_C001H001S0001,4.239,1
 60 perc acetone,Water + 60% Acetone,340,Case II: Leidenfrost Film Boiling,1.3,25.8,Leidenfrost,14_11_2022_1.3cm,340_C001H001S0001,1.639,0
 60 perc acetone,Water + 60% Acetone,340,Case II: Leidenfrost Film Boiling,2.9,57.7,Leidenfrost,14_11_2022_2.9cm,340_C001H001S0001,2.397,0
-20 perc ethanol,Water + 20% Ethanol,130,Case I: Sticking / Wetting Deposition,1.3,18.8,Sticking,08_10_2022_1.3cm,130_C001H001S0001,1.679,0
-20 perc ethanol,Water + 20% Ethanol,130,Case I: Sticking / Wetting Deposition,2.9,42.0,Sticking,08_10_2022_2.9cm,130_C001H001S0001,2.627,0
-20 perc ethanol,Water + 20% Ethanol,130,Case I: Sticking / Wetting Deposition,5.1,73.8,Sticking,08_10_2022_5.1cm,130_C001H001S0001,2.509,0
-20 perc ethanol,Water + 20% Ethanol,130,Case I: Sticking / Wetting Deposition,8.0,115.8,Sticking,08_10_2022_8 cm,130_C001H001S0001,3.138,0
+20 perc ethanol,Water + 20% Ethanol,130,Case I: Sticking / Wetting Deposition,1.3,18.8,Sticking,08_10_2022_1.3cm,130_C001H001S0001,0.982,0
+20 perc ethanol,Water + 20% Ethanol,130,Case I: Sticking / Wetting Deposition,2.9,42.0,Sticking,08_10_2022_2.9cm,130_C001H001S0001,2.891,0
+20 perc ethanol,Water + 20% Ethanol,130,Case I: Sticking / Wetting Deposition,5.1,73.8,Sticking,08_10_2022_5.1cm,130_C001H001S0001,3.282,0
+20 perc ethanol,Water + 20% Ethanol,130,Case I: Sticking / Wetting Deposition,8.0,115.8,Sticking,08_10_2022_8 cm,130_C001H001S0001,3.312,0
 20 perc ethanol,Water + 20% Ethanol,130,Case I: Sticking / Wetting Deposition,11.5,166.5,Sticking,08_10_2022_11.5 cm,130_C001H001S0001,3.369,0
 20 perc ethanol,Water + 20% Ethanol,130,Case I: Sticking / Wetting Deposition,15.6,225.9,Sticking,08_10_2022_15.6 cm,130_C001H001S0001,4.191,0
 20 perc ethanol,Water + 20% Ethanol,130,Case I: Sticking / Wetting Deposition,20.5,296.8,Sticking,08_10_2022_20.5 cm,130_C001H001S0001,3.839,4
