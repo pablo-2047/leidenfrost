@@ -1334,6 +1334,11 @@ def generate_category_7_four_regime_array(df):
                 we = float(r_case['Weber_Number'])
                 reg = str(r_case['Final_Regime'])
 
+                # In Leidenfrost panel, exclude cases where high impact inertia suppresses
+                # the vapor film causing thermal bursting rather than true film boiling
+                if temp_val == 340 and reg != 'Leidenfrost':
+                    continue
+
                 csv_path = os.path.join(fl_dir, h_fld, c_fld, 'measurements_data.csv')
                 if not os.path.isfile(csv_path):
                     continue
@@ -1377,7 +1382,7 @@ def generate_category_7_four_regime_array(df):
 
         fig.suptitle(
             f"Substrate Contact Dynamics: Sticking vs. Leidenfrost Regimes (First 20 Frames Post-Impact)\n"
-            f"{label} — All Drop Heights Included (Raw Unflattened Measurements)",
+            f"{label} — Sticking (All Heights) & Leidenfrost (Film Boiling Cases)",
             fontsize=14.0, fontweight='bold', y=0.98, color='#0f172a'
         )
 

@@ -12,11 +12,6 @@ pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,1.3,10.9,Leiden
 pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,3.0,25.2,Leidenfrost,18_08_22_water_3cm,340_C001H001S0001,1.85,0
 pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,5.1,42.9,Leidenfrost,18_08_22_water_5.1cm,340_C001H001S0001,1.008,15
 pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,8.0,67.3,Leidenfrost,18_08_22_water_8cm,340_C001H001S0001,1.691,15
-pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,11.5,96.7,Bursting,18_08_22_water_11.5cm,340_C001H001S0001,3.372,17
-pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,15.6,131.2,Bursting,18_08_22_water_15.6cm,340_C001H001S0001,3.952,15
-pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,20.5,172.4,Bursting,18_08_22_water_20.5cm,340_C001H001S0001,5.727,14
-pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,25.8,217.0,Bursting,18_08_22_water_25.8cm,340_C001H001S0001,4.775,0
-pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,32.0,269.1,Bursting,18_08_22_water_32cm,340_C001H001S0001,6.129,0
 20 perc acetone,Water + 20% Acetone,130,Case I: Sticking / Wetting Deposition,1.3,18.3,Sticking,09_11_2022_1.3cm,130_C001H001S0001,1.82,0
 20 perc acetone,Water + 20% Acetone,130,Case I: Sticking / Wetting Deposition,2.9,40.9,Sticking,09_11_2022_2.9cm,130_C001H001S0001,2.606,0
 20 perc acetone,Water + 20% Acetone,130,Case I: Sticking / Wetting Deposition,5.1,72.0,Bursting,09_11_2022_5.1cm,130_C001H001S0001,2.809,0
@@ -28,11 +23,6 @@ pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,32.0,269.1,Burs
 20 perc acetone,Water + 20% Acetone,340,Case II: Leidenfrost Film Boiling,1.3,18.3,Leidenfrost,09_11_2022_1.3cm,340_C001H001S0001,1.557,0
 20 perc acetone,Water + 20% Acetone,340,Case II: Leidenfrost Film Boiling,2.9,40.9,Leidenfrost,09_11_2022_2.9cm,340_C001H001S0001,2.085,0
 20 perc acetone,Water + 20% Acetone,340,Case II: Leidenfrost Film Boiling,5.1,72.0,Leidenfrost,09_11_2022_5.1cm,340_C001H001S0001,2.782,0
-20 perc acetone,Water + 20% Acetone,340,Case II: Leidenfrost Film Boiling,8.0,112.9,Bursting,09_11_2022_8cm,340_C001H001S0001,4.081,0
-20 perc acetone,Water + 20% Acetone,340,Case II: Leidenfrost Film Boiling,11.5,162.3,Bursting,09_11_2022_11.5cm,340_C001H001S0001,3.832,0
-20 perc acetone,Water + 20% Acetone,340,Case II: Leidenfrost Film Boiling,15.6,220.2,Bursting,09_11_2022_15.6cm,340_C001H001S0001,5.435,0
-20 perc acetone,Water + 20% Acetone,340,Case II: Leidenfrost Film Boiling,20.5,289.4,Bursting,09_11_2022_20.5cm,340_C001H001S0001,4.761,0
-20 perc acetone,Water + 20% Acetone,340,Case II: Leidenfrost Film Boiling,25.8,364.2,Bursting,09_11_2022_25.8cm,340_C001H001S0001,5.811,0
 40 perc acetone,Water + 40% Acetone,130,Case I: Sticking / Wetting Deposition,1.3,22.9,Sticking,09_11_2022_1.3cm,130_C001H001S0001,1.984,0
 40 perc acetone,Water + 40% Acetone,130,Case I: Sticking / Wetting Deposition,2.9,51.0,Sticking,09_11_2022_2.9cm,130_C001H001S0001,2.276,0
 40 perc acetone,Water + 40% Acetone,130,Case I: Sticking / Wetting Deposition,5.1,89.7,Sticking,09_11_2022_5.1cm,130_C001H001S0001,2.6,0
@@ -43,12 +33,6 @@ pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,32.0,269.1,Burs
 40 perc acetone,Water + 40% Acetone,130,Case I: Sticking / Wetting Deposition,25.8,453.8,Sticking,09_11_2022_25.8cm,130_C001H001S0001,4.487,0
 40 perc acetone,Water + 40% Acetone,340,Case II: Leidenfrost Film Boiling,1.3,22.9,Leidenfrost,09_11_2022_1.3cm,340_C001H001S0001,2.529,0
 40 perc acetone,Water + 40% Acetone,340,Case II: Leidenfrost Film Boiling,2.9,51.0,Leidenfrost,09_11_2022_2.9cm,340_C001H001S0001,2.908,0
-40 perc acetone,Water + 40% Acetone,340,Case II: Leidenfrost Film Boiling,5.1,89.7,Bursting,09_11_2022_5.1cm,340_C001H001S0001,3.248,0
-40 perc acetone,Water + 40% Acetone,340,Case II: Leidenfrost Film Boiling,8.0,140.7,Bursting,09_11_2022_8cm,340_C001H001S0001,4.07,0
-40 perc acetone,Water + 40% Acetone,340,Case II: Leidenfrost Film Boiling,11.5,202.3,Bursting,09_11_2022_11.5cm,340_C001H001S0001,3.73,0
-40 perc acetone,Water + 40% Acetone,340,Case II: Leidenfrost Film Boiling,15.6,274.4,Bursting,09_11_2022_15.6cm,340_C001H001S0001,4.382,0
-40 perc acetone,Water + 40% Acetone,340,Case II: Leidenfrost Film Boiling,20.5,360.6,Bursting,09_11_2022_20.5cm,340_C001H001S0001,4.521,0
-40 perc acetone,Water + 40% Acetone,340,Case II: Leidenfrost Film Boiling,25.8,453.8,Bursting,09_11_2022_25.8cm,340_C001H001S0001,4.325,1
 60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,1.3,25.8,Sticking,14_11_2022_1.3cm,100_C001H001S0001,1.0,3
 60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,2.9,57.7,Sticking,14_11_2022_2.9cm,100_C001H001S0001,0.0,20
 60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,5.1,101.4,Sticking,14_11_2022_5.1cm,100_C001H001S0001,1.0,12
@@ -59,12 +43,6 @@ pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,32.0,269.1,Burs
 60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,25.8,513.0,Sticking,13_11_2022_25.8cm,100_C001H001S0001,4.239,1
 60 perc acetone,Water + 60% Acetone,340,Case II: Leidenfrost Film Boiling,1.3,25.8,Leidenfrost,14_11_2022_1.3cm,340_C001H001S0001,1.639,0
 60 perc acetone,Water + 60% Acetone,340,Case II: Leidenfrost Film Boiling,2.9,57.7,Leidenfrost,14_11_2022_2.9cm,340_C001H001S0001,2.397,0
-60 perc acetone,Water + 60% Acetone,340,Case II: Leidenfrost Film Boiling,5.1,101.4,Bursting,14_11_2022_5.1cm,340_C001H001S0001,3.637,0
-60 perc acetone,Water + 60% Acetone,340,Case II: Leidenfrost Film Boiling,8.0,159.1,Bursting,14_11_2022_8cm,340_C001H001S0001,3.611,0
-60 perc acetone,Water + 60% Acetone,340,Case II: Leidenfrost Film Boiling,11.5,228.7,Bursting,13_11_2022_11.5cm,340_C001H001S0001,4.421,0
-60 perc acetone,Water + 60% Acetone,340,Case II: Leidenfrost Film Boiling,15.6,310.2,Bursting,13_11_2022_15.6cm,340_C001H001S0001,4.074,0
-60 perc acetone,Water + 60% Acetone,340,Case II: Leidenfrost Film Boiling,20.5,407.6,Bursting,13_11_2022_20.5cm,340_C001H001S0001,4.578,2
-60 perc acetone,Water + 60% Acetone,340,Case II: Leidenfrost Film Boiling,25.8,513.0,Bursting,13_11_2022_25.8cm,340_C001H001S0001,4.909,0
 20 perc ethanol,Water + 20% Ethanol,130,Case I: Sticking / Wetting Deposition,1.3,18.8,Sticking,08_10_2022_1.3cm,130_C001H001S0001,1.486,0
 20 perc ethanol,Water + 20% Ethanol,130,Case I: Sticking / Wetting Deposition,2.9,42.0,Sticking,08_10_2022_2.9cm,130_C001H001S0001,1.082,7
 20 perc ethanol,Water + 20% Ethanol,130,Case I: Sticking / Wetting Deposition,5.1,73.8,Sticking,08_10_2022_5.1cm,130_C001H001S0001,1.118,10
@@ -75,12 +53,6 @@ pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,32.0,269.1,Burs
 20 perc ethanol,Water + 20% Ethanol,130,Case I: Sticking / Wetting Deposition,25.8,373.6,Bursting,08_10_2022_25.8 cm,130_C001H001S0001,1.143,15
 20 perc ethanol,Water + 20% Ethanol,340,Case II: Leidenfrost Film Boiling,1.3,18.8,Leidenfrost,08_10_2022_1.3cm,340_C001H001S0001,1.252,0
 20 perc ethanol,Water + 20% Ethanol,340,Case II: Leidenfrost Film Boiling,2.9,42.0,Leidenfrost,08_10_2022_2.9cm,340_C001H001S0001,1.755,0
-20 perc ethanol,Water + 20% Ethanol,340,Case II: Leidenfrost Film Boiling,5.1,73.8,Bursting,08_10_2022_5.1cm,340_C001H001S0001,5.673,0
-20 perc ethanol,Water + 20% Ethanol,340,Case II: Leidenfrost Film Boiling,8.0,115.8,Bursting,08_10_2022_8 cm,340_C001H001S0001,5.727,0
-20 perc ethanol,Water + 20% Ethanol,340,Case II: Leidenfrost Film Boiling,11.5,166.5,Bursting,08_10_2022_11.5 cm,340_C001H001S0001,3.893,0
-20 perc ethanol,Water + 20% Ethanol,340,Case II: Leidenfrost Film Boiling,15.6,225.9,Bursting,08_10_2022_15.6 cm,340_C001H001S0001,4.071,3
-20 perc ethanol,Water + 20% Ethanol,340,Case II: Leidenfrost Film Boiling,20.5,296.8,Bursting,08_10_2022_20.5 cm,340_C001H001S0001,4.244,1
-20 perc ethanol,Water + 20% Ethanol,340,Case II: Leidenfrost Film Boiling,25.8,373.6,Bursting,08_10_2022_25.8 cm,340_C001H001S0001,5.802,0
 40 percent ethanol,Water + 40% Ethanol,130,Case I: Sticking / Wetting Deposition,1.3,23.4,Bursting,16_10_2022_1.3cm,130_C001H001S0001,1.232,8
 40 percent ethanol,Water + 40% Ethanol,130,Case I: Sticking / Wetting Deposition,2.9,52.1,Sticking,16_10_2022_2.9cm,130_C001H001S0001,1.125,7
 40 percent ethanol,Water + 40% Ethanol,130,Case I: Sticking / Wetting Deposition,5.1,91.6,Sticking,16_10_2022_5.1cm,130_C001H001S0001,1.146,11
@@ -90,13 +62,6 @@ pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,32.0,269.1,Burs
 40 percent ethanol,Water + 40% Ethanol,130,Case I: Sticking / Wetting Deposition,20.5,368.3,Sticking,16_10_2022_20.5cm,130_C001H001S0001,1.071,16
 40 percent ethanol,Water + 40% Ethanol,130,Case I: Sticking / Wetting Deposition,25.8,463.5,Bursting,16_10_2022_25.8cm,130_C001H001S0001,1.205,15
 40 percent ethanol,Water + 40% Ethanol,340,Case II: Leidenfrost Film Boiling,1.3,23.4,Leidenfrost,16_10_2022_1.3cm,340_C001H001S0001,1.147,10
-40 percent ethanol,Water + 40% Ethanol,340,Case II: Leidenfrost Film Boiling,2.9,52.1,Bursting,16_10_2022_2.9cm,340_C001H001S0001,3.18,0
-40 percent ethanol,Water + 40% Ethanol,340,Case II: Leidenfrost Film Boiling,5.1,91.6,Bursting,16_10_2022_5.1cm,340_C001H001S0001,3.577,0
-40 percent ethanol,Water + 40% Ethanol,340,Case II: Leidenfrost Film Boiling,8.0,143.7,Bursting,16_10_2022_8cm,340_C001H001S0001,4.602,0
-40 percent ethanol,Water + 40% Ethanol,340,Case II: Leidenfrost Film Boiling,11.5,206.6,Bursting,16_10_2022_11.5cm,340_C001H001S0001,3.736,0
-40 percent ethanol,Water + 40% Ethanol,340,Case II: Leidenfrost Film Boiling,15.6,280.3,Bursting,16_10_2022_15.6cm,340_C001H001S0001,4.38,0
-40 percent ethanol,Water + 40% Ethanol,340,Case II: Leidenfrost Film Boiling,20.5,368.3,Bursting,16_10_2022_20.5cm,340_C001H001S0001,5.679,0
-40 percent ethanol,Water + 40% Ethanol,340,Case II: Leidenfrost Film Boiling,25.8,463.5,Bursting,16_10_2022_25.8cm,340_C001H001S0001,5.468,1
 60 perc ethanol,Water + 60% Ethanol,130,Case I: Sticking / Wetting Deposition,1.3,26.5,Sticking,21_10_2022_1.3cm,130_C001H001S0002,2.045,0
 60 perc ethanol,Water + 60% Ethanol,130,Case I: Sticking / Wetting Deposition,2.9,59.2,Sticking,21_10_2022_2.9cm,130_C001H001S0001,2.855,0
 60 perc ethanol,Water + 60% Ethanol,130,Case I: Sticking / Wetting Deposition,5.1,104.1,Sticking,21_10_2022_5.1cm,130_C001H001S0001,2.865,0
@@ -105,14 +70,8 @@ pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,32.0,269.1,Burs
 60 perc ethanol,Water + 60% Ethanol,130,Case I: Sticking / Wetting Deposition,15.6,318.4,Sticking,21_10_2022_15.6cm,130_C001H001S0001,1.217,15
 60 perc ethanol,Water + 60% Ethanol,130,Case I: Sticking / Wetting Deposition,20.5,418.4,Sticking,21_10_2022_20.5 cm,130_C001H001S0001,3.681,0
 60 perc ethanol,Water + 60% Ethanol,130,Case I: Sticking / Wetting Deposition,25.8,526.6,Sticking,21_10_2022_25.8cm,130_C001H001S0001,1.044,16
-60 perc ethanol,Water + 60% Ethanol,340,Case II: Leidenfrost Film Boiling,1.3,26.5,Bursting,21_10_2022_1.3cm,340_C001H001S0002,2.661,0
 60 perc ethanol,Water + 60% Ethanol,340,Case II: Leidenfrost Film Boiling,2.9,59.2,Leidenfrost,21_10_2022_2.9cm,340_C001H001S0001,2.165,0
 60 perc ethanol,Water + 60% Ethanol,340,Case II: Leidenfrost Film Boiling,5.1,104.1,Leidenfrost,21_10_2022_5.1cm,340_C001H001S0001,2.983,0
-60 perc ethanol,Water + 60% Ethanol,340,Case II: Leidenfrost Film Boiling,8.0,163.3,Bursting,21_10_2022_8cm,340_C001H001S0001,3.532,0
-60 perc ethanol,Water + 60% Ethanol,340,Case II: Leidenfrost Film Boiling,11.5,234.7,Bursting,21_10_2022_11.5cm,340_C001H001S0001,4.426,0
-60 perc ethanol,Water + 60% Ethanol,340,Case II: Leidenfrost Film Boiling,15.6,318.4,Bursting,21_10_2022_15.6cm,340_C001H001S0001,4.201,0
-60 perc ethanol,Water + 60% Ethanol,340,Case II: Leidenfrost Film Boiling,20.5,418.4,Bursting,21_10_2022_20.5 cm,340_C001H001S0001,5.429,0
-60 perc ethanol,Water + 60% Ethanol,340,Case II: Leidenfrost Film Boiling,25.8,526.6,Bursting,21_10_2022_25.8cm,340_C001H001S0001,5.658,8
 25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,1.3,16.3,Sticking,27_08_2022_1.3cm,130_C001H001S0001,1.748,0
 25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,2.9,36.4,Sticking,27_08_2022_2.9cm,130_C001H001S0001,1.805,0
 25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,5.1,64.1,Sticking,27_08_2022_5.1cm,130_C001H001S0001,2.837,0
@@ -125,12 +84,6 @@ pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,32.0,269.1,Burs
 25 perc methanol,Water + 25% Methanol,340,Case II: Leidenfrost Film Boiling,1.3,16.3,Leidenfrost,27_08_2022_1.3cm,340_C001H001S0001,1.587,0
 25 perc methanol,Water + 25% Methanol,340,Case II: Leidenfrost Film Boiling,2.9,36.4,Leidenfrost,27_08_2022_2.9cm,340_C001H001S0001,2.179,0
 25 perc methanol,Water + 25% Methanol,340,Case II: Leidenfrost Film Boiling,5.1,64.1,Leidenfrost,27_08_2022_5.1cm,340_C001H001S0001,2.529,0
-25 perc methanol,Water + 25% Methanol,340,Case II: Leidenfrost Film Boiling,8.0,100.5,Bursting,27_08_2022_8cm,340_C001H001S0001,2.993,0
-25 perc methanol,Water + 25% Methanol,340,Case II: Leidenfrost Film Boiling,11.5,144.5,Bursting,27_08_2022_11.5cm,340_C001H001S0001,4.188,0
-25 perc methanol,Water + 25% Methanol,340,Case II: Leidenfrost Film Boiling,15.6,196.0,Bursting,27_08_2022_15.6cm,340_C001H001S0001,5.522,0
-25 perc methanol,Water + 25% Methanol,340,Case II: Leidenfrost Film Boiling,20.5,257.5,Bursting,27_08_2022_20.5cm,340_C001H001S0001,5.535,0
-25 perc methanol,Water + 25% Methanol,340,Case II: Leidenfrost Film Boiling,25.8,324.1,Bursting,27_08_2022_25.8cm,340_C001H001S0001,4.803,2
-25 perc methanol,Water + 25% Methanol,340,Case II: Leidenfrost Film Boiling,32.0,402.0,Bursting,27_08_2022_32cm,340_C001H001S0001,4.008,3
 40 perc methanol,Water + 40% Methanol,130,Case I: Sticking / Wetting Deposition,1.3,19.5,Sticking,17_09_2022_1.3 cm,130_C001H001S0001,1.77,0
 40 perc methanol,Water + 40% Methanol,130,Case I: Sticking / Wetting Deposition,2.9,43.4,Sticking,17_09_2022_2.9 cm,130_C001H001S0001,2.29,0
 40 perc methanol,Water + 40% Methanol,130,Case I: Sticking / Wetting Deposition,5.1,76.3,Sticking,17_09_2022_5.1 cm,130_C001H001S0001,2.557,0
@@ -143,12 +96,6 @@ pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,32.0,269.1,Burs
 40 perc methanol,Water + 40% Methanol,340,Case II: Leidenfrost Film Boiling,1.3,19.5,Leidenfrost,17_09_2022_1.3 cm,340_C001H001S0001,1.651,0
 40 perc methanol,Water + 40% Methanol,340,Case II: Leidenfrost Film Boiling,2.9,43.4,Leidenfrost,17_09_2022_2.9 cm,340_C001H001S0001,2.213,0
 40 perc methanol,Water + 40% Methanol,340,Case II: Leidenfrost Film Boiling,5.1,76.3,Leidenfrost,17_09_2022_5.1 cm,340_C001H001S0001,2.655,0
-40 perc methanol,Water + 40% Methanol,340,Case II: Leidenfrost Film Boiling,8.0,119.7,Bursting,17_09_2022_8 cm,340_C001H001S0001,3.598,0
-40 perc methanol,Water + 40% Methanol,340,Case II: Leidenfrost Film Boiling,11.5,172.1,Bursting,17_09_2022_11.5 cm,340_C001H001S0001,3.886,0
-40 perc methanol,Water + 40% Methanol,340,Case II: Leidenfrost Film Boiling,15.6,233.5,Bursting,17_09_2022_15.6 cm,340_C001H001S0001,5.103,0
-40 perc methanol,Water + 40% Methanol,340,Case II: Leidenfrost Film Boiling,20.5,306.8,Bursting,17_09_2022_20.5 cm,340_C001H001S0001,4.325,1
-40 perc methanol,Water + 40% Methanol,340,Case II: Leidenfrost Film Boiling,25.8,386.2,Bursting,17_09_2022_25.8 cm,340_C001H001S0001,5.966,0
-40 perc methanol,Water + 40% Methanol,340,Case II: Leidenfrost Film Boiling,32.0,479.0,Bursting,17_09_2022_32 cm,340_C001H001S0001,4.811,5
 60 perc methanol,Water + 60% Methanol,130,Case I: Sticking / Wetting Deposition,1.3,23.6,Sticking,10_09_2022_1.3 cm,130_C001H001S0001,2.305,0
 60 perc methanol,Water + 60% Methanol,130,Case I: Sticking / Wetting Deposition,2.9,52.7,Sticking,10_09_2022_2.9 cm,130_C001H001S0001,1.082,7
 60 perc methanol,Water + 60% Methanol,130,Case I: Sticking / Wetting Deposition,5.1,92.6,Sticking,10_09_2022_5.1 cm,130_C001H001S0001,2.433,6
@@ -161,9 +108,3 @@ pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,32.0,269.1,Burs
 60 perc methanol,Water + 60% Methanol,340,Case II: Leidenfrost Film Boiling,1.3,23.6,Leidenfrost,10_09_2022_1.3 cm,340_C001H001S0001,1.69,0
 60 perc methanol,Water + 60% Methanol,340,Case II: Leidenfrost Film Boiling,2.9,52.7,Leidenfrost,10_09_2022_2.9 cm,340_C001H001S0001,2.227,0
 60 perc methanol,Water + 60% Methanol,340,Case II: Leidenfrost Film Boiling,5.1,92.6,Leidenfrost,10_09_2022_5.1 cm,340_C001H001S0001,2.842,0
-60 perc methanol,Water + 60% Methanol,340,Case II: Leidenfrost Film Boiling,8.0,145.3,Bursting,10_09_2022_8 cm,340_C001H001S0001,3.863,0
-60 perc methanol,Water + 60% Methanol,340,Case II: Leidenfrost Film Boiling,11.5,208.9,Bursting,10_09_2022_11.5 cm,340_C001H001S0001,4.277,0
-60 perc methanol,Water + 60% Methanol,340,Case II: Leidenfrost Film Boiling,15.6,283.3,Bursting,10_09_2022_15.6 cm,340_C001H001S0001,5.429,0
-60 perc methanol,Water + 60% Methanol,340,Case II: Leidenfrost Film Boiling,20.5,372.3,Bursting,10_09_2022_20.5 cm,340_C001H001S0001,4.912,0
-60 perc methanol,Water + 60% Methanol,340,Case II: Leidenfrost Film Boiling,25.8,468.6,Bursting,10_09_2022_25.8 cm,340_C001H001S0001,7.097,0
-60 perc methanol,Water + 60% Methanol,340,Case II: Leidenfrost Film Boiling,32.0,581.2,Bursting,10_09_2022_32 cm,340_C001H001S0001,7.62,0
