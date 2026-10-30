@@ -1343,6 +1343,11 @@ def generate_category_7_four_regime_array(df):
                 we = float(r_case['Weber_Number'])
                 reg = str(r_case['Final_Regime'])
 
+                # For 20% acetone at 190°C (Case III: Vigorous Thermal Bursting),
+                # 1.3 cm and 2.9 cm undergo non-bursting Leidenfrost rebound rather than bursting
+                if fl == '20 perc acetone' and temp_val == 190 and h_cm in [1.3, 2.9]:
+                    continue
+
                 csv_path = os.path.join(fl_dir, h_fld, c_fld, 'measurements_data.csv')
                 if not os.path.isfile(csv_path):
                     continue
