@@ -7,14 +7,15 @@ Root Cause:
   1. The baseline was placed at y = 566 px, which was floating 4 pixels above
      the physical substrate plateau at y = 570 px.
   2. The base area around the droplet in this case has a darker background illumination
-     (bg ~ 35 to 45), causing standard background subtraction thresholds (diff > 36 & bg > 55)
-     to cut off the right side of the spreading droplet's contact base.
-     In Frame #016 (000027.jpg), this caused Dc to be severely under-measured as 150 px (4.26 mm)
-     instead of its true physical contact diameter of 311 px (8.82 mm).
+     (bg ~ 35 to 45), and the droplet spreads broadly past x = 900 towards x ~ 925.
+     The previous bounding mask cut off at x = 900, clipping the right flank of the droplet.
+     In Frame #016 (000027.jpg), this caused Dc to be under-measured as 150 px (4.26 mm)
+     before baseline fix, and 311 px when right-clipped at 900.
 
 Surgical Fix:
   - Physical substrate baseline: Y_CONTACT = 570 px (lowered from 566 px).
-  - Dark-base compensated segmentation: adaptive thresholding accounting for the darker base.
+  - Dark-base compensated segmentation with full right-flank span (x up to 960 px).
+  - Extracted contact band directly from main droplet mask to ensure exact match with true lamella.
   - Touchdown alignment: T0 = 11 (Frame 000012.jpg last pre-impact),
     T_CONTACT = 12 (Frame 000013.jpg first touchdown).
   - Reprocess all 250 frames with complete HUD visualization and magnified insets.
@@ -86,13 +87,13 @@ def run_rectification():
         step_name = f"t0+{rel_step:02d}"
         status = "PRE-IMPACT (AIRBORNE)" if rel_step == 0 else "AIRBORNE"
 
-        # Adaptive thresholding robust to darker base area
+        # Adaptive thresholding robust to darker base area and full right-flank span
         diff = cv2.subtract(bg, gray)
-        sil = (((diff > 24) | (gray < 35)) & (gray < 145) & (bg > 25)).astype(np.uint8) * 255
+        sil = (((diff > 20) | (gray < 35)) & (gray < 145) & (bg > 25)).astype(np.uint8) * 255
         sil[Y_CONTACT + 1:, :] = 0
         sil[:Y_TOP_CUT, :] = 0
         sil[:, :450] = 0
-        sil[:, 900:] = 0
+        sil[:, 960:] = 0
 
         num, labels, stats, _ = cv2.connectedComponentsWithStats(sil)
         clean_sil = np.zeros_like(sil)
@@ -179,7 +180,9 @@ def run_rectification():
             beta_spread = d_spread_px / D0_EQ_PX
 
             if rel_step >= 1:
-                contact_band = solid[max(0, Y_CONTACT - 6):Y_CONTACT + 1, :]
+                main_mask = np.zeros_like(solid)
+                cv2.drawContours(main_mask, [c], -1, 255, -1)
+                contact_band = main_mask[max(0, Y_CONTACT - 6):Y_CONTACT + 1, :]
                 xs_c = np.where(contact_band.any(axis=0))[0]
                 if len(xs_c) >= 3 and y_bot >= Y_CONTACT - 6:
                     best_left_x = int(xs_c[0])
@@ -227,7 +230,7 @@ def run_rectification():
             cv2.line(canvas, (best_right_x, cy - 6), (best_right_x, cy + 6), (0, 255, 255), 1, cv2.LINE_AA)
 
         # Magnified Inset
-        crop_half_w = max(170, int(d_spread_px // 2 + 55))
+        crop_half_w = max(190, int(d_spread_px // 2 + 55))
         cx1 = max(0, min(W - 2 * crop_half_w, int(x_hint) - crop_half_w))
         cx2 = min(W, cx1 + 2 * crop_half_w)
         if y_top is not None and y_top < Y_CONTACT - 155:
@@ -381,4 +384,4 @@ def run_rectification():
 
 if __name__ == "__main__":
     run_rectification()
-    print("\n20% ETHANOL 5.1 CM 130C RECTIFIED SUCCESSFULLY!")
+    print("\n20% ETHANOL 5.1 CM 130C RECTIFIED WITH UNCLIPPED RIGHT FLANK SUCCESSFULLY!")
