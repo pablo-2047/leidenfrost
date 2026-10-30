@@ -1306,6 +1306,11 @@ def generate_category_7_four_regime_array(df):
                 (100, "Case I: Sticking / Wetting Deposition", "#1e40af"),
                 (340, "Case II: Leidenfrost Film Boiling", "#15803d"),
             ]
+        elif fl == '20 perc ethanol':
+            regime_panels = [
+                (130, "Case I: Sticking / Wetting Deposition", "#1e40af"),
+                (220, "Case II: Leidenfrost Film Boiling", "#15803d"),
+            ]
         elif fl == 'pure water':
             regime_panels = [
                 (130, "Case I: Sticking / Wetting Deposition", "#1e40af"),
@@ -1336,7 +1341,7 @@ def generate_category_7_four_regime_array(df):
 
                 # In Leidenfrost panel, exclude cases where high impact inertia suppresses
                 # the vapor film causing thermal bursting rather than true film boiling
-                if temp_val == 340 and reg != 'Leidenfrost':
+                if (temp_val in [220, 340]) and reg != 'Leidenfrost':
                     continue
 
                 csv_path = os.path.join(fl_dir, h_fld, c_fld, 'measurements_data.csv')

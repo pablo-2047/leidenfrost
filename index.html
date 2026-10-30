@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leidenfrost Droplet Impact Dynamics — Experimental Research Compendium</title>
+  <title>Plot_2 Research Suite — Leidenfrost Droplet Impact Dynamics</title>
   
-  <!-- Academic Typography & Modern Reset -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -15,7 +14,6 @@
       --bg-canvas: #f8fafc;
       --bg-surface: #ffffff;
       --bg-surface-subtle: #f1f5f9;
-      --bg-surface-elevated: #ffffff;
       --border-subtle: #e2e8f0;
       --border-strong: #cbd5e1;
       --text-main: #0f172a;
@@ -25,13 +23,8 @@
       --primary-hover: #172554;
       --primary-light: #eff6ff;
       --primary-border: #bfdbfe;
-      --accent: #0284c7;
-      --accent-badge-bg: #e0f2fe;
-      --accent-badge-text: #0369a1;
-      --success: #059669;
       --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
       --radius-sm: 6px;
       --radius-md: 8px;
       --radius-lg: 12px;
@@ -41,7 +34,6 @@
       --bg-canvas: #090d16;
       --bg-surface: #111827;
       --bg-surface-subtle: #1f2937;
-      --bg-surface-elevated: #1e293b;
       --border-subtle: #1f2937;
       --border-strong: #374151;
       --text-main: #f9fafb;
@@ -51,13 +43,8 @@
       --primary-hover: #60a5fa;
       --primary-light: #1e3a8a33;
       --primary-border: #1d4ed8;
-      --accent: #38bdf8;
-      --accent-badge-bg: #0c4a6e;
-      --accent-badge-text: #7dd3fc;
-      --success: #10b981;
       --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
       --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -67,11 +54,9 @@
       background-color: var(--bg-canvas);
       color: var(--text-main);
       line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-      transition: background-color 0.2s ease, color 0.2s ease;
+      transition: background-color 0.2s, color 0.2s;
     }
 
-    /* Top Institutional Header */
     .top-bar {
       background: var(--bg-surface);
       border-bottom: 1px solid var(--border-subtle);
@@ -101,14 +86,12 @@
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 16px;
       font-family: 'JetBrains Mono', monospace;
     }
 
     .brand-title {
       font-size: 14px;
       font-weight: 600;
-      letter-spacing: -0.01em;
       color: var(--text-main);
     }
 
@@ -144,45 +127,26 @@
     .btn:hover {
       background: var(--bg-surface-subtle);
       color: var(--text-main);
-      border-color: var(--border-strong);
     }
 
-    .btn-primary {
-      background: var(--primary);
-      color: #ffffff;
-      border-color: var(--primary);
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-hover);
-      color: #ffffff;
-    }
-
-    .theme-toggle {
-      padding: 7px 10px;
-    }
-
-    /* Container */
     .container {
       max-width: 1440px;
       margin: 0 auto;
       padding: 32px 32px 64px 32px;
     }
 
-    /* Hero / Paper Metadata Section */
     .paper-hero {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      padding: 32px 36px;
-      margin-bottom: 28px;
+      padding: 30px 36px;
+      margin-bottom: 24px;
       box-shadow: var(--shadow-sm);
     }
 
     .paper-tagline {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
       font-size: 11px;
       font-weight: 600;
       text-transform: uppercase;
@@ -192,32 +156,30 @@
       border: 1px solid var(--primary-border);
       padding: 4px 10px;
       border-radius: 9999px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .paper-title {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 700;
       letter-spacing: -0.02em;
       color: var(--text-main);
-      margin-bottom: 12px;
-      line-height: 1.25;
+      margin-bottom: 10px;
     }
 
     .paper-abstract {
-      font-size: 14px;
+      font-size: 13.5px;
       color: var(--text-muted);
       max-width: 1100px;
       line-height: 1.6;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
-    /* Stats Grid */
     .stats-strip {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 16px;
-      padding-top: 18px;
+      padding-top: 16px;
       border-top: 1px solid var(--border-subtle);
     }
 
@@ -227,7 +189,7 @@
     }
 
     .stat-value {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
       color: var(--text-main);
       font-family: 'JetBrains Mono', monospace;
@@ -237,84 +199,8 @@
       font-size: 11px;
       color: var(--text-subtle);
       text-transform: uppercase;
-      letter-spacing: 0.04em;
     }
 
-    /* Methodology / Physics Accordion */
-    .theory-box {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      margin-bottom: 28px;
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .theory-header {
-      padding: 14px 20px;
-      background: var(--bg-surface-subtle);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-main);
-      user-select: none;
-    }
-
-    .theory-header:hover {
-      background: var(--border-subtle);
-    }
-
-    .theory-content {
-      padding: 20px;
-      display: none;
-      font-size: 13px;
-      color: var(--text-muted);
-      border-top: 1px solid var(--border-subtle);
-    }
-
-    .theory-content.open {
-      display: block;
-    }
-
-    .eq-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-      margin-top: 12px;
-    }
-
-    .eq-card {
-      background: var(--bg-canvas);
-      padding: 12px 16px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border-subtle);
-    }
-
-    .eq-card-title {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      color: var(--text-subtle);
-      margin-bottom: 6px;
-    }
-
-    .eq-math {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--primary);
-    }
-
-    .eq-desc {
-      font-size: 11px;
-      color: var(--text-subtle);
-      margin-top: 4px;
-    }
-
-    /* Category Navigation Tabs */
     .tabs-wrapper {
       margin-bottom: 24px;
       border-bottom: 1px solid var(--border-subtle);
@@ -330,8 +216,6 @@
       scrollbar-width: none;
     }
 
-    .tabs-nav::-webkit-scrollbar { display: none; }
-
     .tab-btn {
       background: transparent;
       border: none;
@@ -342,7 +226,7 @@
       cursor: pointer;
       border-bottom: 2px solid transparent;
       white-space: nowrap;
-      transition: all 0.15s ease;
+      transition: all 0.15s;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -351,14 +235,12 @@
     .tab-btn:hover {
       color: var(--text-main);
       background: var(--bg-surface-subtle);
-      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
     }
 
     .tab-btn.active {
       color: var(--primary);
       font-weight: 600;
       border-bottom: 2px solid var(--primary);
-      background: transparent;
     }
 
     .tab-badge {
@@ -368,64 +250,6 @@
       background: var(--bg-surface-subtle);
       color: var(--text-subtle);
       font-family: 'JetBrains Mono', monospace;
-    }
-
-    .tab-btn.active .tab-badge {
-      background: var(--primary-light);
-      color: var(--primary);
-    }
-
-    /* Interactive Filter Bar */
-    .filter-bar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 18px;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      margin-bottom: 24px;
-    }
-
-    .filter-group {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .filter-label {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--text-subtle);
-      margin-right: 4px;
-    }
-
-    .filter-chip {
-      background: var(--bg-surface-subtle);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-muted);
-      font-size: 12px;
-      padding: 4px 12px;
-      border-radius: 9999px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .filter-chip:hover {
-      background: var(--border-subtle);
-      color: var(--text-main);
-    }
-
-    .filter-chip.active {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: #ffffff;
-      font-weight: 500;
     }
 
     .tab-header-banner {
@@ -438,7 +262,7 @@
     }
 
     .tab-header-banner h2 {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
       color: var(--text-main);
       margin-bottom: 4px;
@@ -449,10 +273,9 @@
       color: var(--text-muted);
     }
 
-    /* Cards Grid */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(540px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(560px, 1fr));
       gap: 24px;
     }
 
@@ -468,7 +291,7 @@
       box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      transition: all 0.15s ease;
     }
 
     .card:hover {
@@ -483,7 +306,6 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
     }
 
     .card-title-group {
@@ -504,19 +326,9 @@
     }
 
     .card-title {
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 600;
       color: var(--text-main);
-    }
-
-    .card-badge {
-      font-size: 11px;
-      font-weight: 500;
-      padding: 3px 8px;
-      border-radius: 9999px;
-      background: var(--bg-surface-subtle);
-      color: var(--text-subtle);
-      border: 1px solid var(--border-subtle);
     }
 
     .card-media {
@@ -537,34 +349,11 @@
       max-height: 480px;
       object-fit: contain;
       display: block;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s;
     }
 
     .card-media:hover img {
       transform: scale(1.008);
-    }
-
-    .media-overlay {
-      position: absolute;
-      bottom: 16px;
-      right: 16px;
-      background: rgba(15, 23, 42, 0.75);
-      color: #ffffff;
-      font-size: 11px;
-      font-weight: 500;
-      padding: 4px 10px;
-      border-radius: var(--radius-sm);
-      backdrop-filter: blur(4px);
-      opacity: 0;
-      transition: opacity 0.2s;
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .card-media:hover .media-overlay {
-      opacity: 1;
     }
 
     .card-footer {
@@ -578,7 +367,7 @@
     }
 
     .card-caption {
-      font-size: 12.5px;
+      font-size: 12px;
       color: var(--text-muted);
       line-height: 1.5;
     }
@@ -599,12 +388,6 @@
     .card-path-code {
       font-family: 'JetBrains Mono', monospace;
       color: var(--text-subtle);
-      font-size: 11px;
-    }
-
-    .card-action-links {
-      display: flex;
-      gap: 8px;
     }
 
     .action-link {
@@ -612,16 +395,8 @@
       text-decoration: none;
       font-weight: 500;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
     }
 
-    .action-link:hover {
-      text-decoration: underline;
-    }
-
-    /* Modal / Fullscreen Viewer */
     .modal {
       display: none;
       position: fixed;
@@ -647,7 +422,6 @@
     .modal-title {
       font-size: 15px;
       font-weight: 600;
-      color: #f8fafc;
     }
 
     .modal-controls {
@@ -664,12 +438,9 @@
       border-radius: var(--radius-sm);
       font-size: 12px;
       cursor: pointer;
-      transition: all 0.15s;
     }
 
-    .modal-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
+    .modal-btn:hover { background: rgba(255, 255, 255, 0.2); }
 
     .modal-body {
       flex: 1;
@@ -677,7 +448,6 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
-      overflow: hidden;
       position: relative;
     }
 
@@ -685,37 +455,9 @@
       max-width: 95%;
       max-height: 90vh;
       object-fit: contain;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
       border-radius: var(--radius-md);
       background: #ffffff;
-      transition: transform 0.15s ease-out;
     }
-
-    .modal-nav-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(15, 23, 42, 0.65);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #ffffff;
-      font-size: 20px;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.15s;
-    }
-
-    .modal-nav-btn:hover {
-      background: rgba(15, 23, 42, 0.95);
-      transform: translateY(-50%) scale(1.08);
-    }
-
-    .modal-nav-prev { left: 24px; }
-    .modal-nav-next { right: 24px; }
 
     .modal-caption-bar {
       padding: 12px 24px;
@@ -726,170 +468,79 @@
       text-align: center;
     }
 
-    /* Footer */
     footer {
-      margin-top: 64px;
-      padding-top: 32px;
+      margin-top: 48px;
+      padding-top: 24px;
       border-top: 1px solid var(--border-subtle);
       text-align: center;
       color: var(--text-subtle);
       font-size: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Navigation Bar -->
   <header class="top-bar">
     <div class="brand-mark">
-      <div class="brand-logo">ΔL</div>
+      <div class="brand-logo">P2</div>
       <div>
-        <div class="brand-title">Leidenfrost Droplet Dynamics Portal</div>
-        <div class="brand-sub">Experimental Multiphase Hydrodynamics Research</div>
+        <div class="brand-title">Plot_2 Research Suite: Calibrated Dynamics</div>
+        <div class="brand-sub">Non-Bursting Spreading & Leidenfrost Rebound Investigation</div>
       </div>
     </div>
-        <div class="top-actions">
-      <a class="btn" href="./plot_2/index.html" style="background: #1d4ed8; color: #ffffff; border-color: #1d4ed8; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-        Plot 2 (Calibrated Research Suite) &rarr;
-      </a>
-      <a class="btn" href="./master_summary_with_physics.csv" download="master_summary_with_physics.csv">
+    <div class="top-actions">
+      <a class="btn" href="./master_summary_plot_2_rectified.csv" download="master_summary_plot_2_rectified.csv">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-        Dataset (.csv)
+        Calibrated Dataset (.csv)
       </a>
-      <a class="btn" href="https://github.com/pablo-2047/leidenfrost" target="_blank" rel="noopener noreferrer">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-        GitHub Repository
-      </a>
-      <button class="btn theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
-        🌓
+      <button class="btn" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+        🌓 Theme
       </button>
     </div>
   </header>
 
-    <main class="container">
+  <main class="container">
 
-    <!-- Switch to Plot 2 Suite Banner -->
-    <div style="background: linear-gradient(90deg, #eff6ff 0%, #dbeafe 100%); border: 1px solid #bfdbfe; border-radius: 8px; padding: 16px 22px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-      <div style="display: flex; align-items: center; gap: 14px;">
-        <span style="font-size: 26px; line-height: 1;">✨</span>
-        <div>
-          <div style="font-weight: 700; color: #1e3a8a; font-size: 14.5px;">New: Plot 2 Research Suite (Ground-Truth Calibrated)</div>
-          <div style="color: #2563eb; font-size: 13px; margin-top: 2px;">Features strictly non-bursting spreading trajectories, true Leidenfrost-only rebound restitution vs. Weber & Temperature, 3D response surfaces, and continuous territorial regime phase maps.</div>
-        </div>
-      </div>
-      <a href="./plot_2/index.html" style="background: #1d4ed8; color: #ffffff; padding: 9px 18px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(29, 78, 216, 0.25);">
-        Open Plot 2 Dashboard &rarr;
-      </a>
-    </div>
-
-    <!-- Paper Abstract & Executive Metadata -->
     <section class="paper-hero">
-      <div class="paper-tagline">Experimental Fluid Dynamics Compendium</div>
-      <h1 class="paper-title">Hydrodynamic Spreading, Solutal Marangoni Effects & Leidenfrost Rebound Dynamics of Binary Droplets</h1>
+      <div class="paper-tagline">Plot_2 Scientific Compendium</div>
+      <h1 class="paper-title">Calibrated Hydrodynamics of Coherent Binary Droplets & Leidenfrost Bouncing Restitution</h1>
       <p class="paper-abstract">
-        A systematic, high-speed shadowgraphy investigation (4,000 fps) quantifying the post-impact morphology of binary droplets impinging upon superheated polished aluminum substrates across 10 liquid systems: pure deionized water and binary mixtures of water with acetone (20%, 40%, 60% v/v), ethanol (20%, 40%, 60% v/v), and methanol (25%, 40%, 60% v/v). Across 936 discrete trials spanning temperatures from 100°C to 400°C and drop heights from 1.3 cm to 15.6 cm, we evaluate apex versus 3D volume center-of-mass height trajectories, dynamic contact diameters, explosive transition fragmentation, and the universal Clanet scaling law <em>β<sub>max</sub> ≈ 1.34 · We<sup>1/4</sup></em>.
+        This refined suite evaluates the experimental dynamics across 10 liquid systems with manual ground-truth calibration. Spreading diameter trajectories are strictly isolated to coherent, non-bursting regimes. Maximum rebound heights are evaluated exclusively for true film-boiling Leidenfrost bouncing, eliminating splatter and resting puddle bias. Includes full 3D tri-axial response surfaces and 3 novel research contributions (Clanet universal collapse, Rayleigh contact time invariance testing, and Leidenfrost temperature depression scaling).
       </p>
 
       <div class="stats-strip">
         <div class="stat-item">
           <span class="stat-value">936</span>
-          <span class="stat-label">Impact Runs Analyzed</span>
+          <span class="stat-label">Total Impact Runs</span>
         </div>
         <div class="stat-item">
-          <span class="stat-value">4,000</span>
-          <span class="stat-label">FPS High-Speed Imaging</span>
+          <span class="stat-value">180</span>
+          <span class="stat-label">Leidenfrost Bouncing Runs</span>
         </div>
         <div class="stat-item">
-          <span class="stat-value">10</span>
-          <span class="stat-label">Binary Fluid Systems</span>
+          <span class="stat-value">172</span>
+          <span class="stat-label">Contact Sticking Runs</span>
         </div>
         <div class="stat-item">
-          <span class="stat-value">100°C – 400°C</span>
-          <span class="stat-label">Substrate Temperature</span>
+          <span class="stat-value">584</span>
+          <span class="stat-label">Explosive Bursting Runs</span>
         </div>
         <div class="stat-item">
-          <span class="stat-value">1.3 – 15.6 cm</span>
-          <span class="stat-label">Fall Heights (We: 4 – 150)</span>
+          <span class="stat-value">1000 kg/m³</span>
+          <span class="stat-label">Standard Water Density</span>
         </div>
       </div>
     </section>
 
-    <!-- Theoretical Framework & Governing Equations -->
-    <section class="theory-box">
-      <div class="theory-header" onclick="toggleTheory()">
-        <span>📐 Mathematical Framework & Non-Dimensional Normalization</span>
-        <span id="theoryArrow">▼ Expand Theory & Equations</span>
-      </div>
-      <div class="theory-content" id="theoryContent">
-        <p>All raw temporal and spatial coordinates extracted from the 4,000 fps video series are non-dimensionalized using classical capillary-inertial scaling to enable universal cross-fluid comparison:</p>
-        <div class="eq-grid">
-          <div class="eq-card">
-            <div class="eq-card-title">Impact Velocity & Time Scale</div>
-            <div class="eq-math">V = √(2gh),  τ = D₀ / V</div>
-            <div class="eq-desc">Impact velocity V from release height h; capillary-inertial convective time scale τ.</div>
-          </div>
-          <div class="eq-card">
-            <div class="eq-card-title">Non-Dimensional Time</div>
-            <div class="eq-math">t* = (t - t_contact) / τ</div>
-            <div class="eq-desc">Where t_contact is the exact frame immediately preceding contact (4,000 fps resolution).</div>
-          </div>
-          <div class="eq-card">
-            <div class="eq-card-title">Spreading & Contact Factors</div>
-            <div class="eq-math">β(t) = D_spread(t) / D₀,  β_c = D_contact / D₀</div>
-            <div class="eq-desc">Normalized by pre-impact equivalent spherical droplet diameter D₀.</div>
-          </div>
-          <div class="eq-card">
-            <div class="eq-card-title">3D Volume Center of Mass Height</div>
-            <div class="eq-math">H_cm(t) / D₀  (Axisymmetric Disk Integration)</div>
-            <div class="eq-desc">True volume center of mass z_cm = π∑y·r²Δy / π∑r²Δy, eliminating satellite jet artifacts.</div>
-          </div>
-          <div class="eq-card">
-            <div class="eq-card-title">Weber & Reynolds Numbers</div>
-            <div class="eq-math">We = ρV²D₀ / σ,  Re = ρVD₀ / μ</div>
-            <div class="eq-desc">Inertia to surface tension ratio (We) and viscous dissipation ratio (Re).</div>
-          </div>
-          <div class="eq-card">
-            <div class="eq-card-title">Universal Leidenfrost Scaling</div>
-            <div class="eq-math">β_max ≈ 1.34 · We^(1/4)  (Clanet / Biance)</div>
-            <div class="eq-desc">Capillary-inertial balance on friction-free vapor cushion, verified across all 10 fluids.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Main Navigation Tabs -->
     <div class="tabs-wrapper">
-      <nav class="tabs-nav" id="categoryNav">
-        <!-- Tab buttons injected here -->
-      </nav>
+      <nav class="tabs-nav" id="categoryNav"></nav>
     </div>
 
-    <!-- Filter Bar for Tab 1 & 2 -->
-    <div class="filter-bar" id="filterBar">
-      <div class="filter-group">
-        <span class="filter-label">Filter Formulation:</span>
-        <button class="filter-chip active" onclick="filterCards('all')">All Fluids (10)</button>
-        <button class="filter-chip" onclick="filterCards('pure_water')">Pure Water</button>
-        <button class="filter-chip" onclick="filterCards('acetone')">Acetone Series (20%, 40%, 60%)</button>
-        <button class="filter-chip" onclick="filterCards('ethanol')">Ethanol Series (20%, 40%, 60%)</button>
-        <button class="filter-chip" onclick="filterCards('methanol')">Methanol Series (25%, 40%, 60%)</button>
-      </div>
-      <div style="font-size: 12px; color: var(--text-subtle);">
-        Showing <span id="visibleCount" style="font-weight: 600; color: var(--text-main);">10</span> figures
-      </div>
-    </div>
-
-    <!-- Tab Panels Container -->
-    <div id="tabPanelsContainer">
-      <div id="panel-01_height_vs_normalized_time" class="category-panel" style="display: none;">
+    <div id="tabPanelsContainer"><div id="panel-01_spreading" class="category-panel" style="display: none;">
 
         <div class="tab-header-banner">
-          <h2>1. Height Evolution vs. Dimensionless Time</h2>
-          <p>Normalized apex height (H/D₀, dashed lines) and 3D volume center of mass (H_cm/D₀, solid lines) as a function of dimensionless time t* = (t - t_contact) / τ, where τ = D₀ / √(2gh). Each multi-panel figure compiles all drop heights (1.3 cm to 15.6 cm) and substrate temperatures (100°C to 400°C).</p>
+          <h2>1. Spreading Dynamics vs. Dimensionless Time (Non-Bursting)</h2>
+          <p>Spreading ratio β(t*) = D_spread(t) / D₀ plotted against dimensionless time t* = t / τ (where τ = D₀ / √(2gh)) across substrate temperatures from 100°C to 400°C. Strictly excludes all explosive bursting / atomization cases to show true coherent lamella expansion and capillary recoiling dynamics.</p>
         </div>
         <div class="grid">
         
@@ -897,27 +548,20 @@
           <div class="card" data-fluid="pure_water">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 1.01</span>
-                <span class="card-title">Pure Water (0% Additive)</span>
+                <span class="card-fig-num">Fig. 2.1.01</span>
+                <span class="card-title">Pure Water (0% Additive) — Non-Bursting Spreading Subplots</span>
               </div>
-              <span class="card-badge">Reference Baseline</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./01_height_vs_normalized_time/height_vs_time_pure_water.png')">
-              <img src="./01_height_vs_normalized_time/height_vs_time_pure_water.png" alt="Pure Water (0% Additive)" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./01_spreading_vs_time_non_bursting/spreading_non_bursting_pure_water.png', 'Pure Water (0% Additive) — Non-Bursting Spreading Subplots', 'Multi-panel temperature subplots for Pure Water across non-bursting conditions. Shows smooth capillary recoil above 220°C and stable film levitation up to 400°C without lamella rupture.')">
+              <img src="./01_spreading_vs_time_non_bursting/spreading_non_bursting_pure_water.png" alt="Pure Water (0% Additive) — Non-Bursting Spreading Subplots" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 1.01:</strong> Temporal height evolution for pure water droplets across 10 substrate temperatures (100°C–400°C) and 4 release heights (1.3, 5.1, 10.3, 15.6 cm; 100 cases total). Rebound takeoff occurs distinctly above T ≥ 310°C upon stable vapor film formation.
+                <strong>Fig. 2.1.01:</strong> Multi-panel temperature subplots for Pure Water across non-bursting conditions. Shows smooth capillary recoil above 220°C and stable film levitation up to 400°C without lamella rupture.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">01_height_vs_normalized_time/height_vs_time_pure_water.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./01_height_vs_normalized_time/height_vs_time_pure_water.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">01_spreading_vs_time_non_bursting/spreading_non_bursting_pure_water.png</span>
+                <a class="action-link" href="./01_spreading_vs_time_non_bursting/spreading_non_bursting_pure_water.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
@@ -926,27 +570,20 @@
           <div class="card" data-fluid="acetone">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 1.02</span>
-                <span class="card-title">Water + 20% Acetone</span>
+                <span class="card-fig-num">Fig. 2.1.02</span>
+                <span class="card-title">Water + 20% Acetone — Non-Bursting Spreading Subplots</span>
               </div>
-              <span class="card-badge">20% Acetone (v/v)</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./01_height_vs_normalized_time/height_vs_time_20_perc_acetone.png')">
-              <img src="./01_height_vs_normalized_time/height_vs_time_20_perc_acetone.png" alt="Water + 20% Acetone" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./01_spreading_vs_time_non_bursting/spreading_non_bursting_20_perc_acetone.png', 'Water + 20% Acetone — Non-Bursting Spreading Subplots', 'Multi-panel temperature subplots for 20% Acetone. Verified with manual ground-truth data. At T ≥ 220°C, clean Leidenfrost bouncing occurs for h ≤ 5.1 cm with rapid capillary retraction and airborne oscillations.')">
+              <img src="./01_spreading_vs_time_non_bursting/spreading_non_bursting_20_perc_acetone.png" alt="Water + 20% Acetone — Non-Bursting Spreading Subplots" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 1.02:</strong> Height trajectory for 20% vol acetone mixture. Lower surface tension (σ ≈ 41 mN/m) accelerates rim retraction; explosive boiling at 130°C–190°C generates vertical vapor jets before smooth Leidenfrost rebound at 340°C.
+                <strong>Fig. 2.1.02:</strong> Multi-panel temperature subplots for 20% Acetone. Verified with manual ground-truth data. At T ≥ 220°C, clean Leidenfrost bouncing occurs for h ≤ 5.1 cm with rapid capillary retraction and airborne oscillations.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">01_height_vs_normalized_time/height_vs_time_20_perc_acetone.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./01_height_vs_normalized_time/height_vs_time_20_perc_acetone.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">01_spreading_vs_time_non_bursting/spreading_non_bursting_20_perc_acetone.png</span>
+                <a class="action-link" href="./01_spreading_vs_time_non_bursting/spreading_non_bursting_20_perc_acetone.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
@@ -955,27 +592,20 @@
           <div class="card" data-fluid="acetone">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 1.03</span>
-                <span class="card-title">Water + 40% Acetone</span>
+                <span class="card-fig-num">Fig. 2.1.03</span>
+                <span class="card-title">Water + 40% Acetone — Non-Bursting Spreading Subplots</span>
               </div>
-              <span class="card-badge">40% Acetone (v/v)</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./01_height_vs_normalized_time/height_vs_time_40_perc_acetone.png')">
-              <img src="./01_height_vs_normalized_time/height_vs_time_40_perc_acetone.png" alt="Water + 40% Acetone" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./01_spreading_vs_time_non_bursting/spreading_non_bursting_40_perc_acetone.png', 'Water + 40% Acetone — Non-Bursting Spreading Subplots', 'Multi-panel temperature subplots for 40% Acetone. Low surface tension (31.8 mN/m) enables high expansion ratio (β_max ≈ 2.8) prior to retraction on the vapor cushion.')">
+              <img src="./01_spreading_vs_time_non_bursting/spreading_non_bursting_40_perc_acetone.png" alt="Water + 40% Acetone — Non-Bursting Spreading Subplots" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 1.03:</strong> Height trajectory for 40% vol acetone mixture. Enhanced volatility of acetone lowers the transition boiling threshold; violent nucleation produces secondary spray at intermediate temperatures.
+                <strong>Fig. 2.1.03:</strong> Multi-panel temperature subplots for 40% Acetone. Low surface tension (31.8 mN/m) enables high expansion ratio (β_max ≈ 2.8) prior to retraction on the vapor cushion.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">01_height_vs_normalized_time/height_vs_time_40_perc_acetone.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./01_height_vs_normalized_time/height_vs_time_40_perc_acetone.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">01_spreading_vs_time_non_bursting/spreading_non_bursting_40_perc_acetone.png</span>
+                <a class="action-link" href="./01_spreading_vs_time_non_bursting/spreading_non_bursting_40_perc_acetone.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
@@ -984,27 +614,20 @@
           <div class="card" data-fluid="acetone">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 1.04</span>
-                <span class="card-title">Water + 60% Acetone</span>
+                <span class="card-fig-num">Fig. 2.1.04</span>
+                <span class="card-title">Water + 60% Acetone — Non-Bursting Spreading Subplots</span>
               </div>
-              <span class="card-badge">60% Acetone (v/v)</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./01_height_vs_normalized_time/height_vs_time_60_perc_acetone.png')">
-              <img src="./01_height_vs_normalized_time/height_vs_time_60_perc_acetone.png" alt="Water + 60% Acetone" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./01_spreading_vs_time_non_bursting/spreading_non_bursting_60_perc_acetone.png', 'Water + 60% Acetone — Non-Bursting Spreading Subplots', 'Multi-panel temperature subplots for 60% Acetone. Highly volatile mixture with stable non-bursting film levitation at low drop heights.')">
+              <img src="./01_spreading_vs_time_non_bursting/spreading_non_bursting_60_perc_acetone.png" alt="Water + 60% Acetone — Non-Bursting Spreading Subplots" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 1.04:</strong> Height trajectory for 60% vol acetone mixture. High acetone fraction significantly depresses the dynamic Leidenfrost temperature; vapor cushion stabilizes earlier at T ≈ 250°C.
+                <strong>Fig. 2.1.04:</strong> Multi-panel temperature subplots for 60% Acetone. Highly volatile mixture with stable non-bursting film levitation at low drop heights.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">01_height_vs_normalized_time/height_vs_time_60_perc_acetone.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./01_height_vs_normalized_time/height_vs_time_60_perc_acetone.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">01_spreading_vs_time_non_bursting/spreading_non_bursting_60_perc_acetone.png</span>
+                <a class="action-link" href="./01_spreading_vs_time_non_bursting/spreading_non_bursting_60_perc_acetone.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
@@ -1013,27 +636,20 @@
           <div class="card" data-fluid="ethanol">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 1.05</span>
-                <span class="card-title">Water + 20% Ethanol</span>
+                <span class="card-fig-num">Fig. 2.1.05</span>
+                <span class="card-title">Water + 20% Ethanol — Non-Bursting Spreading Subplots</span>
               </div>
-              <span class="card-badge">20% Ethanol (v/v)</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./01_height_vs_normalized_time/height_vs_time_20_perc_ethanol.png')">
-              <img src="./01_height_vs_normalized_time/height_vs_time_20_perc_ethanol.png" alt="Water + 20% Ethanol" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./01_spreading_vs_time_non_bursting/spreading_non_bursting_20_perc_ethanol.png', 'Water + 20% Ethanol — Non-Bursting Spreading Subplots', 'Multi-panel temperature subplots for 20% Ethanol (verified with manual ground-truth data). Clean rebound for h ≤ 2.9 cm across Leidenfrost temperatures.')">
+              <img src="./01_spreading_vs_time_non_bursting/spreading_non_bursting_20_perc_ethanol.png" alt="Water + 20% Ethanol — Non-Bursting Spreading Subplots" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 1.05:</strong> Height trajectory for 20% vol ethanol mixture. Increased viscosity (μ ≈ 1.8 mPa·s due to water-ethanol hydrogen bonding) dampens vertical oscillations during film rebound.
+                <strong>Fig. 2.1.05:</strong> Multi-panel temperature subplots for 20% Ethanol (verified with manual ground-truth data). Clean rebound for h ≤ 2.9 cm across Leidenfrost temperatures.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">01_height_vs_normalized_time/height_vs_time_20_perc_ethanol.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./01_height_vs_normalized_time/height_vs_time_20_perc_ethanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">01_spreading_vs_time_non_bursting/spreading_non_bursting_20_perc_ethanol.png</span>
+                <a class="action-link" href="./01_spreading_vs_time_non_bursting/spreading_non_bursting_20_perc_ethanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
@@ -1042,27 +658,20 @@
           <div class="card" data-fluid="ethanol">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 1.06</span>
-                <span class="card-title">Water + 40% Ethanol</span>
+                <span class="card-fig-num">Fig. 2.1.06</span>
+                <span class="card-title">Water + 40% Ethanol — Non-Bursting Spreading Subplots</span>
               </div>
-              <span class="card-badge">40% Ethanol (v/v)</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./01_height_vs_normalized_time/height_vs_time_40_percent_ethanol.png')">
-              <img src="./01_height_vs_normalized_time/height_vs_time_40_percent_ethanol.png" alt="Water + 40% Ethanol" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./01_spreading_vs_time_non_bursting/spreading_non_bursting_40_percent_ethanol.png', 'Water + 40% Ethanol — Non-Bursting Spreading Subplots', 'Multi-panel temperature subplots for 40% Ethanol. Demonstrates viscous attenuation of spreading oscillations near the binary viscosity peak (μ ≈ 2.35 mPa·s).')">
+              <img src="./01_spreading_vs_time_non_bursting/spreading_non_bursting_40_percent_ethanol.png" alt="Water + 40% Ethanol — Non-Bursting Spreading Subplots" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 1.06:</strong> Height trajectory for 40% vol ethanol mixture (near the peak viscosity composition of the water-ethanol system). Rebound height exhibits strong damping compared to pure water.
+                <strong>Fig. 2.1.06:</strong> Multi-panel temperature subplots for 40% Ethanol. Demonstrates viscous attenuation of spreading oscillations near the binary viscosity peak (μ ≈ 2.35 mPa·s).
               </div>
               <div class="card-actions">
-                <span class="card-path-code">01_height_vs_normalized_time/height_vs_time_40_percent_ethanol.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./01_height_vs_normalized_time/height_vs_time_40_percent_ethanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">01_spreading_vs_time_non_bursting/spreading_non_bursting_40_percent_ethanol.png</span>
+                <a class="action-link" href="./01_spreading_vs_time_non_bursting/spreading_non_bursting_40_percent_ethanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
@@ -1071,27 +680,20 @@
           <div class="card" data-fluid="ethanol">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 1.07</span>
-                <span class="card-title">Water + 60% Ethanol</span>
+                <span class="card-fig-num">Fig. 2.1.07</span>
+                <span class="card-title">Water + 60% Ethanol — Non-Bursting Spreading Subplots</span>
               </div>
-              <span class="card-badge">60% Ethanol (v/v)</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./01_height_vs_normalized_time/height_vs_time_60_perc_ethanol.png')">
-              <img src="./01_height_vs_normalized_time/height_vs_time_60_perc_ethanol.png" alt="Water + 60% Ethanol" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./01_spreading_vs_time_non_bursting/spreading_non_bursting_60_perc_ethanol.png', 'Water + 60% Ethanol — Non-Bursting Spreading Subplots', 'Multi-panel temperature subplots for 60% Ethanol showing coherent thin-film expansion and gentle recoiling.')">
+              <img src="./01_spreading_vs_time_non_bursting/spreading_non_bursting_60_perc_ethanol.png" alt="Water + 60% Ethanol — Non-Bursting Spreading Subplots" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 1.07:</strong> Height trajectory for 60% vol ethanol mixture. Reduced surface tension (σ ≈ 27 mN/m) enables high-aspect-ratio vertical elongation upon recoil at 370°C.
+                <strong>Fig. 2.1.07:</strong> Multi-panel temperature subplots for 60% Ethanol showing coherent thin-film expansion and gentle recoiling.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">01_height_vs_normalized_time/height_vs_time_60_perc_ethanol.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./01_height_vs_normalized_time/height_vs_time_60_perc_ethanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">01_spreading_vs_time_non_bursting/spreading_non_bursting_60_perc_ethanol.png</span>
+                <a class="action-link" href="./01_spreading_vs_time_non_bursting/spreading_non_bursting_60_perc_ethanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
@@ -1100,27 +702,20 @@
           <div class="card" data-fluid="methanol">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 1.08</span>
-                <span class="card-title">Water + 25% Methanol</span>
+                <span class="card-fig-num">Fig. 2.1.08</span>
+                <span class="card-title">Water + 25% Methanol — Non-Bursting Spreading Subplots</span>
               </div>
-              <span class="card-badge">25% Methanol (v/v)</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./01_height_vs_normalized_time/height_vs_time_25_perc_methanol.png')">
-              <img src="./01_height_vs_normalized_time/height_vs_time_25_perc_methanol.png" alt="Water + 25% Methanol" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./01_spreading_vs_time_non_bursting/spreading_non_bursting_25_perc_methanol.png', 'Water + 25% Methanol — Non-Bursting Spreading Subplots', 'Multi-panel temperature subplots for 25% Methanol across non-bursting trials. Rapid initial expansion followed by distinct liftoff.')">
+              <img src="./01_spreading_vs_time_non_bursting/spreading_non_bursting_25_perc_methanol.png" alt="Water + 25% Methanol — Non-Bursting Spreading Subplots" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 1.08:</strong> Height trajectory for 25% vol methanol mixture across 111 experimental conditions. High latent heat of vaporization moderates vapor thrust during initial contact.
+                <strong>Fig. 2.1.08:</strong> Multi-panel temperature subplots for 25% Methanol across non-bursting trials. Rapid initial expansion followed by distinct liftoff.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">01_height_vs_normalized_time/height_vs_time_25_perc_methanol.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./01_height_vs_normalized_time/height_vs_time_25_perc_methanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">01_spreading_vs_time_non_bursting/spreading_non_bursting_25_perc_methanol.png</span>
+                <a class="action-link" href="./01_spreading_vs_time_non_bursting/spreading_non_bursting_25_perc_methanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
@@ -1129,27 +724,20 @@
           <div class="card" data-fluid="methanol">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 1.09</span>
-                <span class="card-title">Water + 40% Methanol</span>
+                <span class="card-fig-num">Fig. 2.1.09</span>
+                <span class="card-title">Water + 40% Methanol — Non-Bursting Spreading Subplots</span>
               </div>
-              <span class="card-badge">40% Methanol (v/v)</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./01_height_vs_normalized_time/height_vs_time_40_perc_methanol.png')">
-              <img src="./01_height_vs_normalized_time/height_vs_time_40_perc_methanol.png" alt="Water + 40% Methanol" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./01_spreading_vs_time_non_bursting/spreading_non_bursting_40_perc_methanol.png', 'Water + 40% Methanol — Non-Bursting Spreading Subplots', 'Multi-panel temperature subplots for 40% Methanol. Coherent spreading dynamics with high repeatability across low release heights.')">
+              <img src="./01_spreading_vs_time_non_bursting/spreading_non_bursting_40_perc_methanol.png" alt="Water + 40% Methanol — Non-Bursting Spreading Subplots" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 1.09:</strong> Height trajectory for 40% vol methanol mixture across 99 experimental conditions. Shows rapid contraction and smooth rebound above 310°C.
+                <strong>Fig. 2.1.09:</strong> Multi-panel temperature subplots for 40% Methanol. Coherent spreading dynamics with high repeatability across low release heights.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">01_height_vs_normalized_time/height_vs_time_40_perc_methanol.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./01_height_vs_normalized_time/height_vs_time_40_perc_methanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">01_spreading_vs_time_non_bursting/spreading_non_bursting_40_perc_methanol.png</span>
+                <a class="action-link" href="./01_spreading_vs_time_non_bursting/spreading_non_bursting_40_perc_methanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
@@ -1158,37 +746,537 @@
           <div class="card" data-fluid="methanol">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 1.10</span>
-                <span class="card-title">Water + 60% Methanol</span>
+                <span class="card-fig-num">Fig. 2.1.10</span>
+                <span class="card-title">Water + 60% Methanol — Non-Bursting Spreading Subplots</span>
               </div>
-              <span class="card-badge">60% Methanol (v/v)</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./01_height_vs_normalized_time/height_vs_time_60_perc_methanol.png')">
-              <img src="./01_height_vs_normalized_time/height_vs_time_60_perc_methanol.png" alt="Water + 60% Methanol" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./01_spreading_vs_time_non_bursting/spreading_non_bursting_60_perc_methanol.png', 'Water + 60% Methanol — Non-Bursting Spreading Subplots', 'Multi-panel temperature subplots for 60% Methanol showing extended non-bursting film boiling regimes at elevated temperatures.')">
+              <img src="./01_spreading_vs_time_non_bursting/spreading_non_bursting_60_perc_methanol.png" alt="Water + 60% Methanol — Non-Bursting Spreading Subplots" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 1.10:</strong> Height trajectory for 60% vol methanol mixture across 98 experimental conditions. Clean rebound takeoff with minimal fragment shedding in the film boiling regime.
+                <strong>Fig. 2.1.10:</strong> Multi-panel temperature subplots for 60% Methanol showing extended non-bursting film boiling regimes at elevated temperatures.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">01_height_vs_normalized_time/height_vs_time_60_perc_methanol.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./01_height_vs_normalized_time/height_vs_time_60_perc_methanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">01_spreading_vs_time_non_bursting/spreading_non_bursting_60_perc_methanol.png</span>
+                <a class="action-link" href="./01_spreading_vs_time_non_bursting/spreading_non_bursting_60_perc_methanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
             
 </div></div>
-<div id="panel-02_spreading_vs_normalized_time" class="category-panel" style="display: none;">
+<div id="panel-02_height_weber" class="category-panel" style="display: none;">
 
         <div class="tab-header-banner">
-          <h2>2. Hydrodynamic Spreading vs. Dimensionless Time</h2>
-          <p>Spreading ratio β(t) = D_spread(t) / D₀ plotted against dimensionless time t* = (t - t_contact) / τ across all 10 fluid systems. Demonstrates inertial spreading collapse (β ~ √t* at early times), peak expansion, and capillary retraction.</p>
+          <h2>2. Maximum Bounce Height vs. Weber Number (Leidenfrost Only)</h2>
+          <p>Post-impact vertical restitution H_cm,max / D₀ plotted against the impact Weber number We = ρV²D₀ / σ strictly for cases undergoing true Leidenfrost film-boiling rebound. Completely filters out resting puddles and fragmented mist.</p>
+        </div>
+        <div class="grid">
+        
+
+          <div class="card" data-fluid="all">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.2.01</span>
+                <span class="card-title">10-Panel Weber Scaling Grid: Leidenfrost Bounce Height</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./02_max_bounce_height_vs_weber/max_bounce_height_vs_weber_10_fluids_grid.png', '10-Panel Weber Scaling Grid: Leidenfrost Bounce Height', 'Ten-panel matrix showing normalized center-of-mass bounce height (H_cm/D₀) vs. Weber number for each fluid system. Points are colored by substrate temperature (160°C to 400°C) with quadratic restitution fits. Rebound reaches peak efficiency at We ≈ 20–50 before dynamic shattering suppresses coherent liftoff.')">
+              <img src="./02_max_bounce_height_vs_weber/max_bounce_height_vs_weber_10_fluids_grid.png" alt="10-Panel Weber Scaling Grid: Leidenfrost Bounce Height" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.2.01:</strong> Ten-panel matrix showing normalized center-of-mass bounce height (H_cm/D₀) vs. Weber number for each fluid system. Points are colored by substrate temperature (160°C to 400°C) with quadratic restitution fits. Rebound reaches peak efficiency at We ≈ 20–50 before dynamic shattering suppresses coherent liftoff.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">02_max_bounce_height_vs_weber/max_bounce_height_vs_weber_10_fluids_grid.png</span>
+                <a class="action-link" href="./02_max_bounce_height_vs_weber/max_bounce_height_vs_weber_10_fluids_grid.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+
+          <div class="card" data-fluid="all">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.2.02</span>
+                <span class="card-title">Unified Cross-Fluid Rebound Trajectory vs. Weber Number</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./02_max_bounce_height_vs_weber/max_bounce_height_vs_weber_unified_comparison.png', 'Unified Cross-Fluid Rebound Trajectory vs. Weber Number', 'Direct overlay of all 10 fluid systems in the Leidenfrost regime with fitted trendlines. Demonstrates how solvent volatile fraction modulates vertical restitution efficiency.')">
+              <img src="./02_max_bounce_height_vs_weber/max_bounce_height_vs_weber_unified_comparison.png" alt="Unified Cross-Fluid Rebound Trajectory vs. Weber Number" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.2.02:</strong> Direct overlay of all 10 fluid systems in the Leidenfrost regime with fitted trendlines. Demonstrates how solvent volatile fraction modulates vertical restitution efficiency.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">02_max_bounce_height_vs_weber/max_bounce_height_vs_weber_unified_comparison.png</span>
+                <a class="action-link" href="./02_max_bounce_height_vs_weber/max_bounce_height_vs_weber_unified_comparison.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+</div></div>
+<div id="panel-03_height_temp" class="category-panel" style="display: none;">
+
+        <div class="tab-header-banner">
+          <h2>3. Maximum Bounce Height vs. Substrate Temperature</h2>
+          <p>Normalized bounce height H_cm / D₀ as a function of substrate temperature (100°C to 400°C). Non-rebounding conditions (wetting deposition and explosive shattering) are set to 0 to clearly delineate the thermal threshold T_LD where bouncing ignites.</p>
+        </div>
+        <div class="grid">
+        
+
+          <div class="card" data-fluid="all">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.3.01</span>
+                <span class="card-title">10-Panel Thermal Rebound Grid: Height vs. Temperature</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./03_max_bounce_height_vs_temperature/max_bounce_height_vs_temp_10_fluids_grid.png', '10-Panel Thermal Rebound Grid: Height vs. Temperature', 'Bounce height vs. substrate temperature across all release heights for 10 fluids. Sharp step transition from 0 (inelastic deposition) to H_cm/D₀ > 1.5 indicates the dynamic Leidenfrost temperature T_LD.')">
+              <img src="./03_max_bounce_height_vs_temperature/max_bounce_height_vs_temp_10_fluids_grid.png" alt="10-Panel Thermal Rebound Grid: Height vs. Temperature" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.3.01:</strong> Bounce height vs. substrate temperature across all release heights for 10 fluids. Sharp step transition from 0 (inelastic deposition) to H_cm/D₀ > 1.5 indicates the dynamic Leidenfrost temperature T_LD.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">03_max_bounce_height_vs_temperature/max_bounce_height_vs_temp_10_fluids_grid.png</span>
+                <a class="action-link" href="./03_max_bounce_height_vs_temperature/max_bounce_height_vs_temp_10_fluids_grid.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+
+          <div class="card" data-fluid="all">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.3.02</span>
+                <span class="card-title">Unified Thermal Rebound Comparison (Release Height h = 1.3 cm)</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./03_max_bounce_height_vs_temperature/max_bounce_height_vs_temp_unified_comparison.png', 'Unified Thermal Rebound Comparison (Release Height h = 1.3 cm)', 'Comparative thermal onset of Leidenfrost bouncing at release height 1.3 cm across all 10 fluid formulations, illustrating the depression of T_LD by volatile organic solvents.')">
+              <img src="./03_max_bounce_height_vs_temperature/max_bounce_height_vs_temp_unified_comparison.png" alt="Unified Thermal Rebound Comparison (Release Height h = 1.3 cm)" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.3.02:</strong> Comparative thermal onset of Leidenfrost bouncing at release height 1.3 cm across all 10 fluid formulations, illustrating the depression of T_LD by volatile organic solvents.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">03_max_bounce_height_vs_temperature/max_bounce_height_vs_temp_unified_comparison.png</span>
+                <a class="action-link" href="./03_max_bounce_height_vs_temperature/max_bounce_height_vs_temp_unified_comparison.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+</div></div>
+<div id="panel-04_3d_rebound" class="category-panel" style="display: none;">
+
+        <div class="tab-header-banner">
+          <h2>4. 3D Tri-Axial Rebound Surfaces & 2D Contour Maps</h2>
+          <p>Simultaneous representation of rebound dynamics across three physical dimensions: Impact Weber Number (X), Substrate Temperature (Y), and Normalized Center-of-Mass Bounce Height (Z).</p>
+        </div>
+        <div class="grid">
+        
+
+          <div class="card" data-fluid="all">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.4.01</span>
+                <span class="card-title">3D Rebound Response Surfaces (Weber, Temperature, Max Height)</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./04_3D_rebound_height_temp_weber/3D_rebound_surface_master.png', '3D Rebound Response Surfaces (Weber, Temperature, Max Height)', 'Master 4-panel 3D perspective surface plot comparing Pure Water, Acetone mixtures, Ethanol mixtures, and Methanol mixtures. Clearly depicts the bounded &#39;island of restitution&#39; where vapor layer pressure supports coherent droplet liftoff.')">
+              <img src="./04_3D_rebound_height_temp_weber/3D_rebound_surface_master.png" alt="3D Rebound Response Surfaces (Weber, Temperature, Max Height)" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.4.01:</strong> Master 4-panel 3D perspective surface plot comparing Pure Water, Acetone mixtures, Ethanol mixtures, and Methanol mixtures. Clearly depicts the bounded 'island of restitution' where vapor layer pressure supports coherent droplet liftoff.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">04_3D_rebound_height_temp_weber/3D_rebound_surface_master.png</span>
+                <a class="action-link" href="./04_3D_rebound_height_temp_weber/3D_rebound_surface_master.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+
+          <div class="card" data-fluid="all">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.4.02</span>
+                <span class="card-title">Iso-Height 2D Contour Maps: Leidenfrost Rebound Islands</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./04_3D_rebound_height_temp_weber/2D_rebound_contour_maps.png', 'Iso-Height 2D Contour Maps: Leidenfrost Rebound Islands', 'Filled iso-height contour maps with labeled elevation contours of H_cm/D₀(T, We). Visualizes optimal bouncing parameters and dynamic boundaries across chemical families.')">
+              <img src="./04_3D_rebound_height_temp_weber/2D_rebound_contour_maps.png" alt="Iso-Height 2D Contour Maps: Leidenfrost Rebound Islands" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.4.02:</strong> Filled iso-height contour maps with labeled elevation contours of H_cm/D₀(T, We). Visualizes optimal bouncing parameters and dynamic boundaries across chemical families.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">04_3D_rebound_height_temp_weber/2D_rebound_contour_maps.png</span>
+                <a class="action-link" href="./04_3D_rebound_height_temp_weber/2D_rebound_contour_maps.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+</div></div>
+<div id="panel-05_regime_maps" class="category-panel" style="display: none;">
+
+        <div class="tab-header-banner">
+          <h2>5. Empirical Impact Regime Maps with Continuous Territorial Domains</h2>
+          <p>Hydrodynamic phase diagrams mapping impact Weber number against substrate temperature (100°C–400°C). Features continuous territorial domains calculated via calibrated SVM decision boundaries: (I) Contact Sticking / Deposition (Soft Blue), (II) Explosive Bursting / Splashing (Soft Rose), and (III) Leidenfrost Film Boiling / Clean Rebound (Soft Emerald Green), overlaid with all 936 classified experimental impact trials.</p>
+        </div>
+        <div class="grid">
+        
+
+          <div class="card" data-fluid="all">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.5.01</span>
+                <span class="card-title">10-Panel Impact Regime Matrix with Continuous Territorial Domains (936 Trials Classified)</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./05_impact_regime_maps_weber_vs_temp/regime_map_master_10_fluids_grid.png', '10-Panel Impact Regime Matrix with Continuous Territorial Domains (936 Trials Classified)', 'Ten-panel continuous phase territory matrix mapping Sticking (Blue domain & diamonds), Explosive Bursting / Shattering (Rose domain & crosses), and Leidenfrost Film Boiling (Emerald green domain & circles). Includes physics guide and territory legends.')">
+              <img src="./05_impact_regime_maps_weber_vs_temp/regime_map_master_10_fluids_grid.png" alt="10-Panel Impact Regime Matrix with Continuous Territorial Domains (936 Trials Classified)" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.5.01:</strong> Ten-panel continuous phase territory matrix mapping Sticking (Blue domain & diamonds), Explosive Bursting / Shattering (Rose domain & crosses), and Leidenfrost Film Boiling (Emerald green domain & circles). Includes physics guide and territory legends.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">05_impact_regime_maps_weber_vs_temp/regime_map_master_10_fluids_grid.png</span>
+                <a class="action-link" href="./05_impact_regime_maps_weber_vs_temp/regime_map_master_10_fluids_grid.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+
+          <div class="card" data-fluid="all">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.5.02</span>
+                <span class="card-title">Comparative Dynamic Leidenfrost Boundary Curves Across All 10 Fluids</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./05_impact_regime_maps_weber_vs_temp/regime_map_cross_solvent_comparison.png', 'Comparative Dynamic Leidenfrost Boundary Curves Across All 10 Fluids', 'Direct comparison of the dynamic Leidenfrost boundary curves T_LD(We) across all 10 fluid systems, delineating the threshold between coherent film-boiling rebound and violent impact shattering.')">
+              <img src="./05_impact_regime_maps_weber_vs_temp/regime_map_cross_solvent_comparison.png" alt="Comparative Dynamic Leidenfrost Boundary Curves Across All 10 Fluids" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.5.02:</strong> Direct comparison of the dynamic Leidenfrost boundary curves T_LD(We) across all 10 fluid systems, delineating the threshold between coherent film-boiling rebound and violent impact shattering.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">05_impact_regime_maps_weber_vs_temp/regime_map_cross_solvent_comparison.png</span>
+                <a class="action-link" href="./05_impact_regime_maps_weber_vs_temp/regime_map_cross_solvent_comparison.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+
+          <div class="card" data-fluid="water">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.5.03</span>
+                <span class="card-title">Pure DI Water Impact Regime Phase Diagram</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_pure_water.png', 'Pure DI Water Impact Regime Phase Diagram', 'Continuous phase territory map for Pure DI Water showing wide Leidenfrost rebound envelope above 200°C for We < 110.')">
+              <img src="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_pure_water.png" alt="Pure DI Water Impact Regime Phase Diagram" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.5.03:</strong> Continuous phase territory map for Pure DI Water showing wide Leidenfrost rebound envelope above 200°C for We < 110.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_pure_water.png</span>
+                <a class="action-link" href="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_pure_water.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+
+          <div class="card" data-fluid="acetone">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.5.04</span>
+                <span class="card-title">Water + 20% Acetone Impact Regime Phase Diagram</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_20_perc_acetone.png', 'Water + 20% Acetone Impact Regime Phase Diagram', 'Continuous phase territory map for 20% Acetone showing Leidenfrost threshold depressed to ~160°C.')">
+              <img src="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_20_perc_acetone.png" alt="Water + 20% Acetone Impact Regime Phase Diagram" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.5.04:</strong> Continuous phase territory map for 20% Acetone showing Leidenfrost threshold depressed to ~160°C.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_20_perc_acetone.png</span>
+                <a class="action-link" href="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_20_perc_acetone.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+
+          <div class="card" data-fluid="acetone">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.5.05</span>
+                <span class="card-title">Water + 40% Acetone Impact Regime Phase Diagram</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_40_perc_acetone.png', 'Water + 40% Acetone Impact Regime Phase Diagram', 'Continuous phase territory map for 40% Acetone with low-temperature film boiling envelope.')">
+              <img src="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_40_perc_acetone.png" alt="Water + 40% Acetone Impact Regime Phase Diagram" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.5.05:</strong> Continuous phase territory map for 40% Acetone with low-temperature film boiling envelope.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_40_perc_acetone.png</span>
+                <a class="action-link" href="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_40_perc_acetone.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+
+          <div class="card" data-fluid="acetone">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.5.06</span>
+                <span class="card-title">Water + 60% Acetone Impact Regime Phase Diagram</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_60_perc_acetone.png', 'Water + 60% Acetone Impact Regime Phase Diagram', 'Continuous phase territory map for 60% Acetone showing strong volatility-induced vapor film stability at moderate Weber numbers.')">
+              <img src="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_60_perc_acetone.png" alt="Water + 60% Acetone Impact Regime Phase Diagram" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.5.06:</strong> Continuous phase territory map for 60% Acetone showing strong volatility-induced vapor film stability at moderate Weber numbers.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_60_perc_acetone.png</span>
+                <a class="action-link" href="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_60_perc_acetone.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+
+          <div class="card" data-fluid="ethanol">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.5.07</span>
+                <span class="card-title">Water + 20% Ethanol Impact Regime Phase Diagram</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_20_perc_ethanol.png', 'Water + 20% Ethanol Impact Regime Phase Diagram', 'Continuous phase territory map for 20% Ethanol with ground-truth calibrated boundaries.')">
+              <img src="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_20_perc_ethanol.png" alt="Water + 20% Ethanol Impact Regime Phase Diagram" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.5.07:</strong> Continuous phase territory map for 20% Ethanol with ground-truth calibrated boundaries.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_20_perc_ethanol.png</span>
+                <a class="action-link" href="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_20_perc_ethanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+
+          <div class="card" data-fluid="ethanol">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.5.08</span>
+                <span class="card-title">Water + 40% Ethanol Impact Regime Phase Diagram</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_40_percent_ethanol.png', 'Water + 40% Ethanol Impact Regime Phase Diagram', 'Continuous phase territory map for 40% Ethanol showing sharp transition between nucleate bursting and film boiling.')">
+              <img src="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_40_percent_ethanol.png" alt="Water + 40% Ethanol Impact Regime Phase Diagram" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.5.08:</strong> Continuous phase territory map for 40% Ethanol showing sharp transition between nucleate bursting and film boiling.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_40_percent_ethanol.png</span>
+                <a class="action-link" href="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_40_percent_ethanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+
+          <div class="card" data-fluid="ethanol">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.5.09</span>
+                <span class="card-title">Water + 60% Ethanol Impact Regime Phase Diagram</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_60_perc_ethanol.png', 'Water + 60% Ethanol Impact Regime Phase Diagram', 'Continuous phase territory map for 60% Ethanol illustrating enhanced bouncing range at low-to-mid Weber numbers.')">
+              <img src="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_60_perc_ethanol.png" alt="Water + 60% Ethanol Impact Regime Phase Diagram" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.5.09:</strong> Continuous phase territory map for 60% Ethanol illustrating enhanced bouncing range at low-to-mid Weber numbers.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_60_perc_ethanol.png</span>
+                <a class="action-link" href="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_60_perc_ethanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+
+          <div class="card" data-fluid="methanol">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.5.10</span>
+                <span class="card-title">Water + 25% Methanol Impact Regime Phase Diagram</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_25_perc_methanol.png', 'Water + 25% Methanol Impact Regime Phase Diagram', 'Continuous phase territory map for 25% Methanol showing distinct Sticking, Bursting, and Leidenfrost regions.')">
+              <img src="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_25_perc_methanol.png" alt="Water + 25% Methanol Impact Regime Phase Diagram" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.5.10:</strong> Continuous phase territory map for 25% Methanol showing distinct Sticking, Bursting, and Leidenfrost regions.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_25_perc_methanol.png</span>
+                <a class="action-link" href="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_25_perc_methanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+
+          <div class="card" data-fluid="methanol">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.5.11</span>
+                <span class="card-title">Water + 40% Methanol Impact Regime Phase Diagram</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_40_perc_methanol.png', 'Water + 40% Methanol Impact Regime Phase Diagram', 'Continuous phase territory map for 40% Methanol showing low Leidenfrost onset temperature.')">
+              <img src="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_40_perc_methanol.png" alt="Water + 40% Methanol Impact Regime Phase Diagram" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.5.11:</strong> Continuous phase territory map for 40% Methanol showing low Leidenfrost onset temperature.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_40_perc_methanol.png</span>
+                <a class="action-link" href="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_40_perc_methanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+
+          <div class="card" data-fluid="methanol">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.5.12</span>
+                <span class="card-title">Water + 60% Methanol Impact Regime Phase Diagram</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_60_perc_methanol.png', 'Water + 60% Methanol Impact Regime Phase Diagram', 'Continuous phase territory map for 60% Methanol with expanded Leidenfrost regime.')">
+              <img src="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_60_perc_methanol.png" alt="Water + 60% Methanol Impact Regime Phase Diagram" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.5.12:</strong> Continuous phase territory map for 60% Methanol with expanded Leidenfrost regime.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_60_perc_methanol.png</span>
+                <a class="action-link" href="./05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_60_perc_methanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+</div></div>
+<div id="panel-06_novel" class="category-panel" style="display: none;">
+
+        <div class="tab-header-banner">
+          <h2>6. Novel High-Impact Research Contributions</h2>
+          <p>Advanced physical models rarely or never reported in literature: Clanet universal spreading collapse, Rayleigh-Biance contact time invariance breakdown under binary flash vaporization, and Leidenfrost temperature depression scaling with additive volatility.</p>
+        </div>
+        <div class="grid">
+        
+
+          <div class="card" data-fluid="all">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.6.01</span>
+                <span class="card-title">Universal Clanet Spreading Collapse: β(t*) / We^(1/4) vs. t*</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./06_novel_research_plots/novel_01_clanet_universal_master_collapse.png', 'Universal Clanet Spreading Collapse: β(t*) / We^(1/4) vs. t*', 'All 10 fluid systems collapsed onto a single universal dimensionless trajectory when rescaled by We^(1/4). Peaks align tightly with Clanet&#39;s theoretical limit (β_max / We^(1/4) ≈ 1.34), confirming near-frictionless expansion over the vapor cushion.')">
+              <img src="./06_novel_research_plots/novel_01_clanet_universal_master_collapse.png" alt="Universal Clanet Spreading Collapse: β(t*) / We^(1/4) vs. t*" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.6.01:</strong> All 10 fluid systems collapsed onto a single universal dimensionless trajectory when rescaled by We^(1/4). Peaks align tightly with Clanet's theoretical limit (β_max / We^(1/4) ≈ 1.34), confirming near-frictionless expansion over the vapor cushion.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">06_novel_research_plots/novel_01_clanet_universal_master_collapse.png</span>
+                <a class="action-link" href="./06_novel_research_plots/novel_01_clanet_universal_master_collapse.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+
+          <div class="card" data-fluid="all">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.6.02</span>
+                <span class="card-title">Contact Time Invariance Testing: τ_c / τ_Rayleigh vs. Weber Number</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./06_novel_research_plots/novel_02_contact_time_invariance_vs_weber.png', 'Contact Time Invariance Testing: τ_c / τ_Rayleigh vs. Weber Number', 'Tests the classical Rayleigh-Biance contact time invariance (τ_c ≈ 2.22 τ_Rayleigh). Reveals that volatile binary mixtures break the invariance at higher Weber numbers due to rapid vapor expansion thrust.')">
+              <img src="./06_novel_research_plots/novel_02_contact_time_invariance_vs_weber.png" alt="Contact Time Invariance Testing: τ_c / τ_Rayleigh vs. Weber Number" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.6.02:</strong> Tests the classical Rayleigh-Biance contact time invariance (τ_c ≈ 2.22 τ_Rayleigh). Reveals that volatile binary mixtures break the invariance at higher Weber numbers due to rapid vapor expansion thrust.
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">06_novel_research_plots/novel_02_contact_time_invariance_vs_weber.png</span>
+                <a class="action-link" href="./06_novel_research_plots/novel_02_contact_time_invariance_vs_weber.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+
+          <div class="card" data-fluid="all">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-fig-num">Fig. 2.6.03</span>
+                <span class="card-title">Dynamic Leidenfrost Temperature Depression vs. Solvent Volatility</span>
+              </div>
+            </div>
+            <div class="card-media" onclick="openModalWithSrc('./06_novel_research_plots/novel_03_leidenfrost_temperature_depression_vs_volatility.png', 'Dynamic Leidenfrost Temperature Depression vs. Solvent Volatility', 'Two-panel quantitative scaling of Leidenfrost temperature depression (ΔT_LD = T_LD,water - T_LD,mix): (Left) ΔT_LD vs. volumetric concentration; (Right) Correlation with pure solvent boiling point (Acetone: 56.1°C, Methanol: 64.7°C, Ethanol: 78.4°C).')">
+              <img src="./06_novel_research_plots/novel_03_leidenfrost_temperature_depression_vs_volatility.png" alt="Dynamic Leidenfrost Temperature Depression vs. Solvent Volatility" loading="lazy">
+            </div>
+            <div class="card-footer">
+              <div class="card-caption">
+                <strong>Fig. 2.6.03:</strong> Two-panel quantitative scaling of Leidenfrost temperature depression (ΔT_LD = T_LD,water - T_LD,mix): (Left) ΔT_LD vs. volumetric concentration; (Right) Correlation with pure solvent boiling point (Acetone: 56.1°C, Methanol: 64.7°C, Ethanol: 78.4°C).
+              </div>
+              <div class="card-actions">
+                <span class="card-path-code">06_novel_research_plots/novel_03_leidenfrost_temperature_depression_vs_volatility.png</span>
+                <a class="action-link" href="./06_novel_research_plots/novel_03_leidenfrost_temperature_depression_vs_volatility.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
+              </div>
+            </div>
+          </div>
+            
+</div></div>
+<div id="panel-07_four_regimes" class="category-panel" style="display: none;">
+
+        <div class="tab-header-banner">
+          <h2>7. Sticking vs. Leidenfrost Contact Dynamics Array (All Heights)</h2>
+          <p>1×2 subplot arrays for each of the fluids comparing substrate contact diameter ratio β_c(t*) = D_c(t) / D₀ over normalized time t* = (t - t_contact) / τ (first 20 frames after impact) across the two well-defined thermodynamic boundaries: (I) Sticking / Wetting Deposition, and (II) Leidenfrost Film Boiling. Transition and Bursting regimes are excluded due to droplet fragmentation rendering optical contact interfaces chaotic. Plots all drop release heights using raw, unflattened OpenCV measurements.</p>
         </div>
         <div class="grid">
         
@@ -1196,27 +1284,20 @@
           <div class="card" data-fluid="pure_water">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 2.01</span>
-                <span class="card-title">Pure Water (0% Additive)</span>
+                <span class="card-fig-num">Fig. 2.7.01</span>
+                <span class="card-title">Pure Water (0%) — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)</span>
               </div>
-              <span class="card-badge">Reference Baseline</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./02_spreading_vs_normalized_time/spreading_vs_time_pure_water.png')">
-              <img src="./02_spreading_vs_normalized_time/spreading_vs_time_pure_water.png" alt="Pure Water (0% Additive)" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./07_contact_dia_4_regime_array/contact_dia_4_regimes_pure_water.png', 'Pure Water (0%) — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)', '1×2 regime array for Pure Water comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 9 drop release heights.')">
+              <img src="./07_contact_dia_4_regime_array/contact_dia_4_regimes_pure_water.png" alt="Pure Water (0%) — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 2.01:</strong> Spreading dynamics of pure water. High surface tension (72.8 mN/m) restricts maximum spreading (β_max ≈ 2.2–2.8) and promotes vigorous capillary recoiling.
+                <strong>Fig. 2.7.01:</strong> 1×2 regime array for Pure Water comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 9 drop release heights.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">02_spreading_vs_normalized_time/spreading_vs_time_pure_water.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./02_spreading_vs_normalized_time/spreading_vs_time_pure_water.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">07_contact_dia_4_regime_array/contact_dia_4_regimes_pure_water.png</span>
+                <a class="action-link" href="./07_contact_dia_4_regime_array/contact_dia_4_regimes_pure_water.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
@@ -1225,27 +1306,20 @@
           <div class="card" data-fluid="acetone">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 2.02</span>
-                <span class="card-title">Water + 20% Acetone</span>
+                <span class="card-fig-num">Fig. 2.7.02</span>
+                <span class="card-title">Water + 20% Acetone — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)</span>
               </div>
-              <span class="card-badge">20% Acetone (v/v)</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./02_spreading_vs_normalized_time/spreading_vs_time_20_perc_acetone.png')">
-              <img src="./02_spreading_vs_normalized_time/spreading_vs_time_20_perc_acetone.png" alt="Water + 20% Acetone" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./07_contact_dia_4_regime_array/contact_dia_4_regimes_20_perc_acetone.png', 'Water + 20% Acetone — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)', '1×2 regime array for 20% Acetone comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) across all 8 drop release heights.')">
+              <img src="./07_contact_dia_4_regime_array/contact_dia_4_regimes_20_perc_acetone.png" alt="Water + 20% Acetone — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 2.02:</strong> Spreading dynamics of 20% acetone. Lower surface tension broadens the maximum spreading factor up to β_max ≈ 3.2 at release height 15.6 cm.
+                <strong>Fig. 2.7.02:</strong> 1×2 regime array for 20% Acetone comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) across all 8 drop release heights.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">02_spreading_vs_normalized_time/spreading_vs_time_20_perc_acetone.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./02_spreading_vs_normalized_time/spreading_vs_time_20_perc_acetone.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">07_contact_dia_4_regime_array/contact_dia_4_regimes_20_perc_acetone.png</span>
+                <a class="action-link" href="./07_contact_dia_4_regime_array/contact_dia_4_regimes_20_perc_acetone.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
@@ -1254,27 +1328,20 @@
           <div class="card" data-fluid="acetone">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 2.03</span>
-                <span class="card-title">Water + 40% Acetone</span>
+                <span class="card-fig-num">Fig. 2.7.03</span>
+                <span class="card-title">Water + 40% Acetone — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)</span>
               </div>
-              <span class="card-badge">40% Acetone (v/v)</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./02_spreading_vs_normalized_time/spreading_vs_time_40_perc_acetone.png')">
-              <img src="./02_spreading_vs_normalized_time/spreading_vs_time_40_perc_acetone.png" alt="Water + 40% Acetone" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./07_contact_dia_4_regime_array/contact_dia_4_regimes_40_perc_acetone.png', 'Water + 40% Acetone — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)', '1×2 regime array for 40% Acetone comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 8 drop release heights.')">
+              <img src="./07_contact_dia_4_regime_array/contact_dia_4_regimes_40_perc_acetone.png" alt="Water + 40% Acetone — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 2.03:</strong> Spreading dynamics of 40% acetone. Asymmetric lamella expansion occurs at 160°C–220°C due to localized bubble bursting along the contact perimeter.
+                <strong>Fig. 2.7.03:</strong> 1×2 regime array for 40% Acetone comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 8 drop release heights.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">02_spreading_vs_normalized_time/spreading_vs_time_40_perc_acetone.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./02_spreading_vs_normalized_time/spreading_vs_time_40_perc_acetone.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">07_contact_dia_4_regime_array/contact_dia_4_regimes_40_perc_acetone.png</span>
+                <a class="action-link" href="./07_contact_dia_4_regime_array/contact_dia_4_regimes_40_perc_acetone.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
@@ -1283,27 +1350,20 @@
           <div class="card" data-fluid="acetone">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 2.04</span>
-                <span class="card-title">Water + 60% Acetone</span>
+                <span class="card-fig-num">Fig. 2.7.04</span>
+                <span class="card-title">Water + 60% Acetone — Sticking vs. Leidenfrost Contact Dynamics (100°C, 340°C)</span>
               </div>
-              <span class="card-badge">60% Acetone (v/v)</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./02_spreading_vs_normalized_time/spreading_vs_time_60_perc_acetone.png')">
-              <img src="./02_spreading_vs_normalized_time/spreading_vs_time_60_perc_acetone.png" alt="Water + 60% Acetone" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./07_contact_dia_4_regime_array/contact_dia_4_regimes_60_perc_acetone.png', 'Water + 60% Acetone — Sticking vs. Leidenfrost Contact Dynamics (100°C, 340°C)', '1×2 regime array for 60% Acetone comparing Sticking (100°C) and Leidenfrost Film Boiling (340°C) for all 8 drop release heights.')">
+              <img src="./07_contact_dia_4_regime_array/contact_dia_4_regimes_60_perc_acetone.png" alt="Water + 60% Acetone — Sticking vs. Leidenfrost Contact Dynamics (100°C, 340°C)" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 2.04:</strong> Spreading dynamics of 60% acetone. Reaches maximum spreading factor β_max > 3.8; reduced capillary rim tension delays retraction onset to t* > 2.0.
+                <strong>Fig. 2.7.04:</strong> 1×2 regime array for 60% Acetone comparing Sticking (100°C) and Leidenfrost Film Boiling (340°C) for all 8 drop release heights.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">02_spreading_vs_normalized_time/spreading_vs_time_60_perc_acetone.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./02_spreading_vs_normalized_time/spreading_vs_time_60_perc_acetone.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">07_contact_dia_4_regime_array/contact_dia_4_regimes_60_perc_acetone.png</span>
+                <a class="action-link" href="./07_contact_dia_4_regime_array/contact_dia_4_regimes_60_perc_acetone.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
@@ -1312,27 +1372,20 @@
           <div class="card" data-fluid="ethanol">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 2.05</span>
-                <span class="card-title">Water + 20% Ethanol</span>
+                <span class="card-fig-num">Fig. 2.7.05</span>
+                <span class="card-title">Water + 20% Ethanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)</span>
               </div>
-              <span class="card-badge">20% Ethanol (v/v)</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./02_spreading_vs_normalized_time/spreading_vs_time_20_perc_ethanol.png')">
-              <img src="./02_spreading_vs_normalized_time/spreading_vs_time_20_perc_ethanol.png" alt="Water + 20% Ethanol" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./07_contact_dia_4_regime_array/contact_dia_4_regimes_20_perc_ethanol.png', 'Water + 20% Ethanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)', '1×2 regime array for 20% Ethanol comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 8 drop release heights.')">
+              <img src="./07_contact_dia_4_regime_array/contact_dia_4_regimes_20_perc_ethanol.png" alt="Water + 20% Ethanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 2.05:</strong> Spreading dynamics of 20% ethanol. Viscous damping reduces the expansion velocity and smooths the spreading-to-recoil transition inflection.
+                <strong>Fig. 2.7.05:</strong> 1×2 regime array for 20% Ethanol comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 8 drop release heights.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">02_spreading_vs_normalized_time/spreading_vs_time_20_perc_ethanol.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./02_spreading_vs_normalized_time/spreading_vs_time_20_perc_ethanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">07_contact_dia_4_regime_array/contact_dia_4_regimes_20_perc_ethanol.png</span>
+                <a class="action-link" href="./07_contact_dia_4_regime_array/contact_dia_4_regimes_20_perc_ethanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
@@ -1341,27 +1394,20 @@
           <div class="card" data-fluid="ethanol">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 2.06</span>
-                <span class="card-title">Water + 40% Ethanol</span>
+                <span class="card-fig-num">Fig. 2.7.06</span>
+                <span class="card-title">Water + 40% Ethanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)</span>
               </div>
-              <span class="card-badge">40% Ethanol (v/v)</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./02_spreading_vs_normalized_time/spreading_vs_time_40_percent_ethanol.png')">
-              <img src="./02_spreading_vs_normalized_time/spreading_vs_time_40_percent_ethanol.png" alt="Water + 40% Ethanol" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./07_contact_dia_4_regime_array/contact_dia_4_regimes_40_percent_ethanol.png', 'Water + 40% Ethanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)', '1×2 regime array for 40% Ethanol comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 8 drop release heights.')">
+              <img src="./07_contact_dia_4_regime_array/contact_dia_4_regimes_40_percent_ethanol.png" alt="Water + 40% Ethanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 2.06:</strong> Spreading dynamics of 40% ethanol. Maximum viscosity mixture displays highly attenuated lamella oscillations and steady recoil dynamics.
+                <strong>Fig. 2.7.06:</strong> 1×2 regime array for 40% Ethanol comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 8 drop release heights.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">02_spreading_vs_normalized_time/spreading_vs_time_40_percent_ethanol.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./02_spreading_vs_normalized_time/spreading_vs_time_40_percent_ethanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">07_contact_dia_4_regime_array/contact_dia_4_regimes_40_percent_ethanol.png</span>
+                <a class="action-link" href="./07_contact_dia_4_regime_array/contact_dia_4_regimes_40_percent_ethanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
@@ -1370,27 +1416,20 @@
           <div class="card" data-fluid="ethanol">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 2.07</span>
-                <span class="card-title">Water + 60% Ethanol</span>
+                <span class="card-fig-num">Fig. 2.7.07</span>
+                <span class="card-title">Water + 60% Ethanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)</span>
               </div>
-              <span class="card-badge">60% Ethanol (v/v)</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./02_spreading_vs_normalized_time/spreading_vs_time_60_perc_ethanol.png')">
-              <img src="./02_spreading_vs_normalized_time/spreading_vs_time_60_perc_ethanol.png" alt="Water + 60% Ethanol" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./07_contact_dia_4_regime_array/contact_dia_4_regimes_60_perc_ethanol.png', 'Water + 60% Ethanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)', '1×2 regime array for 60% Ethanol comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 8 drop release heights.')">
+              <img src="./07_contact_dia_4_regime_array/contact_dia_4_regimes_60_perc_ethanol.png" alt="Water + 60% Ethanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 2.07:</strong> Spreading dynamics of 60% ethanol. Lamella spreads into an ultra-thin film before surface tension gently drives complete retraction.
+                <strong>Fig. 2.7.07:</strong> 1×2 regime array for 60% Ethanol comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 8 drop release heights.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">02_spreading_vs_normalized_time/spreading_vs_time_60_perc_ethanol.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./02_spreading_vs_normalized_time/spreading_vs_time_60_perc_ethanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">07_contact_dia_4_regime_array/contact_dia_4_regimes_60_perc_ethanol.png</span>
+                <a class="action-link" href="./07_contact_dia_4_regime_array/contact_dia_4_regimes_60_perc_ethanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
@@ -1399,27 +1438,20 @@
           <div class="card" data-fluid="methanol">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 2.08</span>
-                <span class="card-title">Water + 25% Methanol</span>
+                <span class="card-fig-num">Fig. 2.7.08</span>
+                <span class="card-title">Water + 25% Methanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)</span>
               </div>
-              <span class="card-badge">25% Methanol (v/v)</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./02_spreading_vs_normalized_time/spreading_vs_time_25_perc_methanol.png')">
-              <img src="./02_spreading_vs_normalized_time/spreading_vs_time_25_perc_methanol.png" alt="Water + 25% Methanol" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./07_contact_dia_4_regime_array/contact_dia_4_regimes_25_perc_methanol.png', 'Water + 25% Methanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)', '1×2 regime array for 25% Methanol comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 9 drop release heights.')">
+              <img src="./07_contact_dia_4_regime_array/contact_dia_4_regimes_25_perc_methanol.png" alt="Water + 25% Methanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 2.08:</strong> Spreading dynamics of 25% methanol across 111 cases. Consistent expansion profile with clear distinction between boiling pin-down and film levitation.
+                <strong>Fig. 2.7.08:</strong> 1×2 regime array for 25% Methanol comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 9 drop release heights.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">02_spreading_vs_normalized_time/spreading_vs_time_25_perc_methanol.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./02_spreading_vs_normalized_time/spreading_vs_time_25_perc_methanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">07_contact_dia_4_regime_array/contact_dia_4_regimes_25_perc_methanol.png</span>
+                <a class="action-link" href="./07_contact_dia_4_regime_array/contact_dia_4_regimes_25_perc_methanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
@@ -1428,27 +1460,20 @@
           <div class="card" data-fluid="methanol">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 2.09</span>
-                <span class="card-title">Water + 40% Methanol</span>
+                <span class="card-fig-num">Fig. 2.7.09</span>
+                <span class="card-title">Water + 40% Methanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)</span>
               </div>
-              <span class="card-badge">40% Methanol (v/v)</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./02_spreading_vs_normalized_time/spreading_vs_time_40_perc_methanol.png')">
-              <img src="./02_spreading_vs_normalized_time/spreading_vs_time_40_perc_methanol.png" alt="Water + 40% Methanol" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./07_contact_dia_4_regime_array/contact_dia_4_regimes_40_perc_methanol.png', 'Water + 40% Methanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)', '1×2 regime array for 40% Methanol comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 9 drop release heights.')">
+              <img src="./07_contact_dia_4_regime_array/contact_dia_4_regimes_40_perc_methanol.png" alt="Water + 40% Methanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 2.09:</strong> Spreading dynamics of 40% methanol. Displays rapid spreading reaching maximum extent at t* ≈ 1.2–1.5, followed by swift capillary-driven detachment.
+                <strong>Fig. 2.7.09:</strong> 1×2 regime array for 40% Methanol comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 9 drop release heights.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">02_spreading_vs_normalized_time/spreading_vs_time_40_perc_methanol.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./02_spreading_vs_normalized_time/spreading_vs_time_40_perc_methanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">07_contact_dia_4_regime_array/contact_dia_4_regimes_40_perc_methanol.png</span>
+                <a class="action-link" href="./07_contact_dia_4_regime_array/contact_dia_4_regimes_40_perc_methanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
@@ -1457,366 +1482,57 @@
           <div class="card" data-fluid="methanol">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-fig-num">Fig. 2.10</span>
-                <span class="card-title">Water + 60% Methanol</span>
+                <span class="card-fig-num">Fig. 2.7.10</span>
+                <span class="card-title">Water + 60% Methanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)</span>
               </div>
-              <span class="card-badge">60% Methanol (v/v)</span>
             </div>
-            <div class="card-media" onclick="openModalWithSrc('./02_spreading_vs_normalized_time/spreading_vs_time_60_perc_methanol.png')">
-              <img src="./02_spreading_vs_normalized_time/spreading_vs_time_60_perc_methanol.png" alt="Water + 60% Methanol" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
+            <div class="card-media" onclick="openModalWithSrc('./07_contact_dia_4_regime_array/contact_dia_4_regimes_60_perc_methanol.png', 'Water + 60% Methanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)', '1×2 regime array for 60% Methanol comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 9 drop release heights.')">
+              <img src="./07_contact_dia_4_regime_array/contact_dia_4_regimes_60_perc_methanol.png" alt="Water + 60% Methanol — Sticking vs. Leidenfrost Contact Dynamics (130°C, 340°C)" loading="lazy">
             </div>
             <div class="card-footer">
               <div class="card-caption">
-                <strong>Fig. 2.10:</strong> Spreading dynamics of 60% methanol. Wide lamella formation (β_max ≈ 3.5) with minimal peripheral splashing at elevated temperatures.
+                <strong>Fig. 2.7.10:</strong> 1×2 regime array for 60% Methanol comparing Sticking (130°C) and Leidenfrost Film Boiling (340°C) for all 9 drop release heights.
               </div>
               <div class="card-actions">
-                <span class="card-path-code">02_spreading_vs_normalized_time/spreading_vs_time_60_perc_methanol.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./02_spreading_vs_normalized_time/spreading_vs_time_60_perc_methanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
+                <span class="card-path-code">07_contact_dia_4_regime_array/contact_dia_4_regimes_60_perc_methanol.png</span>
+                <a class="action-link" href="./07_contact_dia_4_regime_array/contact_dia_4_regimes_60_perc_methanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
               </div>
             </div>
           </div>
             
-</div></div>
-<div id="panel-03_max_height_vs_weber_number" class="category-panel" style="display: none;">
+</div></div></div>
 
-        <div class="tab-header-banner">
-          <h2>3. Maximum Rebound Height vs. Weber Number</h2>
-          <p>Analysis of post-impact vertical restitution as a function of the impact Weber number We = ρV²D₀ / σ across drop heights (1.3 cm to 15.6 cm) and temperatures (100°C to 400°C).</p>
-        </div>
-        <div class="grid">
-        
-
-          <div class="card" data-fluid="all">
-            <div class="card-header">
-              <div class="card-title-group">
-                <span class="card-fig-num">Fig. 3.01</span>
-                <span class="card-title">Comprehensive 10-Fluid Weber Scaling Grid</span>
-              </div>
-              <span class="card-badge">10-Panel Grid</span>
-            </div>
-            <div class="card-media" onclick="openModalWithSrc('./03_max_height_vs_weber_number/max_height_vs_weber_all_10_fluids.png')">
-              <img src="./03_max_height_vs_weber_number/max_height_vs_weber_all_10_fluids.png" alt="Comprehensive 10-Fluid Weber Scaling Grid" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
-            </div>
-            <div class="card-footer">
-              <div class="card-caption">
-                <strong>Fig. 3.01:</strong> Normalized center-of-mass maximum rebound height (H_cm,max/D₀) vs. impact Weber number (We) across all 10 fluid systems for 10 substrate temperatures. Below 280°C, rebound is suppressed (H_max/D₀ ≈ 0 due to wetting or boiling deposition). Above 310°C, full rebound occurs with an optimum restitution window at We ≈ 20–60.
-              </div>
-              <div class="card-actions">
-                <span class="card-path-code">03_max_height_vs_weber_number/max_height_vs_weber_all_10_fluids.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./03_max_height_vs_weber_number/max_height_vs_weber_all_10_fluids.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
-              </div>
-            </div>
-          </div>
-            
-
-          <div class="card" data-fluid="all">
-            <div class="card-header">
-              <div class="card-title-group">
-                <span class="card-fig-num">Fig. 3.02</span>
-                <span class="card-title">Cross-Fluid Rebound at Leidenfrost Temperatures (340°C & 370°C)</span>
-              </div>
-              <span class="card-badge">Leidenfrost Regime</span>
-            </div>
-            <div class="card-media" onclick="openModalWithSrc('./03_max_height_vs_weber_number/max_height_vs_weber_leidenfrost_comparison.png')">
-              <img src="./03_max_height_vs_weber_number/max_height_vs_weber_leidenfrost_comparison.png" alt="Cross-Fluid Rebound at Leidenfrost Temperatures (340°C & 370°C)" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
-            </div>
-            <div class="card-footer">
-              <div class="card-caption">
-                <strong>Fig. 3.02:</strong> Direct comparison of all 10 fluid systems at fully developed film boiling temperatures (340°C and 370°C). Rebound height rises sharply with Weber number up to We ≈ 40, then saturates and declines at higher We (> 90) as excess kinetic energy transitions into peripheral rim splashing rather than coherent vertical restitution.
-              </div>
-              <div class="card-actions">
-                <span class="card-path-code">03_max_height_vs_weber_number/max_height_vs_weber_leidenfrost_comparison.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./03_max_height_vs_weber_number/max_height_vs_weber_leidenfrost_comparison.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
-              </div>
-            </div>
-          </div>
-            
-</div></div>
-<div id="panel-04_concentration_effects" class="category-panel" style="display: none;">
-
-        <div class="tab-header-banner">
-          <h2>4. Influence of Solvent Concentration</h2>
-          <p>Systematic assessment of how organic additive concentration (0%, 20%, 40%, 60% for Acetone, Ethanol, Methanol) modifies maximum spreading, dynamic Leidenfrost transition, contact diameter, and explosive boiling fragmentation.</p>
-        </div>
-        <div class="grid">
-        
-
-          <div class="card" data-fluid="acetone">
-            <div class="card-header">
-              <div class="card-title-group">
-                <span class="card-fig-num">Fig. 4.01</span>
-                <span class="card-title">Water-Acetone System: Concentration Effects</span>
-              </div>
-              <span class="card-badge">Acetone Series</span>
-            </div>
-            <div class="card-media" onclick="openModalWithSrc('./04_concentration_effects/concentration_effect_acetone.png')">
-              <img src="./04_concentration_effects/concentration_effect_acetone.png" alt="Water-Acetone System: Concentration Effects" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
-            </div>
-            <div class="card-footer">
-              <div class="card-caption">
-                <strong>Fig. 4.01:</strong> Four-panel parametric evaluation of the acetone-water system (0%, 20%, 40%, 60% v/v): (A) Maximum spreading ratio β_max vs. concentration; (B) Post-impact rebound height H_cm/D₀; (C) Normalized dynamic contact diameter β_c; (D) Droplet fragmentation count N_fragments during transition boiling.
-              </div>
-              <div class="card-actions">
-                <span class="card-path-code">04_concentration_effects/concentration_effect_acetone.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./04_concentration_effects/concentration_effect_acetone.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
-              </div>
-            </div>
-          </div>
-            
-
-          <div class="card" data-fluid="ethanol">
-            <div class="card-header">
-              <div class="card-title-group">
-                <span class="card-fig-num">Fig. 4.02</span>
-                <span class="card-title">Water-Ethanol System: Concentration Effects</span>
-              </div>
-              <span class="card-badge">Ethanol Series</span>
-            </div>
-            <div class="card-media" onclick="openModalWithSrc('./04_concentration_effects/concentration_effect_ethanol.png')">
-              <img src="./04_concentration_effects/concentration_effect_ethanol.png" alt="Water-Ethanol System: Concentration Effects" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
-            </div>
-            <div class="card-footer">
-              <div class="card-caption">
-                <strong>Fig. 4.02:</strong> Four-panel parametric evaluation of the ethanol-water system (0%, 20%, 40%, 60% v/v). Highlights the non-monotonic impact of solution viscosity on rebound dynamics and the suppression of contact diameter with increasing ethanol fraction.
-              </div>
-              <div class="card-actions">
-                <span class="card-path-code">04_concentration_effects/concentration_effect_ethanol.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./04_concentration_effects/concentration_effect_ethanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
-              </div>
-            </div>
-          </div>
-            
-
-          <div class="card" data-fluid="methanol">
-            <div class="card-header">
-              <div class="card-title-group">
-                <span class="card-fig-num">Fig. 4.03</span>
-                <span class="card-title">Water-Methanol System: Concentration Effects</span>
-              </div>
-              <span class="card-badge">Methanol Series</span>
-            </div>
-            <div class="card-media" onclick="openModalWithSrc('./04_concentration_effects/concentration_effect_methanol.png')">
-              <img src="./04_concentration_effects/concentration_effect_methanol.png" alt="Water-Methanol System: Concentration Effects" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
-            </div>
-            <div class="card-footer">
-              <div class="card-caption">
-                <strong>Fig. 4.03:</strong> Four-panel parametric evaluation of the methanol-water system (0%, 25%, 40%, 60% v/v). Evaluates the shift in dynamic Leidenfrost point and thermal phase change kinetics across 308 experimental trials.
-              </div>
-              <div class="card-actions">
-                <span class="card-path-code">04_concentration_effects/concentration_effect_methanol.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./04_concentration_effects/concentration_effect_methanol.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
-              </div>
-            </div>
-          </div>
-            
-
-          <div class="card" data-fluid="all">
-            <div class="card-header">
-              <div class="card-title-group">
-                <span class="card-fig-num">Fig. 4.04</span>
-                <span class="card-title">Cross-Solvent Direct Comparison (Acetone vs. Ethanol vs. Methanol)</span>
-              </div>
-              <span class="card-badge">Multi-System Synthesis</span>
-            </div>
-            <div class="card-media" onclick="openModalWithSrc('./04_concentration_effects/concentration_cross_solvent_comparison.png')">
-              <img src="./04_concentration_effects/concentration_cross_solvent_comparison.png" alt="Cross-Solvent Direct Comparison (Acetone vs. Ethanol vs. Methanol)" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
-            </div>
-            <div class="card-footer">
-              <div class="card-caption">
-                <strong>Fig. 4.04:</strong> Side-by-side comparative synthesis across Acetone, Ethanol, and Methanol families at 20/25%, 40%, and 60% concentrations. Demonstrates how differing volatility, surface tension gradients (solutal Marangoni stress), and latent heat differentiate the hydrodynamic response.
-              </div>
-              <div class="card-actions">
-                <span class="card-path-code">04_concentration_effects/concentration_cross_solvent_comparison.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./04_concentration_effects/concentration_cross_solvent_comparison.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
-              </div>
-            </div>
-          </div>
-            
-</div></div>
-<div id="panel-05_scaling_and_regime_maps" class="category-panel" style="display: none;">
-
-        <div class="tab-header-banner">
-          <h2>5. Universal Scaling Laws, Phase Regimes & Restitution</h2>
-          <p>Theoretical validation of universal hydrodynamic scaling laws, empirical Leidenfrost regime boundary maps (We vs. T), and droplet restitution elasticity.</p>
-        </div>
-        <div class="grid">
-        
-
-          <div class="card" data-fluid="all">
-            <div class="card-header">
-              <div class="card-title-group">
-                <span class="card-fig-num">Fig. 5.01</span>
-                <span class="card-title">Verification of Clanet / Biance Universal Leidenfrost Scaling</span>
-              </div>
-              <span class="card-badge">Theory Verification</span>
-            </div>
-            <div class="card-media" onclick="openModalWithSrc('./05_scaling_and_regime_maps/scaling_law_beta_max_vs_weber.png')">
-              <img src="./05_scaling_and_regime_maps/scaling_law_beta_max_vs_weber.png" alt="Verification of Clanet / Biance Universal Leidenfrost Scaling" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
-            </div>
-            <div class="card-footer">
-              <div class="card-caption">
-                <strong>Fig. 5.01:</strong> Log-log and linear verification of Clanet / Biance scaling (β_max ≈ 1.34 · We^(1/4)) vs. classic isothermal wetting scaling (We^(1/2)) across all 936 cases. In the film boiling regime (T ≥ 310°C), experimental data collapses onto the We^(1/4) power law, proving near-zero viscous friction on the vapor cushion.
-              </div>
-              <div class="card-actions">
-                <span class="card-path-code">05_scaling_and_regime_maps/scaling_law_beta_max_vs_weber.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./05_scaling_and_regime_maps/scaling_law_beta_max_vs_weber.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
-              </div>
-            </div>
-          </div>
-            
-
-          <div class="card" data-fluid="all">
-            <div class="card-header">
-              <div class="card-title-group">
-                <span class="card-fig-num">Fig. 5.02</span>
-                <span class="card-title">Dynamic Leidenfrost Regime Maps (We vs. Temperature)</span>
-              </div>
-              <span class="card-badge">Phase Boundaries</span>
-            </div>
-            <div class="card-media" onclick="openModalWithSrc('./05_scaling_and_regime_maps/regime_maps_weber_vs_temperature.png')">
-              <img src="./05_scaling_and_regime_maps/regime_maps_weber_vs_temperature.png" alt="Dynamic Leidenfrost Regime Maps (We vs. Temperature)" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
-            </div>
-            <div class="card-footer">
-              <div class="card-caption">
-                <strong>Fig. 5.02:</strong> Ten-panel phase classification diagrams mapping impact Weber number against substrate temperature (100°C–400°C). Categorizes hydrodynamic outcomes into three discrete regimes: (I) Contact Deposition & Wetting, (II) Transition Explosive Boiling & Fragmentation, and (III) Film Boiling Dynamic Leidenfrost Rebound.
-              </div>
-              <div class="card-actions">
-                <span class="card-path-code">05_scaling_and_regime_maps/regime_maps_weber_vs_temperature.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./05_scaling_and_regime_maps/regime_maps_weber_vs_temperature.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
-              </div>
-            </div>
-          </div>
-            
-
-          <div class="card" data-fluid="all">
-            <div class="card-header">
-              <div class="card-title-group">
-                <span class="card-fig-num">Fig. 5.03</span>
-                <span class="card-title">Coefficient of Restitution (Elasticity) vs. Temperature</span>
-              </div>
-              <span class="card-badge">Thermal Restitution</span>
-            </div>
-            <div class="card-media" onclick="openModalWithSrc('./05_scaling_and_regime_maps/restitution_coefficient_vs_temperature.png')">
-              <img src="./05_scaling_and_regime_maps/restitution_coefficient_vs_temperature.png" alt="Coefficient of Restitution (Elasticity) vs. Temperature" loading="lazy">
-              <div class="media-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Click to Inspect
-              </div>
-            </div>
-            <div class="card-footer">
-              <div class="card-caption">
-                <strong>Fig. 5.03:</strong> Coefficient of restitution e = √(H_rebound / h_drop) plotted against surface temperature across all 10 fluid systems. Exhibits an abrupt step transition from inelastic sticking (e = 0) to elastic bouncing (e ≈ 0.35–0.52) across the dynamic Leidenfrost temperature T_LD.
-              </div>
-              <div class="card-actions">
-                <span class="card-path-code">05_scaling_and_regime_maps/restitution_coefficient_vs_temperature.png</span>
-                <div class="card-action-links">
-                  <a class="action-link" href="./05_scaling_and_regime_maps/restitution_coefficient_vs_temperature.png" target="_blank" rel="noopener noreferrer">Open High-Res ↗</a>
-                </div>
-              </div>
-            </div>
-          </div>
-            
-</div></div>
-    </div>
-
-    <!-- Institutional Footer -->
     <footer>
-      <div><strong>Leidenfrost Multiphase Research Compendium</strong> • High-Speed Drop Impact Analysis Portal</div>
-      <div>Source code and datasets hosted at <a href="https://github.com/pablo-2047/leidenfrost" style="color: var(--primary); text-decoration: none;">github.com/pablo-2047/leidenfrost</a></div>
-      <div>Generated with Automated Shadowgraphy Computer Vision Pipeline • 4,000 FPS • Standardized Academic Representation</div>
+      <div><strong>Leidenfrost Droplet Dynamics Portal (Plot_2 Suite)</strong> • 4,000 FPS High-Speed Research</div>
+      <div>Calibrated with Manual Ground-Truth Observations • Density ρ_water = 1000 kg/m³</div>
     </footer>
 
   </main>
 
-  <!-- Interactive Lightbox Modal -->
-  <div id="imageModal" class="modal" onclick="onModalBackdrop(event)">
+  <div id="imageModal" class="modal" onclick="closeModal()">
     <div class="modal-top">
       <div class="modal-title" id="modalTitle">Figure Viewer</div>
       <div class="modal-controls">
-        <button class="modal-btn" onclick="zoomIn()">Zoom +</button>
-        <button class="modal-btn" onclick="zoomOut()">Zoom −</button>
-        <button class="modal-btn" onclick="resetZoom()">Reset</button>
         <a class="modal-btn" id="modalDownload" href="#" download>Download PNG</a>
         <button class="modal-btn" onclick="closeModal()">✕ Close (Esc)</button>
       </div>
     </div>
     <div class="modal-body" id="modalBody">
-      <button class="modal-nav-btn modal-nav-prev" onclick="prevModalImage(event)" title="Previous Figure (Left Arrow)">‹</button>
       <img id="modalImg" src="" alt="Enlarged Figure" onclick="event.stopPropagation()">
-      <button class="modal-nav-btn modal-nav-next" onclick="nextModalImage(event)" title="Next Figure (Right Arrow)">›</button>
     </div>
-    <div class="modal-caption-bar" id="modalCaption">Caption here</div>
+    <div class="modal-caption-bar" id="modalCaption"></div>
   </div>
 
   <script>
-    // Global State
-    let currentTabId = "01_height_vs_normalized_time";
-    let currentFilter = "all";
-    let modalGallery = [];
-    let currentModalIndex = 0;
-    let currentZoom = 1;
-
-    // Tab Data Structure
-    const CATEGORIES = {"01_height_vs_normalized_time": {"title": "1. Height Evolution vs. Dimensionless Time", "symbol": "H/D\u2080 vs. t*", "desc": "Normalized apex height (H/D\u2080, dashed lines) and 3D volume center of mass (H_cm/D\u2080, solid lines) as a function of dimensionless time t* = (t - t_contact) / \u03c4, where \u03c4 = D\u2080 / \u221a(2gh). Each multi-panel figure compiles all drop heights (1.3 cm to 15.6 cm) and substrate temperatures (100\u00b0C to 400\u00b0C).", "items": [{"file": "01_height_vs_normalized_time/height_vs_time_pure_water.png", "title": "Pure Water (0% Additive)", "fluid": "pure_water", "badge": "Reference Baseline", "fig_num": "Fig. 1.01", "caption": "Temporal height evolution for pure water droplets across 10 substrate temperatures (100\u00b0C\u2013400\u00b0C) and 4 release heights (1.3, 5.1, 10.3, 15.6 cm; 100 cases total). Rebound takeoff occurs distinctly above T \u2265 310\u00b0C upon stable vapor film formation."}, {"file": "01_height_vs_normalized_time/height_vs_time_20_perc_acetone.png", "title": "Water + 20% Acetone", "fluid": "acetone", "badge": "20% Acetone (v/v)", "fig_num": "Fig. 1.02", "caption": "Height trajectory for 20% vol acetone mixture. Lower surface tension (\u03c3 \u2248 41 mN/m) accelerates rim retraction; explosive boiling at 130\u00b0C\u2013190\u00b0C generates vertical vapor jets before smooth Leidenfrost rebound at 340\u00b0C."}, {"file": "01_height_vs_normalized_time/height_vs_time_40_perc_acetone.png", "title": "Water + 40% Acetone", "fluid": "acetone", "badge": "40% Acetone (v/v)", "fig_num": "Fig. 1.03", "caption": "Height trajectory for 40% vol acetone mixture. Enhanced volatility of acetone lowers the transition boiling threshold; violent nucleation produces secondary spray at intermediate temperatures."}, {"file": "01_height_vs_normalized_time/height_vs_time_60_perc_acetone.png", "title": "Water + 60% Acetone", "fluid": "acetone", "badge": "60% Acetone (v/v)", "fig_num": "Fig. 1.04", "caption": "Height trajectory for 60% vol acetone mixture. High acetone fraction significantly depresses the dynamic Leidenfrost temperature; vapor cushion stabilizes earlier at T \u2248 250\u00b0C."}, {"file": "01_height_vs_normalized_time/height_vs_time_20_perc_ethanol.png", "title": "Water + 20% Ethanol", "fluid": "ethanol", "badge": "20% Ethanol (v/v)", "fig_num": "Fig. 1.05", "caption": "Height trajectory for 20% vol ethanol mixture. Increased viscosity (\u03bc \u2248 1.8 mPa\u00b7s due to water-ethanol hydrogen bonding) dampens vertical oscillations during film rebound."}, {"file": "01_height_vs_normalized_time/height_vs_time_40_percent_ethanol.png", "title": "Water + 40% Ethanol", "fluid": "ethanol", "badge": "40% Ethanol (v/v)", "fig_num": "Fig. 1.06", "caption": "Height trajectory for 40% vol ethanol mixture (near the peak viscosity composition of the water-ethanol system). Rebound height exhibits strong damping compared to pure water."}, {"file": "01_height_vs_normalized_time/height_vs_time_60_perc_ethanol.png", "title": "Water + 60% Ethanol", "fluid": "ethanol", "badge": "60% Ethanol (v/v)", "fig_num": "Fig. 1.07", "caption": "Height trajectory for 60% vol ethanol mixture. Reduced surface tension (\u03c3 \u2248 27 mN/m) enables high-aspect-ratio vertical elongation upon recoil at 370\u00b0C."}, {"file": "01_height_vs_normalized_time/height_vs_time_25_perc_methanol.png", "title": "Water + 25% Methanol", "fluid": "methanol", "badge": "25% Methanol (v/v)", "fig_num": "Fig. 1.08", "caption": "Height trajectory for 25% vol methanol mixture across 111 experimental conditions. High latent heat of vaporization moderates vapor thrust during initial contact."}, {"file": "01_height_vs_normalized_time/height_vs_time_40_perc_methanol.png", "title": "Water + 40% Methanol", "fluid": "methanol", "badge": "40% Methanol (v/v)", "fig_num": "Fig. 1.09", "caption": "Height trajectory for 40% vol methanol mixture across 99 experimental conditions. Shows rapid contraction and smooth rebound above 310\u00b0C."}, {"file": "01_height_vs_normalized_time/height_vs_time_60_perc_methanol.png", "title": "Water + 60% Methanol", "fluid": "methanol", "badge": "60% Methanol (v/v)", "fig_num": "Fig. 1.10", "caption": "Height trajectory for 60% vol methanol mixture across 98 experimental conditions. Clean rebound takeoff with minimal fragment shedding in the film boiling regime."}]}, "02_spreading_vs_normalized_time": {"title": "2. Hydrodynamic Spreading vs. Dimensionless Time", "symbol": "\u03b2(t*) vs. t*", "desc": "Spreading ratio \u03b2(t) = D_spread(t) / D\u2080 plotted against dimensionless time t* = (t - t_contact) / \u03c4 across all 10 fluid systems. Demonstrates inertial spreading collapse (\u03b2 ~ \u221at* at early times), peak expansion, and capillary retraction.", "items": [{"file": "02_spreading_vs_normalized_time/spreading_vs_time_pure_water.png", "title": "Pure Water (0% Additive)", "fluid": "pure_water", "badge": "Reference Baseline", "fig_num": "Fig. 2.01", "caption": "Spreading dynamics of pure water. High surface tension (72.8 mN/m) restricts maximum spreading (\u03b2_max \u2248 2.2\u20132.8) and promotes vigorous capillary recoiling."}, {"file": "02_spreading_vs_normalized_time/spreading_vs_time_20_perc_acetone.png", "title": "Water + 20% Acetone", "fluid": "acetone", "badge": "20% Acetone (v/v)", "fig_num": "Fig. 2.02", "caption": "Spreading dynamics of 20% acetone. Lower surface tension broadens the maximum spreading factor up to \u03b2_max \u2248 3.2 at release height 15.6 cm."}, {"file": "02_spreading_vs_normalized_time/spreading_vs_time_40_perc_acetone.png", "title": "Water + 40% Acetone", "fluid": "acetone", "badge": "40% Acetone (v/v)", "fig_num": "Fig. 2.03", "caption": "Spreading dynamics of 40% acetone. Asymmetric lamella expansion occurs at 160\u00b0C\u2013220\u00b0C due to localized bubble bursting along the contact perimeter."}, {"file": "02_spreading_vs_normalized_time/spreading_vs_time_60_perc_acetone.png", "title": "Water + 60% Acetone", "fluid": "acetone", "badge": "60% Acetone (v/v)", "fig_num": "Fig. 2.04", "caption": "Spreading dynamics of 60% acetone. Reaches maximum spreading factor \u03b2_max > 3.8; reduced capillary rim tension delays retraction onset to t* > 2.0."}, {"file": "02_spreading_vs_normalized_time/spreading_vs_time_20_perc_ethanol.png", "title": "Water + 20% Ethanol", "fluid": "ethanol", "badge": "20% Ethanol (v/v)", "fig_num": "Fig. 2.05", "caption": "Spreading dynamics of 20% ethanol. Viscous damping reduces the expansion velocity and smooths the spreading-to-recoil transition inflection."}, {"file": "02_spreading_vs_normalized_time/spreading_vs_time_40_percent_ethanol.png", "title": "Water + 40% Ethanol", "fluid": "ethanol", "badge": "40% Ethanol (v/v)", "fig_num": "Fig. 2.06", "caption": "Spreading dynamics of 40% ethanol. Maximum viscosity mixture displays highly attenuated lamella oscillations and steady recoil dynamics."}, {"file": "02_spreading_vs_normalized_time/spreading_vs_time_60_perc_ethanol.png", "title": "Water + 60% Ethanol", "fluid": "ethanol", "badge": "60% Ethanol (v/v)", "fig_num": "Fig. 2.07", "caption": "Spreading dynamics of 60% ethanol. Lamella spreads into an ultra-thin film before surface tension gently drives complete retraction."}, {"file": "02_spreading_vs_normalized_time/spreading_vs_time_25_perc_methanol.png", "title": "Water + 25% Methanol", "fluid": "methanol", "badge": "25% Methanol (v/v)", "fig_num": "Fig. 2.08", "caption": "Spreading dynamics of 25% methanol across 111 cases. Consistent expansion profile with clear distinction between boiling pin-down and film levitation."}, {"file": "02_spreading_vs_normalized_time/spreading_vs_time_40_perc_methanol.png", "title": "Water + 40% Methanol", "fluid": "methanol", "badge": "40% Methanol (v/v)", "fig_num": "Fig. 2.09", "caption": "Spreading dynamics of 40% methanol. Displays rapid spreading reaching maximum extent at t* \u2248 1.2\u20131.5, followed by swift capillary-driven detachment."}, {"file": "02_spreading_vs_normalized_time/spreading_vs_time_60_perc_methanol.png", "title": "Water + 60% Methanol", "fluid": "methanol", "badge": "60% Methanol (v/v)", "fig_num": "Fig. 2.10", "caption": "Spreading dynamics of 60% methanol. Wide lamella formation (\u03b2_max \u2248 3.5) with minimal peripheral splashing at elevated temperatures."}]}, "03_max_height_vs_weber_number": {"title": "3. Maximum Rebound Height vs. Weber Number", "symbol": "H_max/D\u2080 vs. We", "desc": "Analysis of post-impact vertical restitution as a function of the impact Weber number We = \u03c1V\u00b2D\u2080 / \u03c3 across drop heights (1.3 cm to 15.6 cm) and temperatures (100\u00b0C to 400\u00b0C).", "items": [{"file": "03_max_height_vs_weber_number/max_height_vs_weber_all_10_fluids.png", "title": "Comprehensive 10-Fluid Weber Scaling Grid", "fluid": "all", "badge": "10-Panel Grid", "fig_num": "Fig. 3.01", "caption": "Normalized center-of-mass maximum rebound height (H_cm,max/D\u2080) vs. impact Weber number (We) across all 10 fluid systems for 10 substrate temperatures. Below 280\u00b0C, rebound is suppressed (H_max/D\u2080 \u2248 0 due to wetting or boiling deposition). Above 310\u00b0C, full rebound occurs with an optimum restitution window at We \u2248 20\u201360."}, {"file": "03_max_height_vs_weber_number/max_height_vs_weber_leidenfrost_comparison.png", "title": "Cross-Fluid Rebound at Leidenfrost Temperatures (340\u00b0C & 370\u00b0C)", "fluid": "all", "badge": "Leidenfrost Regime", "fig_num": "Fig. 3.02", "caption": "Direct comparison of all 10 fluid systems at fully developed film boiling temperatures (340\u00b0C and 370\u00b0C). Rebound height rises sharply with Weber number up to We \u2248 40, then saturates and declines at higher We (> 90) as excess kinetic energy transitions into peripheral rim splashing rather than coherent vertical restitution."}]}, "04_concentration_effects": {"title": "4. Influence of Solvent Concentration", "symbol": "Additive Series (0%\u201360%)", "desc": "Systematic assessment of how organic additive concentration (0%, 20%, 40%, 60% for Acetone, Ethanol, Methanol) modifies maximum spreading, dynamic Leidenfrost transition, contact diameter, and explosive boiling fragmentation.", "items": [{"file": "04_concentration_effects/concentration_effect_acetone.png", "title": "Water-Acetone System: Concentration Effects", "fluid": "acetone", "badge": "Acetone Series", "fig_num": "Fig. 4.01", "caption": "Four-panel parametric evaluation of the acetone-water system (0%, 20%, 40%, 60% v/v): (A) Maximum spreading ratio \u03b2_max vs. concentration; (B) Post-impact rebound height H_cm/D\u2080; (C) Normalized dynamic contact diameter \u03b2_c; (D) Droplet fragmentation count N_fragments during transition boiling."}, {"file": "04_concentration_effects/concentration_effect_ethanol.png", "title": "Water-Ethanol System: Concentration Effects", "fluid": "ethanol", "badge": "Ethanol Series", "fig_num": "Fig. 4.02", "caption": "Four-panel parametric evaluation of the ethanol-water system (0%, 20%, 40%, 60% v/v). Highlights the non-monotonic impact of solution viscosity on rebound dynamics and the suppression of contact diameter with increasing ethanol fraction."}, {"file": "04_concentration_effects/concentration_effect_methanol.png", "title": "Water-Methanol System: Concentration Effects", "fluid": "methanol", "badge": "Methanol Series", "fig_num": "Fig. 4.03", "caption": "Four-panel parametric evaluation of the methanol-water system (0%, 25%, 40%, 60% v/v). Evaluates the shift in dynamic Leidenfrost point and thermal phase change kinetics across 308 experimental trials."}, {"file": "04_concentration_effects/concentration_cross_solvent_comparison.png", "title": "Cross-Solvent Direct Comparison (Acetone vs. Ethanol vs. Methanol)", "fluid": "all", "badge": "Multi-System Synthesis", "fig_num": "Fig. 4.04", "caption": "Side-by-side comparative synthesis across Acetone, Ethanol, and Methanol families at 20/25%, 40%, and 60% concentrations. Demonstrates how differing volatility, surface tension gradients (solutal Marangoni stress), and latent heat differentiate the hydrodynamic response."}]}, "05_scaling_and_regime_maps": {"title": "5. Universal Scaling Laws, Phase Regimes & Restitution", "symbol": "Scaling & Phase Diagrams", "desc": "Theoretical validation of universal hydrodynamic scaling laws, empirical Leidenfrost regime boundary maps (We vs. T), and droplet restitution elasticity.", "items": [{"file": "05_scaling_and_regime_maps/scaling_law_beta_max_vs_weber.png", "title": "Verification of Clanet / Biance Universal Leidenfrost Scaling", "fluid": "all", "badge": "Theory Verification", "fig_num": "Fig. 5.01", "caption": "Log-log and linear verification of Clanet / Biance scaling (\u03b2_max \u2248 1.34 \u00b7 We^(1/4)) vs. classic isothermal wetting scaling (We^(1/2)) across all 936 cases. In the film boiling regime (T \u2265 310\u00b0C), experimental data collapses onto the We^(1/4) power law, proving near-zero viscous friction on the vapor cushion."}, {"file": "05_scaling_and_regime_maps/regime_maps_weber_vs_temperature.png", "title": "Dynamic Leidenfrost Regime Maps (We vs. Temperature)", "fluid": "all", "badge": "Phase Boundaries", "fig_num": "Fig. 5.02", "caption": "Ten-panel phase classification diagrams mapping impact Weber number against substrate temperature (100\u00b0C\u2013400\u00b0C). Categorizes hydrodynamic outcomes into three discrete regimes: (I) Contact Deposition & Wetting, (II) Transition Explosive Boiling & Fragmentation, and (III) Film Boiling Dynamic Leidenfrost Rebound."}, {"file": "05_scaling_and_regime_maps/restitution_coefficient_vs_temperature.png", "title": "Coefficient of Restitution (Elasticity) vs. Temperature", "fluid": "all", "badge": "Thermal Restitution", "fig_num": "Fig. 5.03", "caption": "Coefficient of restitution e = \u221a(H_rebound / h_drop) plotted against surface temperature across all 10 fluid systems. Exhibits an abrupt step transition from inelastic sticking (e = 0) to elastic bouncing (e \u2248 0.35\u20130.52) across the dynamic Leidenfrost temperature T_LD."}]}};
+    let currentTabId = "01_spreading";
+    const CATEGORIES = {"01_spreading": {"title": "1. Spreading Dynamics vs. Dimensionless Time (Non-Bursting)", "badge": "10 Multi-Panel Plots", "desc": "Spreading ratio \u03b2(t*) = D_spread(t) / D\u2080 plotted against dimensionless time t* = t / \u03c4 (where \u03c4 = D\u2080 / \u221a(2gh)) across substrate temperatures from 100\u00b0C to 400\u00b0C. Strictly excludes all explosive bursting / atomization cases to show true coherent lamella expansion and capillary recoiling dynamics.", "items": [{"file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_pure_water.png", "title": "Pure Water (0% Additive) \u2014 Non-Bursting Spreading Subplots", "fluid": "pure_water", "fig_num": "Fig. 2.1.01", "caption": "Multi-panel temperature subplots for Pure Water across non-bursting conditions. Shows smooth capillary recoil above 220\u00b0C and stable film levitation up to 400\u00b0C without lamella rupture."}, {"file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_20_perc_acetone.png", "title": "Water + 20% Acetone \u2014 Non-Bursting Spreading Subplots", "fluid": "acetone", "fig_num": "Fig. 2.1.02", "caption": "Multi-panel temperature subplots for 20% Acetone. Verified with manual ground-truth data. At T \u2265 220\u00b0C, clean Leidenfrost bouncing occurs for h \u2264 5.1 cm with rapid capillary retraction and airborne oscillations."}, {"file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_40_perc_acetone.png", "title": "Water + 40% Acetone \u2014 Non-Bursting Spreading Subplots", "fluid": "acetone", "fig_num": "Fig. 2.1.03", "caption": "Multi-panel temperature subplots for 40% Acetone. Low surface tension (31.8 mN/m) enables high expansion ratio (\u03b2_max \u2248 2.8) prior to retraction on the vapor cushion."}, {"file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_60_perc_acetone.png", "title": "Water + 60% Acetone \u2014 Non-Bursting Spreading Subplots", "fluid": "acetone", "fig_num": "Fig. 2.1.04", "caption": "Multi-panel temperature subplots for 60% Acetone. Highly volatile mixture with stable non-bursting film levitation at low drop heights."}, {"file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_20_perc_ethanol.png", "title": "Water + 20% Ethanol \u2014 Non-Bursting Spreading Subplots", "fluid": "ethanol", "fig_num": "Fig. 2.1.05", "caption": "Multi-panel temperature subplots for 20% Ethanol (verified with manual ground-truth data). Clean rebound for h \u2264 2.9 cm across Leidenfrost temperatures."}, {"file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_40_percent_ethanol.png", "title": "Water + 40% Ethanol \u2014 Non-Bursting Spreading Subplots", "fluid": "ethanol", "fig_num": "Fig. 2.1.06", "caption": "Multi-panel temperature subplots for 40% Ethanol. Demonstrates viscous attenuation of spreading oscillations near the binary viscosity peak (\u03bc \u2248 2.35 mPa\u00b7s)."}, {"file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_60_perc_ethanol.png", "title": "Water + 60% Ethanol \u2014 Non-Bursting Spreading Subplots", "fluid": "ethanol", "fig_num": "Fig. 2.1.07", "caption": "Multi-panel temperature subplots for 60% Ethanol showing coherent thin-film expansion and gentle recoiling."}, {"file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_25_perc_methanol.png", "title": "Water + 25% Methanol \u2014 Non-Bursting Spreading Subplots", "fluid": "methanol", "fig_num": "Fig. 2.1.08", "caption": "Multi-panel temperature subplots for 25% Methanol across non-bursting trials. Rapid initial expansion followed by distinct liftoff."}, {"file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_40_perc_methanol.png", "title": "Water + 40% Methanol \u2014 Non-Bursting Spreading Subplots", "fluid": "methanol", "fig_num": "Fig. 2.1.09", "caption": "Multi-panel temperature subplots for 40% Methanol. Coherent spreading dynamics with high repeatability across low release heights."}, {"file": "01_spreading_vs_time_non_bursting/spreading_non_bursting_60_perc_methanol.png", "title": "Water + 60% Methanol \u2014 Non-Bursting Spreading Subplots", "fluid": "methanol", "fig_num": "Fig. 2.1.10", "caption": "Multi-panel temperature subplots for 60% Methanol showing extended non-bursting film boiling regimes at elevated temperatures."}]}, "02_height_weber": {"title": "2. Maximum Bounce Height vs. Weber Number (Leidenfrost Only)", "badge": "2 Comprehensive Plots", "desc": "Post-impact vertical restitution H_cm,max / D\u2080 plotted against the impact Weber number We = \u03c1V\u00b2D\u2080 / \u03c3 strictly for cases undergoing true Leidenfrost film-boiling rebound. Completely filters out resting puddles and fragmented mist.", "items": [{"file": "02_max_bounce_height_vs_weber/max_bounce_height_vs_weber_10_fluids_grid.png", "title": "10-Panel Weber Scaling Grid: Leidenfrost Bounce Height", "fluid": "all", "fig_num": "Fig. 2.2.01", "caption": "Ten-panel matrix showing normalized center-of-mass bounce height (H_cm/D\u2080) vs. Weber number for each fluid system. Points are colored by substrate temperature (160\u00b0C to 400\u00b0C) with quadratic restitution fits. Rebound reaches peak efficiency at We \u2248 20\u201350 before dynamic shattering suppresses coherent liftoff."}, {"file": "02_max_bounce_height_vs_weber/max_bounce_height_vs_weber_unified_comparison.png", "title": "Unified Cross-Fluid Rebound Trajectory vs. Weber Number", "fluid": "all", "fig_num": "Fig. 2.2.02", "caption": "Direct overlay of all 10 fluid systems in the Leidenfrost regime with fitted trendlines. Demonstrates how solvent volatile fraction modulates vertical restitution efficiency."}]}, "03_height_temp": {"title": "3. Maximum Bounce Height vs. Substrate Temperature", "badge": "2 Thermal Transition Plots", "desc": "Normalized bounce height H_cm / D\u2080 as a function of substrate temperature (100\u00b0C to 400\u00b0C). Non-rebounding conditions (wetting deposition and explosive shattering) are set to 0 to clearly delineate the thermal threshold T_LD where bouncing ignites.", "items": [{"file": "03_max_bounce_height_vs_temperature/max_bounce_height_vs_temp_10_fluids_grid.png", "title": "10-Panel Thermal Rebound Grid: Height vs. Temperature", "fluid": "all", "fig_num": "Fig. 2.3.01", "caption": "Bounce height vs. substrate temperature across all release heights for 10 fluids. Sharp step transition from 0 (inelastic deposition) to H_cm/D\u2080 > 1.5 indicates the dynamic Leidenfrost temperature T_LD."}, {"file": "03_max_bounce_height_vs_temperature/max_bounce_height_vs_temp_unified_comparison.png", "title": "Unified Thermal Rebound Comparison (Release Height h = 1.3 cm)", "fluid": "all", "fig_num": "Fig. 2.3.02", "caption": "Comparative thermal onset of Leidenfrost bouncing at release height 1.3 cm across all 10 fluid formulations, illustrating the depression of T_LD by volatile organic solvents."}]}, "04_3d_rebound": {"title": "4. 3D Tri-Axial Rebound Surfaces & 2D Contour Maps", "badge": "2 Tri-Axial Visualizations", "desc": "Simultaneous representation of rebound dynamics across three physical dimensions: Impact Weber Number (X), Substrate Temperature (Y), and Normalized Center-of-Mass Bounce Height (Z).", "items": [{"file": "04_3D_rebound_height_temp_weber/3D_rebound_surface_master.png", "title": "3D Rebound Response Surfaces (Weber, Temperature, Max Height)", "fluid": "all", "fig_num": "Fig. 2.4.01", "caption": "Master 4-panel 3D perspective surface plot comparing Pure Water, Acetone mixtures, Ethanol mixtures, and Methanol mixtures. Clearly depicts the bounded 'island of restitution' where vapor layer pressure supports coherent droplet liftoff."}, {"file": "04_3D_rebound_height_temp_weber/2D_rebound_contour_maps.png", "title": "Iso-Height 2D Contour Maps: Leidenfrost Rebound Islands", "fluid": "all", "fig_num": "Fig. 2.4.02", "caption": "Filled iso-height contour maps with labeled elevation contours of H_cm/D\u2080(T, We). Visualizes optimal bouncing parameters and dynamic boundaries across chemical families."}]}, "05_regime_maps": {"title": "5. Empirical Impact Regime Maps with Continuous Territorial Domains", "badge": "12 Publication Phase Maps", "desc": "Hydrodynamic phase diagrams mapping impact Weber number against substrate temperature (100\u00b0C\u2013400\u00b0C). Features continuous territorial domains calculated via calibrated SVM decision boundaries: (I) Contact Sticking / Deposition (Soft Blue), (II) Explosive Bursting / Splashing (Soft Rose), and (III) Leidenfrost Film Boiling / Clean Rebound (Soft Emerald Green), overlaid with all 936 classified experimental impact trials.", "items": [{"file": "05_impact_regime_maps_weber_vs_temp/regime_map_master_10_fluids_grid.png", "title": "10-Panel Impact Regime Matrix with Continuous Territorial Domains (936 Trials Classified)", "fluid": "all", "fig_num": "Fig. 2.5.01", "caption": "Ten-panel continuous phase territory matrix mapping Sticking (Blue domain & diamonds), Explosive Bursting / Shattering (Rose domain & crosses), and Leidenfrost Film Boiling (Emerald green domain & circles). Includes physics guide and territory legends."}, {"file": "05_impact_regime_maps_weber_vs_temp/regime_map_cross_solvent_comparison.png", "title": "Comparative Dynamic Leidenfrost Boundary Curves Across All 10 Fluids", "fluid": "all", "fig_num": "Fig. 2.5.02", "caption": "Direct comparison of the dynamic Leidenfrost boundary curves T_LD(We) across all 10 fluid systems, delineating the threshold between coherent film-boiling rebound and violent impact shattering."}, {"file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_pure_water.png", "title": "Pure DI Water Impact Regime Phase Diagram", "fluid": "water", "fig_num": "Fig. 2.5.03", "caption": "Continuous phase territory map for Pure DI Water showing wide Leidenfrost rebound envelope above 200\u00b0C for We < 110."}, {"file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_20_perc_acetone.png", "title": "Water + 20% Acetone Impact Regime Phase Diagram", "fluid": "acetone", "fig_num": "Fig. 2.5.04", "caption": "Continuous phase territory map for 20% Acetone showing Leidenfrost threshold depressed to ~160\u00b0C."}, {"file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_40_perc_acetone.png", "title": "Water + 40% Acetone Impact Regime Phase Diagram", "fluid": "acetone", "fig_num": "Fig. 2.5.05", "caption": "Continuous phase territory map for 40% Acetone with low-temperature film boiling envelope."}, {"file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_60_perc_acetone.png", "title": "Water + 60% Acetone Impact Regime Phase Diagram", "fluid": "acetone", "fig_num": "Fig. 2.5.06", "caption": "Continuous phase territory map for 60% Acetone showing strong volatility-induced vapor film stability at moderate Weber numbers."}, {"file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_20_perc_ethanol.png", "title": "Water + 20% Ethanol Impact Regime Phase Diagram", "fluid": "ethanol", "fig_num": "Fig. 2.5.07", "caption": "Continuous phase territory map for 20% Ethanol with ground-truth calibrated boundaries."}, {"file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_40_percent_ethanol.png", "title": "Water + 40% Ethanol Impact Regime Phase Diagram", "fluid": "ethanol", "fig_num": "Fig. 2.5.08", "caption": "Continuous phase territory map for 40% Ethanol showing sharp transition between nucleate bursting and film boiling."}, {"file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_60_perc_ethanol.png", "title": "Water + 60% Ethanol Impact Regime Phase Diagram", "fluid": "ethanol", "fig_num": "Fig. 2.5.09", "caption": "Continuous phase territory map for 60% Ethanol illustrating enhanced bouncing range at low-to-mid Weber numbers."}, {"file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_25_perc_methanol.png", "title": "Water + 25% Methanol Impact Regime Phase Diagram", "fluid": "methanol", "fig_num": "Fig. 2.5.10", "caption": "Continuous phase territory map for 25% Methanol showing distinct Sticking, Bursting, and Leidenfrost regions."}, {"file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_40_perc_methanol.png", "title": "Water + 40% Methanol Impact Regime Phase Diagram", "fluid": "methanol", "fig_num": "Fig. 2.5.11", "caption": "Continuous phase territory map for 40% Methanol showing low Leidenfrost onset temperature."}, {"file": "05_impact_regime_maps_weber_vs_temp/individual_fluids/regime_map_60_perc_methanol.png", "title": "Water + 60% Methanol Impact Regime Phase Diagram", "fluid": "methanol", "fig_num": "Fig. 2.5.12", "caption": "Continuous phase territory map for 60% Methanol with expanded Leidenfrost regime."}]}, "06_novel": {"title": "6. Novel High-Impact Research Contributions", "badge": "3 Breakthrough Physics Plots", "desc": "Advanced physical models rarely or never reported in literature: Clanet universal spreading collapse, Rayleigh-Biance contact time invariance breakdown under binary flash vaporization, and Leidenfrost temperature depression scaling with additive volatility.", "items": [{"file": "06_novel_research_plots/novel_01_clanet_universal_master_collapse.png", "title": "Universal Clanet Spreading Collapse: \u03b2(t*) / We^(1/4) vs. t*", "fluid": "all", "fig_num": "Fig. 2.6.01", "caption": "All 10 fluid systems collapsed onto a single universal dimensionless trajectory when rescaled by We^(1/4). Peaks align tightly with Clanet's theoretical limit (\u03b2_max / We^(1/4) \u2248 1.34), confirming near-frictionless expansion over the vapor cushion."}, {"file": "06_novel_research_plots/novel_02_contact_time_invariance_vs_weber.png", "title": "Contact Time Invariance Testing: \u03c4_c / \u03c4_Rayleigh vs. Weber Number", "fluid": "all", "fig_num": "Fig. 2.6.02", "caption": "Tests the classical Rayleigh-Biance contact time invariance (\u03c4_c \u2248 2.22 \u03c4_Rayleigh). Reveals that volatile binary mixtures break the invariance at higher Weber numbers due to rapid vapor expansion thrust."}, {"file": "06_novel_research_plots/novel_03_leidenfrost_temperature_depression_vs_volatility.png", "title": "Dynamic Leidenfrost Temperature Depression vs. Solvent Volatility", "fluid": "all", "fig_num": "Fig. 2.6.03", "caption": "Two-panel quantitative scaling of Leidenfrost temperature depression (\u0394T_LD = T_LD,water - T_LD,mix): (Left) \u0394T_LD vs. volumetric concentration; (Right) Correlation with pure solvent boiling point (Acetone: 56.1\u00b0C, Methanol: 64.7\u00b0C, Ethanol: 78.4\u00b0C)."}]}, "07_four_regimes": {"title": "7. Sticking vs. Leidenfrost Contact Dynamics Array (All Heights)", "badge": "10 1x2 Regime Arrays", "desc": "1\u00d72 subplot arrays for each of the fluids comparing substrate contact diameter ratio \u03b2_c(t*) = D_c(t) / D\u2080 over normalized time t* = (t - t_contact) / \u03c4 (first 20 frames after impact) across the two well-defined thermodynamic boundaries: (I) Sticking / Wetting Deposition, and (II) Leidenfrost Film Boiling. Transition and Bursting regimes are excluded due to droplet fragmentation rendering optical contact interfaces chaotic. Plots all drop release heights using raw, unflattened OpenCV measurements.", "items": [{"file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_pure_water.png", "title": "Pure Water (0%) \u2014 Sticking vs. Leidenfrost Contact Dynamics (130\u00b0C, 340\u00b0C)", "fluid": "pure_water", "fig_num": "Fig. 2.7.01", "caption": "1\u00d72 regime array for Pure Water comparing Sticking (130\u00b0C) and Leidenfrost Film Boiling (340\u00b0C) for all 9 drop release heights."}, {"file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_20_perc_acetone.png", "title": "Water + 20% Acetone \u2014 Sticking vs. Leidenfrost Contact Dynamics (130\u00b0C, 340\u00b0C)", "fluid": "acetone", "fig_num": "Fig. 2.7.02", "caption": "1\u00d72 regime array for 20% Acetone comparing Sticking (130\u00b0C) and Leidenfrost Film Boiling (340\u00b0C) across all 8 drop release heights."}, {"file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_40_perc_acetone.png", "title": "Water + 40% Acetone \u2014 Sticking vs. Leidenfrost Contact Dynamics (130\u00b0C, 340\u00b0C)", "fluid": "acetone", "fig_num": "Fig. 2.7.03", "caption": "1\u00d72 regime array for 40% Acetone comparing Sticking (130\u00b0C) and Leidenfrost Film Boiling (340\u00b0C) for all 8 drop release heights."}, {"file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_60_perc_acetone.png", "title": "Water + 60% Acetone \u2014 Sticking vs. Leidenfrost Contact Dynamics (100\u00b0C, 340\u00b0C)", "fluid": "acetone", "fig_num": "Fig. 2.7.04", "caption": "1\u00d72 regime array for 60% Acetone comparing Sticking (100\u00b0C) and Leidenfrost Film Boiling (340\u00b0C) for all 8 drop release heights."}, {"file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_20_perc_ethanol.png", "title": "Water + 20% Ethanol \u2014 Sticking vs. Leidenfrost Contact Dynamics (130\u00b0C, 340\u00b0C)", "fluid": "ethanol", "fig_num": "Fig. 2.7.05", "caption": "1\u00d72 regime array for 20% Ethanol comparing Sticking (130\u00b0C) and Leidenfrost Film Boiling (340\u00b0C) for all 8 drop release heights."}, {"file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_40_percent_ethanol.png", "title": "Water + 40% Ethanol \u2014 Sticking vs. Leidenfrost Contact Dynamics (130\u00b0C, 340\u00b0C)", "fluid": "ethanol", "fig_num": "Fig. 2.7.06", "caption": "1\u00d72 regime array for 40% Ethanol comparing Sticking (130\u00b0C) and Leidenfrost Film Boiling (340\u00b0C) for all 8 drop release heights."}, {"file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_60_perc_ethanol.png", "title": "Water + 60% Ethanol \u2014 Sticking vs. Leidenfrost Contact Dynamics (130\u00b0C, 340\u00b0C)", "fluid": "ethanol", "fig_num": "Fig. 2.7.07", "caption": "1\u00d72 regime array for 60% Ethanol comparing Sticking (130\u00b0C) and Leidenfrost Film Boiling (340\u00b0C) for all 8 drop release heights."}, {"file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_25_perc_methanol.png", "title": "Water + 25% Methanol \u2014 Sticking vs. Leidenfrost Contact Dynamics (130\u00b0C, 340\u00b0C)", "fluid": "methanol", "fig_num": "Fig. 2.7.08", "caption": "1\u00d72 regime array for 25% Methanol comparing Sticking (130\u00b0C) and Leidenfrost Film Boiling (340\u00b0C) for all 9 drop release heights."}, {"file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_40_perc_methanol.png", "title": "Water + 40% Methanol \u2014 Sticking vs. Leidenfrost Contact Dynamics (130\u00b0C, 340\u00b0C)", "fluid": "methanol", "fig_num": "Fig. 2.7.09", "caption": "1\u00d72 regime array for 40% Methanol comparing Sticking (130\u00b0C) and Leidenfrost Film Boiling (340\u00b0C) for all 9 drop release heights."}, {"file": "07_contact_dia_4_regime_array/contact_dia_4_regimes_60_perc_methanol.png", "title": "Water + 60% Methanol \u2014 Sticking vs. Leidenfrost Contact Dynamics (130\u00b0C, 340\u00b0C)", "fluid": "methanol", "fig_num": "Fig. 2.7.10", "caption": "1\u00d72 regime array for 60% Methanol comparing Sticking (130\u00b0C) and Leidenfrost Film Boiling (340\u00b0C) for all 9 drop release heights."}]}};
 
     function init() {
       renderTabs();
-      openCategory("01_height_vs_normalized_time");
-      setupKeyboard();
+      openCategory("01_spreading");
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+      });
     }
 
     function toggleTheme() {
@@ -1824,23 +1540,11 @@
       const current = html.getAttribute("data-theme");
       const next = current === "dark" ? "light" : "dark";
       html.setAttribute("data-theme", next);
-      localStorage.setItem("theme", next);
+      localStorage.setItem("theme_p2", next);
     }
 
-    // Load saved theme
-    if (localStorage.getItem("theme") === "dark") {
+    if (localStorage.getItem("theme_p2") === "dark") {
       document.documentElement.setAttribute("data-theme", "dark");
-    }
-
-    function toggleTheory() {
-      const content = document.getElementById("theoryContent");
-      const arrow = document.getElementById("theoryArrow");
-      content.classList.toggle("open");
-      if (content.classList.contains("open")) {
-        arrow.textContent = "▲ Hide Theory";
-      } else {
-        arrow.textContent = "▼ Expand Theory & Equations";
-      }
     }
 
     function renderTabs() {
@@ -1859,157 +1563,28 @@
 
     function openCategory(key) {
       currentTabId = key;
-      
-      // Update buttons
       document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
       const activeBtn = document.getElementById("btn-" + key);
       if (activeBtn) activeBtn.classList.add("active");
 
-      // Update panels
       document.querySelectorAll(".category-panel").forEach(p => p.style.display = "none");
       const activePanel = document.getElementById("panel-" + key);
       if (activePanel) activePanel.style.display = "block";
-
-      // Toggle filter bar visibility (only relevant for Tab 1 & Tab 2)
-      const filterBar = document.getElementById("filterBar");
-      if (key === "01_height_vs_normalized_time" || key === "02_spreading_vs_normalized_time") {
-        filterBar.style.display = "flex";
-        filterCards(currentFilter);
-      } else {
-        filterBar.style.display = "none";
-      }
-      
-      buildModalGalleryForCurrentView();
     }
 
-    function filterCards(fluid) {
-      currentFilter = fluid;
-      
-      // Update chip styling
-      document.querySelectorAll(".filter-chip").forEach(chip => chip.classList.remove("active"));
-      event && event.target && event.target.classList.add("active");
-
-      const activePanel = document.getElementById("panel-" + currentTabId);
-      if (!activePanel) return;
-
-      const cards = activePanel.querySelectorAll(".card");
-      let count = 0;
-      cards.forEach(card => {
-        const cardFluid = card.getAttribute("data-fluid");
-        if (fluid === "all" || cardFluid === fluid || cardFluid === "all") {
-          card.style.display = "flex";
-          count++;
-        } else {
-          card.style.display = "none";
-        }
-      });
-
-      document.getElementById("visibleCount").textContent = count;
-      buildModalGalleryForCurrentView();
-    }
-
-    function buildModalGalleryForCurrentView() {
-      const activePanel = document.getElementById("panel-" + currentTabId);
-      if (!activePanel) return;
-      
-      modalGallery = [];
-      const visibleCards = activePanel.querySelectorAll(".card");
-      visibleCards.forEach(card => {
-        if (card.style.display !== "none") {
-          const img = card.querySelector("img");
-          const title = card.querySelector(".card-title").textContent;
-          const caption = card.querySelector(".card-caption").innerHTML;
-          modalGallery.push({
-            src: img.getAttribute("src"),
-            title: title,
-            caption: caption
-          });
-        }
-      });
-    }
-
-    function openModalWithSrc(src) {
-      buildModalGalleryForCurrentView();
-      const idx = modalGallery.findIndex(item => item.src === src);
-      if (idx !== -1) {
-        currentModalIndex = idx;
-      } else {
-        currentModalIndex = 0;
-      }
-      showModalImage();
+    function openModalWithSrc(src, title, caption) {
+      document.getElementById("modalImg").src = src;
+      document.getElementById("modalTitle").textContent = title;
+      document.getElementById("modalCaption").innerHTML = caption;
+      document.getElementById("modalDownload").href = src;
+      document.getElementById("modalDownload").setAttribute("download", src.split("/").pop());
       document.getElementById("imageModal").style.display = "flex";
       document.body.style.overflow = "hidden";
-    }
-
-    function showModalImage() {
-      if (modalGallery.length === 0) return;
-      const item = modalGallery[currentModalIndex];
-      const img = document.getElementById("modalImg");
-      img.src = item.src;
-      document.getElementById("modalTitle").textContent = item.title + ` (${currentModalIndex + 1} / ${modalGallery.length})`;
-      document.getElementById("modalCaption").innerHTML = item.caption;
-      document.getElementById("modalDownload").href = item.src;
-      document.getElementById("modalDownload").setAttribute("download", item.src.split("/").pop());
-      resetZoom();
-    }
-
-    function prevModalImage(e) {
-      if (e) e.stopPropagation();
-      if (modalGallery.length <= 1) return;
-      currentModalIndex = (currentModalIndex - 1 + modalGallery.length) % modalGallery.length;
-      showModalImage();
-    }
-
-    function nextModalImage(e) {
-      if (e) e.stopPropagation();
-      if (modalGallery.length <= 1) return;
-      currentModalIndex = (currentModalIndex + 1) % modalGallery.length;
-      showModalImage();
     }
 
     function closeModal() {
       document.getElementById("imageModal").style.display = "none";
       document.body.style.overflow = "auto";
-      resetZoom();
-    }
-
-    function onModalBackdrop(e) {
-      if (e.target.id === "imageModal" || e.target.id === "modalBody") {
-        closeModal();
-      }
-    }
-
-    function zoomIn() {
-      currentZoom = Math.min(currentZoom + 0.25, 3.0);
-      applyZoom();
-    }
-
-    function zoomOut() {
-      currentZoom = Math.max(currentZoom - 0.25, 0.5);
-      applyZoom();
-    }
-
-    function resetZoom() {
-      currentZoom = 1;
-      applyZoom();
-    }
-
-    function applyZoom() {
-      const img = document.getElementById("modalImg");
-      img.style.transform = `scale(${currentZoom})`;
-    }
-
-    function setupKeyboard() {
-      document.addEventListener("keydown", (e) => {
-        const modal = document.getElementById("imageModal");
-        if (modal.style.display === "flex") {
-          if (e.key === "Escape") closeModal();
-          if (e.key === "ArrowLeft") prevModalImage();
-          if (e.key === "ArrowRight") nextModalImage();
-          if (e.key === "+" || e.key === "=") zoomIn();
-          if (e.key === "-") zoomOut();
-        }
-      });
     }
 
     window.onload = init;
