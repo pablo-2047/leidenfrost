@@ -72,18 +72,18 @@ pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,8.0,67.3,Leiden
 60 perc ethanol,Water + 60% Ethanol,130,Case I: Sticking / Wetting Deposition,25.8,526.6,Sticking,21_10_2022_25.8cm,130_C001H001S0001,1.044,16
 60 perc ethanol,Water + 60% Ethanol,340,Case II: Leidenfrost Film Boiling,2.9,59.2,Leidenfrost,21_10_2022_2.9cm,340_C001H001S0001,2.165,0
 60 perc ethanol,Water + 60% Ethanol,340,Case II: Leidenfrost Film Boiling,5.1,104.1,Leidenfrost,21_10_2022_5.1cm,340_C001H001S0001,2.983,0
-25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,1.3,16.3,Sticking,27_08_2022_1.3cm,130_C001H001S0001,1.74,0
-25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,2.9,36.4,Sticking,27_08_2022_2.9cm,130_C001H001S0001,2.172,0
+25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,1.3,16.3,Sticking,27_08_2022_1.3cm,130_C001H001S0001,1.748,0
+25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,2.9,36.4,Sticking,27_08_2022_2.9cm,130_C001H001S0001,2.195,0
 25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,5.1,64.1,Sticking,27_08_2022_5.1cm,130_C001H001S0001,3.024,0
-25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,8.0,100.5,Sticking,27_08_2022_8cm,130_C001H001S0001,2.756,0
-25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,11.5,144.5,Sticking,27_08_2022_11.5cm,130_C001H001S0002,3.836,0
-25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,15.6,196.0,Sticking,27_08_2022_15.6cm,130_C001H001S0001,3.655,0
-25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,20.5,257.5,Bursting,27_08_2022_20.5cm,130_C001H001S0001,3.983,0
+25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,8.0,100.5,Sticking,27_08_2022_8cm,130_C001H001S0001,2.785,0
+25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,11.5,144.5,Sticking,27_08_2022_11.5cm,130_C001H001S0002,4.0,0
+25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,15.6,196.0,Sticking,27_08_2022_15.6cm,130_C001H001S0001,3.629,0
+25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,20.5,257.5,Bursting,27_08_2022_20.5cm,130_C001H001S0001,3.975,0
 25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,25.8,324.1,Sticking,27_08_2022_25.8cm,130_C001H001S0001,4.041,0
-25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,32.0,402.0,Bursting,27_08_2022_32cm,130_C001H001S0001,4.164,1
-25 perc methanol,Water + 25% Methanol,340,Case II: Leidenfrost Film Boiling,1.3,16.3,Leidenfrost,27_08_2022_1.3cm,340_C001H001S0001,1.579,0
-25 perc methanol,Water + 25% Methanol,340,Case II: Leidenfrost Film Boiling,2.9,36.4,Leidenfrost,27_08_2022_2.9cm,340_C001H001S0001,2.211,0
-25 perc methanol,Water + 25% Methanol,340,Case II: Leidenfrost Film Boiling,5.1,64.1,Leidenfrost,27_08_2022_5.1cm,340_C001H001S0001,2.496,0
+25 perc methanol,Water + 25% Methanol,130,Case I: Sticking / Wetting Deposition,32.0,402.0,Bursting,27_08_2022_32cm,130_C001H001S0001,4.219,0
+25 perc methanol,Water + 25% Methanol,340,Case II: Leidenfrost Film Boiling,1.3,16.3,Leidenfrost,27_08_2022_1.3cm,340_C001H001S0001,1.54,0
+25 perc methanol,Water + 25% Methanol,340,Case II: Leidenfrost Film Boiling,2.9,36.4,Leidenfrost,27_08_2022_2.9cm,340_C001H001S0001,2.163,0
+25 perc methanol,Water + 25% Methanol,340,Case II: Leidenfrost Film Boiling,5.1,64.1,Leidenfrost,27_08_2022_5.1cm,340_C001H001S0001,2.471,0
 40 perc methanol,Water + 40% Methanol,130,Case I: Sticking / Wetting Deposition,1.3,19.5,Sticking,17_09_2022_1.3 cm,130_C001H001S0001,1.77,0
 40 perc methanol,Water + 40% Methanol,130,Case I: Sticking / Wetting Deposition,2.9,43.4,Sticking,17_09_2022_2.9 cm,130_C001H001S0001,2.29,0
 40 perc methanol,Water + 40% Methanol,130,Case I: Sticking / Wetting Deposition,5.1,76.3,Sticking,17_09_2022_5.1 cm,130_C001H001S0001,2.557,0

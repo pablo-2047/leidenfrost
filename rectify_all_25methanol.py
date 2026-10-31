@@ -1,17 +1,17 @@
 """
 High-Performance Surgical Rectification Pipeline for All 25% Methanol Cases:
-Calibrates accurate physical substrate baselines across all 9 drop heights:
-  - 27_08_2022_1.3cm:  Y_CONTACT = 696 px
-  - 27_08_2022_2.9cm:  Y_CONTACT = 702 px
-  - 27_08_2022_5.1cm:  Y_CONTACT = 712 px
-  - 27_08_2022_8cm:    Y_CONTACT = 510 px
-  - 27_08_2022_11.5cm: Y_CONTACT = 510 px
-  - 27_08_2022_15.6cm: Y_CONTACT = 354 px
+Calibrates exact physical substrate baselines using specular reflection peaks & mirror symmetry:
+  - 27_08_2022_1.3cm:  Y_CONTACT = 700 px
+  - 27_08_2022_2.9cm:  Y_CONTACT = 714 px
+  - 27_08_2022_5.1cm:  Y_CONTACT = 716 px
+  - 27_08_2022_8cm:    Y_CONTACT = 517 px
+  - 27_08_2022_11.5cm: Y_CONTACT = 522 px
+  - 27_08_2022_15.6cm: Y_CONTACT = 358 px
   - 27_08_2022_20.5cm:
-      * 100°C - 190°C: Y_CONTACT = 584 px
-      * 220°C - 400°C: Y_CONTACT = 396 px
-  - 27_08_2022_25.8cm: Y_CONTACT = 394 px
-  - 27_08_2022_32cm:   Y_CONTACT = 510 px
+      * 100°C - 190°C: Y_CONTACT = 588 px
+      * 220°C - 400°C: Y_CONTACT = 399 px
+  - 27_08_2022_25.8cm: Y_CONTACT = 396 px
+  - 27_08_2022_32cm:   Y_CONTACT = 516 px
 
 Runs in parallel using ProcessPoolExecutor across CPU cores.
 Updates measurements_data.csv & .xlsx in Raw and Analysis folders.
@@ -40,25 +40,25 @@ Y_TOP_CUT = 135
 def get_calibrated_y_contact(height_folder, temp_c):
     temp = float(temp_c)
     if height_folder.endswith("_1.3cm"):
-        return 696
+        return 700
     elif height_folder.endswith("_2.9cm"):
-        return 702
+        return 714
     elif height_folder.endswith("_5.1cm"):
-        return 712
+        return 716
     elif height_folder.endswith("_8cm"):
-        return 510
+        return 517
     elif height_folder.endswith("_11.5cm"):
-        return 510
+        return 522
     elif height_folder.endswith("_15.6cm"):
-        return 354
+        return 358
     elif height_folder.endswith("_20.5cm"):
-        return 584 if temp < 210 else 396
+        return 588 if temp < 210 else 399
     elif height_folder.endswith("_25.8cm"):
-        return 394
+        return 396
     elif height_folder.endswith("_32cm"):
-        return 510
+        return 516
     else:
-        return 696
+        return 700
 
 
 def process_single_case(case_info):
@@ -70,6 +70,10 @@ def process_single_case(case_info):
     scale = float(case_info['scale'])
     mm_per_px = 1.0 / scale
     y_contact = get_calibrated_y_contact(h_fld, temp_c)
+
+    # Surgical alignment for 1.3cm 220C late impact arrival
+    if h_fld.endswith("_1.3cm") and int(temp_c) == 220:
+        t0 = 131
 
     raw_dir = os.path.join(BASE_EXP_DIR, "25 perc methanol", h_fld, c_fld)
     out_dir = os.path.join(BASE_ANALYSIS_DIR, "25 perc methanol", h_fld, c_fld)
@@ -341,6 +345,7 @@ def process_single_case(case_info):
         'case_folder': c_fld,
         'temp_c': temp_c,
         'y_contact': y_contact,
+        't0': t0,
         'max_dc': max_dc,
         'max_dc_mm': round(max_dc / scale, 3),
         'max_beta_c': round(max_dc / d0_eq, 4),
@@ -409,6 +414,8 @@ def main(filter_height=None):
                 df_target.loc[mask, 'Max_Contact_Dia_px'] = res['max_dc']
                 df_target.loc[mask, 'Max_Contact_Dia_mm'] = res['max_dc_mm']
                 df_target.loc[mask, 'Max_Beta_Contact_Dc_D0'] = res['max_beta_c']
+                if 'Frame_1_Raw_Index_t0' in df_target.columns:
+                    df_target.loc[mask, 'Frame_1_Raw_Index_t0'] = res['t0']
                 if 'Max_Spread_Dia_px' in df_target.columns:
                     df_target.loc[mask, 'Max_Spread_Dia_px'] = res['max_dsp']
                 if 'Max_Spread_Dia_mm' in df_target.columns:
