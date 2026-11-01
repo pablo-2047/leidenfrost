@@ -1,14 +1,17 @@
 """
 High-Performance Surgical Rectification Pipeline for All 40% Ethanol Cases:
 Calibrates exact physical substrate baselines using specular reflection peaks & mirror symmetry:
-  - 16_10_2022_1.3cm:  Y_CONTACT = 750 px
-  - 16_10_2022_2.9cm:  Y_CONTACT = 745 px
-  - 16_10_2022_5.1cm:  Y_CONTACT = 742 px
-  - 16_10_2022_8cm:    Y_CONTACT = 744 px
-  - 16_10_2022_11.5cm: Y_CONTACT = 558 px
-  - 16_10_2022_15.6cm: Y_CONTACT = 609 px
-  - 16_10_2022_20.5cm: Y_CONTACT = 603 px
-  - 16_10_2022_25.8cm: Y_CONTACT = 595 px
+  - 16_10_2022_1.3cm:  Y_CONTACT = 756 px
+  - 16_10_2022_2.9cm:  Y_CONTACT = 751 px
+  - 16_10_2022_5.1cm:  Y_CONTACT = 749 px
+  - 16_10_2022_8cm:    Y_CONTACT = 751 px
+  - 16_10_2022_11.5cm: Y_CONTACT = 562 px (558 px for T >= 280C)
+  - 16_10_2022_15.6cm: Y_CONTACT = 614 px
+  - 16_10_2022_20.5cm: Y_CONTACT = 608 px
+  - 16_10_2022_25.8cm: Y_CONTACT = 600 px
+
+Dynamically detects exact initial contact frame (t0) where droplet touches substrate,
+preventing premature 'IN CONTACT' classification on airborne frames before impact.
 
 Runs in parallel using ProcessPoolExecutor across CPU cores.
 Updates measurements_data.csv & .xlsx in Raw and Analysis folders.
@@ -35,30 +38,55 @@ TOTAL_FRAMES_TO_PROCESS = 250
 Y_TOP_CUT = 135
 
 def get_calibrated_y_contact(height_folder, temp_c=None):
+    temp = float(temp_c) if temp_c is not None else 130.0
     if "1.3" in height_folder:
-        return 750
+        return 756
     elif "2.9" in height_folder:
-        return 745
+        return 751
     elif "5.1" in height_folder:
-        return 742
+        return 749
     elif "25.8" in height_folder:
-        return 595
+        return 600
     elif "20.5" in height_folder:
-        return 603
+        return 608
     elif "15.6" in height_folder:
-        return 609
+        return 614
     elif "11.5" in height_folder:
-        return 558
+        return 562 if temp <= 250 else 558
     elif height_folder.endswith("_8cm") or height_folder.endswith("_8 cm") or height_folder.endswith(" 8cm") or height_folder.endswith(" 8 cm"):
-        return 744
+        return 751
     else:
         return 600
+
+def detect_case_t0(files, bg, y_c, y_top_cut=135):
+    """
+    Detects true first impact frame t0 by scanning free-fall trajectory.
+    Triggers when droplet's bottom reaches y_c - 1 or lateral spreading begins.
+    """
+    d0_ws = []
+    t_contact = None
+    for idx in range(min(len(files), 140)):
+        im = cv2.imread(files[idx], cv2.IMREAD_GRAYSCALE)
+        diff = cv2.subtract(bg, im)
+        sil = ((diff[y_top_cut:y_c + 1, 200:1080] > 38) & (im[y_top_cut:y_c + 1, 200:1080] < 135)).astype(np.uint8) * 255
+        cnts, _ = cv2.findContours(sil, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+        cnts = [c for c in cnts if cv2.contourArea(c) > 1000]
+        if cnts:
+            c = max(cnts, key=cv2.contourArea)
+            x, y, w, h = cv2.boundingRect(c)
+            real_bot = y + y_top_cut + h
+            if real_bot < y_c - 15:
+                d0_ws.append(w)
+            mean_w = np.median(d0_ws) if len(d0_ws) > 0 else 90.0
+            if real_bot >= y_c - 1 or w >= 1.15 * mean_w:
+                t_contact = idx
+                break
+    return t_contact
 
 def process_single_case(case_info):
     h_fld = case_info['height_folder']
     c_fld = case_info['case_folder']
     temp_c = case_info['temp_c']
-    t0 = int(case_info['t0'])
     d0_eq = float(case_info['d0_eq'])
     scale = float(case_info['scale'])
     mm_per_px = 1.0 / scale
@@ -82,6 +110,11 @@ def process_single_case(case_info):
     bg = np.zeros_like(img0_gray)
     bg[:y_contact - 4, :] = np.maximum(img0_gray[:y_contact - 4, :], bg90_gray[:y_contact - 4, :])
     bg[y_contact - 4:, :] = img0_gray[y_contact - 4:, :]
+
+    # Dynamically detect true first impact frame
+    t0_detected = detect_case_t0(files, bg, y_contact, Y_TOP_CUT)
+    t0 = t0_detected if t0_detected is not None else int(case_info['t0'])
+    t0_preimpact_file = os.path.basename(files[t0])
 
     records = []
     x_hint = W / 2.0
@@ -334,6 +367,7 @@ def process_single_case(case_info):
         'temp_c': temp_c,
         'y_contact': y_contact,
         't0': t0,
+        't0_preimpact_file': t0_preimpact_file,
         'max_dc': max_dc,
         'max_dc_mm': round(max_dc / scale, 3),
         'max_beta_c': round(max_dc / d0_eq, 4),
@@ -383,7 +417,7 @@ def main(filter_height=None):
             if res:
                 completed_results.append(res)
                 print(f"  [+] Finished {res['height_folder']} / {res['case_folder']} "
-                      f"(y_c={res['y_contact']}, Max_Dc={res['max_dc']}px/{res['max_dc_mm']}mm) "
+                      f"(y_c={res['y_contact']}, t0={res['t0']}, Max_Dc={res['max_dc']}px/{res['max_dc_mm']}mm) "
                       f"[{len(completed_results)}/{len(tasks)}]")
 
     print(f"\n[*] All {len(completed_results)} cases processed in {time.time() - t_start:.1f}s.")
@@ -399,11 +433,12 @@ def main(filter_height=None):
                    (df_target['Case_Folder'] == res['case_folder'])
             if mask.any():
                 df_target.loc[mask, 'Surface_Level_y_px'] = res['y_contact']
+                df_target.loc[mask, 'Frame_1_Raw_Index_t0'] = res['t0']
+                if 'Frame_1_PreImpact_File' in df_target.columns:
+                    df_target.loc[mask, 'Frame_1_PreImpact_File'] = res['t0_preimpact_file']
                 df_target.loc[mask, 'Max_Contact_Dia_px'] = res['max_dc']
                 df_target.loc[mask, 'Max_Contact_Dia_mm'] = res['max_dc_mm']
                 df_target.loc[mask, 'Max_Beta_Contact_Dc_D0'] = res['max_beta_c']
-                if 'Frame_1_Raw_Index_t0' in df_target.columns:
-                    df_target.loc[mask, 'Frame_1_Raw_Index_t0'] = res['t0']
                 if 'Max_Spread_Dia_px' in df_target.columns:
                     df_target.loc[mask, 'Max_Spread_Dia_px'] = res['max_dsp']
                 if 'Max_Spread_Dia_mm' in df_target.columns:
