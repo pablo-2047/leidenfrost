@@ -1,17 +1,17 @@
 Fluid_Folder,Fluid_Label,Panel_Temperature_C,Panel_Regime_Case,Drop_Height_cm,Weber_Number,Classified_Regime,Drop_Height_Folder,Case_Folder,Max_Beta_Contact_20frames,Zero_Dropouts_in_20frames
-pure water,Pure Water (0%),130,Case I: Sticking / Wetting Deposition,1.3,10.9,Sticking,18_08_22_water_1.3cm,130_C001H001S0001,1.74,0
-pure water,Pure Water (0%),130,Case I: Sticking / Wetting Deposition,3.0,25.2,Sticking,18_08_22_water_3cm,130_C001H001S0001,1.825,0
-pure water,Pure Water (0%),130,Case I: Sticking / Wetting Deposition,5.1,42.9,Sticking,18_08_22_water_5.1cm,130_C001H001S0001,1.067,9
-pure water,Pure Water (0%),130,Case I: Sticking / Wetting Deposition,8.0,67.3,Bursting,18_08_22_water_8cm,130_C001H001S0001,1.0,11
-pure water,Pure Water (0%),130,Case I: Sticking / Wetting Deposition,11.5,96.7,Bursting,18_08_22_water_11.5cm,130_C001H001S0001,0.0,20
-pure water,Pure Water (0%),130,Case I: Sticking / Wetting Deposition,15.6,131.2,Bursting,18_08_22_water_15.6cm,130_C001H001S0001,4.1,0
-pure water,Pure Water (0%),130,Case I: Sticking / Wetting Deposition,20.5,172.4,Sticking,18_08_22_water_20.5cm,130_C001H001S0001,4.641,0
-pure water,Pure Water (0%),130,Case I: Sticking / Wetting Deposition,25.8,217.0,Sticking,18_08_22_water_25.8cm,130_C001H001S0001,4.007,0
-pure water,Pure Water (0%),130,Case I: Sticking / Wetting Deposition,32.0,269.1,Sticking,18_08_22_water_32cm,130_C001H001S0001,4.025,4
-pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,1.3,10.9,Leidenfrost,18_08_22_water_1.3cm,340_C001H001S0001,3.2,8
-pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,3.0,25.2,Leidenfrost,18_08_22_water_3cm,340_C001H001S0001,1.85,0
-pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,5.1,42.9,Leidenfrost,18_08_22_water_5.1cm,340_C001H001S0001,1.008,15
-pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,8.0,67.3,Leidenfrost,18_08_22_water_8cm,340_C001H001S0001,1.691,15
+pure water,Pure Water (0%),130,Case I: Sticking / Wetting Deposition,1.3,10.9,Sticking,18_08_22_water_1.3cm,130_C001H001S0001,2.677,0
+pure water,Pure Water (0%),130,Case I: Sticking / Wetting Deposition,3.0,25.2,Sticking,18_08_22_water_3cm,130_C001H001S0001,1.864,0
+pure water,Pure Water (0%),130,Case I: Sticking / Wetting Deposition,5.1,42.9,Sticking,18_08_22_water_5.1cm,130_C001H001S0001,2.475,0
+pure water,Pure Water (0%),130,Case I: Sticking / Wetting Deposition,8.0,67.3,Sticking,18_08_22_water_8cm,130_C001H001S0001,2.785,0
+pure water,Pure Water (0%),130,Case I: Sticking / Wetting Deposition,11.5,96.7,Sticking,18_08_22_water_11.5cm,130_C001H001S0001,3.72,0
+pure water,Pure Water (0%),130,Case I: Sticking / Wetting Deposition,15.6,131.2,Sticking,18_08_22_water_15.6cm,130_C001H001S0001,4.125,0
+pure water,Pure Water (0%),130,Case I: Sticking / Wetting Deposition,20.5,172.4,Sticking,18_08_22_water_20.5cm,130_C001H001S0001,4.923,0
+pure water,Pure Water (0%),130,Case I: Sticking / Wetting Deposition,25.8,217.0,Sticking,18_08_22_water_25.8cm,130_C001H001S0001,4.064,0
+pure water,Pure Water (0%),130,Case I: Sticking / Wetting Deposition,32.0,269.1,Sticking,18_08_22_water_32cm,130_C001H001S0001,4.361,0
+pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,1.3,10.9,Leidenfrost,18_08_22_water_1.3cm,340_C001H001S0001,3.421,4
+pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,3.0,25.2,Leidenfrost,18_08_22_water_3cm,340_C001H001S0001,2.016,0
+pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,5.1,42.9,Leidenfrost,18_08_22_water_5.1cm,340_C001H001S0001,2.328,9
+pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,8.0,67.3,Leidenfrost,18_08_22_water_8cm,340_C001H001S0001,2.715,7
 20 perc acetone,Water + 20% Acetone,130,Case I: Sticking / Wetting Deposition,1.3,18.3,Sticking,09_11_2022_1.3cm,130_C001H001S0001,1.82,0
 20 perc acetone,Water + 20% Acetone,130,Case I: Sticking / Wetting Deposition,2.9,40.9,Sticking,09_11_2022_2.9cm,130_C001H001S0001,2.606,0
 20 perc acetone,Water + 20% Acetone,130,Case I: Sticking / Wetting Deposition,5.1,72.0,Bursting,09_11_2022_5.1cm,130_C001H001S0001,2.809,0
