@@ -1,14 +1,14 @@
 """
 High-Performance Surgical Rectification Pipeline for All 40% Ethanol Cases:
 Calibrates exact physical substrate baselines using specular reflection peaks & mirror symmetry:
-  - 16_10_2022_1.3cm:  Y_CONTACT = 756 px
-  - 16_10_2022_2.9cm:  Y_CONTACT = 751 px
-  - 16_10_2022_5.1cm:  Y_CONTACT = 749 px
-  - 16_10_2022_8cm:    Y_CONTACT = 751 px
-  - 16_10_2022_11.5cm: Y_CONTACT = 562 px (558 px for T >= 280C)
-  - 16_10_2022_15.6cm: Y_CONTACT = 614 px
-  - 16_10_2022_20.5cm: Y_CONTACT = 608 px
-  - 16_10_2022_25.8cm: Y_CONTACT = 600 px
+  - 16_10_2022_1.3cm:  Y_CONTACT = 751 px
+  - 16_10_2022_2.9cm:  Y_CONTACT = 746 px
+  - 16_10_2022_5.1cm:  Y_CONTACT = 743 px
+  - 16_10_2022_8cm:    Y_CONTACT = 746 px
+  - 16_10_2022_11.5cm: Y_CONTACT = 557 px (555 px for T >= 280C)
+  - 16_10_2022_15.6cm: Y_CONTACT = 608 px
+  - 16_10_2022_20.5cm: Y_CONTACT = 604 px
+  - 16_10_2022_25.8cm: Y_CONTACT = 596 px
 
 Dynamically detects exact initial contact frame (t0) where droplet touches substrate,
 preventing premature 'IN CONTACT' classification on airborne frames before impact.
@@ -40,23 +40,23 @@ Y_TOP_CUT = 135
 def get_calibrated_y_contact(height_folder, temp_c=None):
     temp = float(temp_c) if temp_c is not None else 130.0
     if "1.3" in height_folder:
-        return 756
+        return 751
     elif "2.9" in height_folder:
-        return 751
+        return 746
     elif "5.1" in height_folder:
-        return 749
+        return 743
     elif "25.8" in height_folder:
-        return 600
+        return 596
     elif "20.5" in height_folder:
-        return 608
+        return 604
     elif "15.6" in height_folder:
-        return 614
+        return 608
     elif "11.5" in height_folder:
-        return 562 if temp <= 250 else 558
+        return 557 if temp <= 250 else 555
     elif height_folder.endswith("_8cm") or height_folder.endswith("_8 cm") or height_folder.endswith(" 8cm") or height_folder.endswith(" 8 cm"):
-        return 751
+        return 746
     else:
-        return 600
+        return 604
 
 def detect_case_t0(files, bg, y_c, y_top_cut=135):
     """
