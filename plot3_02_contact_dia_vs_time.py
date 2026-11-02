@@ -12,6 +12,7 @@ Output: Analysis/plot_3/02_contact_dia_vs_time/
 """
 
 import os
+import time
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -198,22 +199,43 @@ def plot_fluid_contact_dia(df, fl_key):
         
         sub = df[(df['Fluid_Folder'] == fl_key) & (df['Temperature_C'] == temp)].sort_values('Drop_Height_cm')
         
+        matching_cases = sub[sub['Regime_4'] == reg]
+        height_groups = matching_cases.groupby('Drop_Height_cm', sort=True)
+        
         has_lines = False
-        for _, r in sub.iterrows():
-            # If panel is specific regime, only plot matching cases
-            if r['Regime_4'] == reg:
+        for h_cm, group in height_groups:
+            curves = []
+            we_list = []
+            for _, r in group.iterrows():
                 res = extract_curve(r)
                 if res is not None:
-                    t_star, beta_c = res
-                    h_cm = float(r['Drop_Height_cm'])
-                    we = float(r['Weber_Number'])
-                    c = HEIGHT_COLORS.get(h_cm, '#334155')
+                    curves.append(res)
+                    we_list.append(float(r['Weber_Number']))
                     
-                    short_reg = "Stick" if "Sticking" in r['Regime_4'] and "Bouncing" not in r['Regime_4'] else ("Bounce" if "Bouncing" in r['Regime_4'] else "LF")
-                    lbl = f"h = {h_cm:.1f} cm (We≈{we:.0f}) [{short_reg}]"
-                    
-                    ax.plot(t_star, beta_c, color=c, marker='o', markersize=4.2, lw=2.0, alpha=0.9, label=lbl)
-                    has_lines = True
+            if not curves:
+                continue
+                
+            if len(curves) == 1:
+                t_star, beta_c = curves[0]
+            else:
+                # Multiple runs for this height: average them on a unified time grid
+                max_t = max(c[0].max() for c in curves)
+                t_common = np.linspace(0.0, max_t, 35)
+                interp_betas = []
+                for t_s, b_c in curves:
+                    fill_r = 0.0 if reg == 'Leidenfrost' else b_c[-1]
+                    b_interp = np.interp(t_common, t_s, b_c, left=0.0, right=fill_r)
+                    interp_betas.append(b_interp)
+                t_star = t_common
+                beta_c = np.mean(interp_betas, axis=0)
+                
+            we = np.mean(we_list)
+            c = HEIGHT_COLORS.get(h_cm, '#334155')
+            short_reg = "Stick" if "Sticking" in reg and "Bouncing" not in reg else ("Bounce" if "Bouncing" in reg else "LF")
+            lbl = f"h = {h_cm:.1f} cm (We≈{we:.0f}) [{short_reg}]"
+            
+            ax.plot(t_star, beta_c, color=c, marker='o', markersize=4.2, lw=2.0, alpha=0.9, label=lbl)
+            has_lines = True
                     
         if has_lines:
             ax.legend(fontsize=8.5, loc='upper right', framealpha=0.92, edgecolor='#cbd5e1')
@@ -227,7 +249,12 @@ def plot_fluid_contact_dia(df, fl_key):
     plt.tight_layout()
     safe_name = fl_key.replace(' ', '_').lower()
     out_p = os.path.join(OUT_DIR, f"contact_dia_dynamics_{safe_name}.png")
-    plt.savefig(out_p, dpi=250, bbox_inches='tight')
+    for attempt in range(5):
+        try:
+            plt.savefig(out_p, dpi=250, bbox_inches='tight')
+            break
+        except Exception:
+            time.sleep(0.6)
     plt.close()
     print(f"  [+] Saved contact dia dynamics: {out_p}")
 

@@ -1,0 +1,389 @@
+"""
+Targeted Surgical Rectification Pipeline for User-Requested Baselines:
+1. 20 perc acetone / 09_11_2022_25.8cm / 100_C001H001S0001:
+     - Baseline corrected from 476 px -> 482 px (matching 130-220°C and true substrate).
+2. 20 perc ethanol / 08_10_2022_2.9cm / all 11 temperatures (100°C to 400°C):
+     - Baseline corrected from 541-548 px -> 566 px (T <= 310°C) and 562 px (T >= 340°C).
+3. 40 perc acetone / 09_11_2022_25.8cm / 100_C001H001S0001:
+     - Baseline corrected from 540 px -> 547 px (matching 130-340°C and true substrate).
+"""
+
+import os
+import sys
+import glob
+import time
+import cv2
+import numpy as np
+import pandas as pd
+from concurrent.futures import ProcessPoolExecutor, as_completed
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from analyze_case import reconstruct_droplet_contour, detect_burst_fragments
+
+BASE_EXP_DIR = r"C:\Users\Pablo\Desktop\0_3_Experiment data_leidenfrost"
+BASE_ANALYSIS_DIR = r"C:\Users\Pablo\Desktop\Analysis"
+
+CAMERA_FPS = 4000.0
+STANDARD_DROPLET_DIA_MM = 3.1204
+TOTAL_FRAMES_TO_PROCESS = 250
+Y_TOP_CUT = 40
+
+def detect_case_t0(files, bg, y_c, y_top_cut=Y_TOP_CUT):
+    d0_ws = []
+    t_contact = None
+    for idx in range(min(len(files), 140)):
+        im = cv2.imread(files[idx], cv2.IMREAD_GRAYSCALE)
+        diff = cv2.subtract(bg, im)
+        sil = ((diff[y_top_cut:y_c + 1, 200:1080] > 38) & (im[y_top_cut:y_c + 1, 200:1080] < 135)).astype(np.uint8) * 255
+        cnts, _ = cv2.findContours(sil, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+        cnts = [c for c in cnts if cv2.contourArea(c) > 1000]
+        if cnts:
+            c = max(cnts, key=cv2.contourArea)
+            x, y, w, h = cv2.boundingRect(c)
+            real_bot = y + y_top_cut + h
+            if real_bot < y_c - 15:
+                d0_ws.append(w)
+            mean_w = np.median(d0_ws) if len(d0_ws) > 0 else 90.0
+            if real_bot >= y_c - 1 or w >= 1.15 * mean_w:
+                t_contact = idx
+                break
+    return t_contact
+
+def process_single_case(task):
+    fluid = task['fluid']
+    h_fld = task['height_folder']
+    c_fld = task['case_folder']
+    temp_c = float(task['temp_c'])
+    y_contact = int(task['y_contact'])
+    d0_eq = float(task['d0_eq_px'])
+    scale = float(task['scale_px_per_mm'])
+    mm_per_px = 1.0 / scale
+
+    raw_dir = os.path.join(BASE_EXP_DIR, fluid, h_fld, c_fld)
+    out_dir = os.path.join(BASE_ANALYSIS_DIR, fluid, h_fld, c_fld)
+    os.makedirs(out_dir, exist_ok=True)
+
+    files = sorted(glob.glob(os.path.join(raw_dir, "*.jpg")))
+    if not files:
+        print(f"  [ERROR] No files in {raw_dir}")
+        return None
+
+    img0 = cv2.imread(files[0])
+    img0_gray = cv2.cvtColor(img0, cv2.COLOR_BGR2GRAY)
+    H, W = img0_gray.shape
+
+    sample_idx = np.linspace(0, min(len(files) - 1, 180), 19, dtype=int)
+    bg90_gray = np.percentile([cv2.imread(files[i], cv2.IMREAD_GRAYSCALE) for i in sample_idx], 90, axis=0).astype(np.uint8)
+
+    bg = np.zeros_like(img0_gray)
+    bg[:y_contact - 4, :] = np.maximum(img0_gray[:y_contact - 4, :], bg90_gray[:y_contact - 4, :])
+    bg[y_contact - 4:, :] = img0_gray[y_contact - 4:, :]
+
+    # Dynamically detect true first impact frame
+    t0_detected = detect_case_t0(files, bg, y_contact, Y_TOP_CUT)
+    t0 = t0_detected if t0_detected is not None else 10
+    t_contact = t0
+
+    records = []
+    x_hint = W / 2.0
+    end_f = min(len(files), t0 + TOTAL_FRAMES_TO_PROCESS)
+
+    for f_idx in range(t0, end_f):
+        orig_fname = os.path.basename(files[f_idx])
+        rot = cv2.imread(files[f_idx])
+        gray = cv2.cvtColor(rot, cv2.COLOR_BGR2GRAY)
+
+        rel_step = f_idx - t0
+        frame_num = rel_step + 1
+        time_s = rel_step / CAMERA_FPS
+        time_ms = time_s * 1000.0
+        step_name = f"t0+{rel_step:02d}"
+        status = "PRE-IMPACT (AIRBORNE)" if rel_step == 0 else "AIRBORNE"
+
+        y_effective_clip = y_contact
+        if rel_step == 0:
+            col = np.mean(gray[:, int(W / 2 - 50):int(W / 2 + 50)], axis=1)
+            dark_rows = np.where((col < 180) & (np.arange(H) < y_contact - 3))[0]
+            y_effective_clip = int(dark_rows.max()) if len(dark_rows) > 0 else y_contact - 10
+
+        c, solid = reconstruct_droplet_contour(gray, bg, y_contact, Y_TOP_CUT, x_hint, y_effective_clip)
+        sat_contours, sat_stats = detect_burst_fragments(gray, bg, y_contact, Y_TOP_CUT, solid, x_hint)
+
+        d_contact_px = 0
+        d_contact_mm = 0.0
+        beta_contact = 0.0
+        total_contact_px = 0
+        total_contact_mm = 0.0
+        d_spread_px = 0
+        d_spread_mm = 0.0
+        beta_spread = 0.0
+        height_px = 0
+        height_mm = 0.0
+        norm_height = 0.0
+        com_height_px = 0.0
+        com_height_mm = 0.0
+        norm_com_height = 0.0
+        primary_com_height_mm = 0.0
+        fragment_count = (1 if c is not None else 0) + len(sat_stats)
+        burst_status = "BURST" if fragment_count >= 2 else ("INTACT" if fragment_count == 1 else "NONE")
+        mean_sat_dia_mm = float(np.mean([s["d_eq_px"] for s in sat_stats]) / scale) if sat_stats else 0.0
+
+        x_com, y_com = None, None
+        best_left_x, best_right_x = None, None
+        y_top, x_top = None, None
+
+        if c is not None:
+            c[:, 0, 1] = np.minimum(c[:, 0, 1], y_contact)
+            pts = c[:, 0, :]
+            min_y_idx = int(np.argmin(pts[:, 1]))
+            y_top = int(pts[min_y_idx, 1])
+            x_top = int(np.median(pts[pts[:, 1] == y_top, 0]))
+            y_bot = int(pts[:, 1].max())
+            x_hint = float(np.median(pts[:, 0]))
+
+            height_px = max(0, y_contact - y_top)
+            height_mm = height_px / scale
+            norm_height = height_px / d0_eq
+
+            ys_solid = np.where(solid.any(axis=1))[0]
+            if len(ys_solid) > 0:
+                sub_solid = solid[ys_solid, :] > 0
+                w_rows = sub_solid.sum(axis=1).astype(np.float64)
+                weights = w_rows ** 2
+                w_sum_prim = float(weights.sum())
+                if w_sum_prim > 0:
+                    y_com_prim = float(np.dot(ys_solid, weights) / w_sum_prim)
+                    x_indices = np.arange(W, dtype=np.float64)
+                    x_mids = (sub_solid @ x_indices) / np.maximum(1.0, w_rows)
+                    x_com_prim = float(np.dot(x_mids, weights) / w_sum_prim)
+                    prim_h_px = max(0.0, float(y_contact) - y_com_prim)
+                    primary_com_height_mm = prim_h_px / scale
+
+                    total_w_sum = w_sum_prim + sum(s["w_sum"] for s in sat_stats)
+                    y_com = (w_sum_prim * y_com_prim + sum(s["w_sum"] * s["y_cm"] for s in sat_stats)) / total_w_sum
+                    x_com = (w_sum_prim * x_com_prim + sum(s["w_sum"] * s["x_cm"] for s in sat_stats)) / total_w_sum
+                    com_height_px = max(0.0, float(y_contact) - y_com)
+                    com_height_mm = com_height_px / scale
+                    norm_com_height = com_height_px / d0_eq
+
+            d_spread_px = int(pts[:, 0].max() - pts[:, 0].min() + 1)
+            d_spread_mm = d_spread_px / scale
+            beta_spread = d_spread_px / d0_eq
+
+            if rel_step >= 1 and y_effective_clip == y_contact:
+                contact_band = solid[max(0, y_contact - 4):y_contact + 1, :]
+                xs_c = np.where(contact_band.any(axis=0))[0]
+                if len(xs_c) >= 3 and y_bot >= y_contact - 5:
+                    best_left_x = int(xs_c[0])
+                    best_right_x = int(xs_c[-1])
+                    d_contact_px = best_right_x - best_left_x + 1
+                    d_contact_mm = d_contact_px / scale
+                    beta_contact = d_contact_px / d0_eq
+                    status = "IN CONTACT"
+
+                total_contact_px = d_contact_px + sum(s["contact_px"] for s in sat_stats)
+                total_contact_mm = total_contact_px / scale
+
+        # Render full-frame annotated visualization
+        canvas = rot.copy()
+        cv2.line(canvas, (0, y_contact), (W - 1, y_contact), (0, 0, 255), 1, cv2.LINE_AA)
+
+        if c is not None:
+            cv2.drawContours(canvas, [c], -1, (255, 220, 0), 1, cv2.LINE_AA)
+        if sat_contours:
+            cv2.drawContours(canvas, sat_contours, -1, (0, 140, 255), 1, cv2.LINE_AA)
+
+        guide_x = None
+        if y_top is not None:
+            guide_x = int(best_right_x + 24) if best_right_x is not None else int(x_hint + d_spread_px // 2 + 24)
+            guide_x = min(W - 180, max(40, guide_x))
+            cv2.line(canvas, (x_top, y_top), (guide_x + 5, y_top), (255, 180, 0), 1, cv2.LINE_AA)
+            cv2.line(canvas, (guide_x, y_top), (guide_x, y_contact), (255, 180, 0), 1, cv2.LINE_AA)
+            cv2.line(canvas, (guide_x - 5, y_top), (guide_x + 5, y_top), (0, 255, 255), 1, cv2.LINE_AA)
+            cv2.line(canvas, (guide_x - 5, y_contact), (guide_x + 5, y_contact), (0, 255, 255), 1, cv2.LINE_AA)
+
+        if x_com is not None and y_com is not None:
+            cx_i, cy_i = int(round(x_com)), int(round(y_com))
+            cv2.circle(canvas, (cx_i, cy_i), 5, (0, 0, 0), 2, cv2.LINE_AA)
+            cv2.circle(canvas, (cx_i, cy_i), 5, (255, 0, 255), 1, cv2.LINE_AA)
+            cv2.line(canvas, (cx_i - 8, cy_i), (cx_i + 8, cy_i), (255, 0, 255), 1, cv2.LINE_AA)
+            cv2.line(canvas, (cx_i, cy_i - 8), (cx_i, cy_i + 8), (255, 0, 255), 1, cv2.LINE_AA)
+            if guide_x is not None:
+                cv2.line(canvas, (cx_i, cy_i), (guide_x + 4, cy_i), (255, 0, 255), 1, cv2.LINE_AA)
+
+        if best_left_x is not None and best_right_x is not None:
+            cv2.line(canvas, (best_left_x, y_contact), (best_right_x, y_contact), (0, 255, 0), 3, cv2.LINE_AA)
+            cv2.line(canvas, (best_left_x, y_contact - 5), (best_left_x, y_contact + 5), (0, 255, 0), 2, cv2.LINE_AA)
+            cv2.line(canvas, (best_right_x, y_contact - 5), (best_right_x, y_contact + 5), (0, 255, 0), 2, cv2.LINE_AA)
+            txt_dc = f"Dc = {d_contact_px} px ({d_contact_mm:.2f} mm)"
+            cv2.putText(canvas, txt_dc, (max(10, best_left_x - 20), min(H - 10, y_contact + 20)),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 255, 0), 1, cv2.LINE_AA)
+
+        if guide_x is not None and y_top is not None:
+            txt_h = f"H = {height_px} px ({height_mm:.2f} mm)"
+            cv2.putText(canvas, txt_h, (guide_x + 8, int((y_top + y_contact) / 2)),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.42, (0, 200, 255), 1, cv2.LINE_AA)
+        if guide_x is not None and y_com is not None:
+            txt_cm = f"Hcm = {com_height_px:.1f} px ({com_height_mm:.2f} mm)"
+            cv2.putText(canvas, txt_cm, (guide_x + 8, int(y_com) + 4),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.38, (255, 100, 255), 1, cv2.LINE_AA)
+
+        # Magnified droplet inset at top-right
+        crop_w, crop_h = 270, 100
+        cx = int(x_hint)
+        cy = y_contact - 15
+        x1 = max(0, min(W - crop_w, cx - crop_w // 2))
+        y1 = max(0, min(H - crop_h, cy - crop_h // 2))
+        crop = canvas[y1:y1 + crop_h, x1:x1 + crop_w]
+        inset = cv2.resize(crop, (540, 200), interpolation=cv2.INTER_LINEAR)
+        cv2.rectangle(inset, (0, 0), (539, 199), (50, 50, 50), 2)
+        cv2.putText(inset, "Magnified Droplet & Contact View", (10, 18),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.45, (220, 220, 220), 1, cv2.LINE_AA)
+        canvas[15:215, W - 555:W - 15] = inset
+        cv2.rectangle(canvas, (W - 555, 15), (W - 15, 215), (50, 50, 50), 2)
+
+        # Dark HUD box at top-left
+        cv2.rectangle(canvas, (10, 8), (470, 168), (15, 15, 15), -1)
+        cv2.rectangle(canvas, (10, 8), (470, 168), (255, 215, 0), 2)
+
+        cv2.putText(canvas, f"Case: {h_fld} / {c_fld}", (25, 30),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.52, (255, 255, 255), 2, cv2.LINE_AA)
+        cv2.putText(canvas, f"Frame #{frame_num:03d} ({step_name}) | t = {time_ms:.2f} ms ({int(CAMERA_FPS)} fps) | {orig_fname}",
+                    (25, 48), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (200, 200, 200), 1, cv2.LINE_AA)
+
+        c_color = (0, 255, 0) if "IN CONTACT" in status else (0, 165, 255)
+        c_str = f"Contact (Dc) : {d_contact_px}px | {d_contact_mm:.2f}mm | Beta={beta_contact:.3f} [{status}]"
+        cv2.putText(canvas, c_str, (25, 70),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.44, c_color, 1, cv2.LINE_AA)
+
+        h_str = f"Apex H (H) : {height_px}px | {height_mm:.2f}mm | H/D0={norm_height:.3f}"
+        cv2.putText(canvas, h_str, (25, 93),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.42, (0, 220, 255), 1, cv2.LINE_AA)
+
+        cm_str = f"3D CoM (Hcm) : {com_height_px:.1f}px | {com_height_mm:.2f}mm | Hcm/D0={norm_com_height:.3f}"
+        cv2.putText(canvas, cm_str, (25, 115),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.42, (255, 100, 255), 1, cv2.LINE_AA)
+
+        sp_str = f"Spread (Dsp) : {d_spread_px}px | {d_spread_mm:.2f}mm | Beta_sp={beta_spread:.3f}"
+        cv2.putText(canvas, sp_str, (25, 135),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.38, (200, 200, 200), 1, cv2.LINE_AA)
+
+        sc_str = f"Scale (D0={d0_eq:.1f}px / {STANDARD_DROPLET_DIA_MM:.3f}mm): {scale:.3f} px/mm ({mm_per_px:.5f} mm/px)"
+        cv2.putText(canvas, sc_str, (25, 153),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.34, (170, 170, 170), 1, cv2.LINE_AA)
+
+        out_fname = f"frame_{frame_num:04d}_{step_name}_{time_ms:.2f}ms.jpg"
+        out_path = os.path.join(out_dir, out_fname)
+        cv2.imwrite(out_path, canvas)
+        
+        orig_analysis_path = os.path.join(out_dir, orig_fname)
+        cv2.imwrite(orig_analysis_path, canvas)
+
+        records.append({
+            'Frame_Number': frame_num,
+            'Time_ms': round(time_ms, 2),
+            'Time_s': round(time_s, 6),
+            'Relative_Step': step_name,
+            'Raw_Frame_Index': f_idx,
+            'Original_Filename': orig_fname,
+            'Analysed_Photo_Filename': out_fname,
+            'Contact_Status': status,
+            'Fragment_Count': fragment_count,
+            'Burst_Status': burst_status,
+            'Contact_Diameter_px': d_contact_px,
+            'Contact_Diameter_mm': round(d_contact_mm, 2),
+            'Beta_Contact_Dc_D0': round(beta_contact, 4),
+            'Total_MultiDrop_Contact_mm': round(total_contact_mm, 2),
+            'Spreading_Diameter_px': d_spread_px,
+            'Spreading_Diameter_mm': round(d_spread_mm, 2),
+            'Beta_Spread_Dsp_D0': round(beta_spread, 4),
+            'Droplet_Height_px': height_px,
+            'Droplet_Height_mm': round(height_mm, 2),
+            'Normalized_Height_H_D0': round(norm_height, 4),
+            'CoM_Height_px': round(com_height_px, 1),
+            'CoM_Height_mm': round(com_height_mm, 2),
+            'Normalized_CoM_Height_Hcm_D0': round(norm_com_height, 4),
+            'Primary_Core_CoM_Height_mm': round(primary_com_height_mm, 2),
+            'Mean_Satellite_Dia_mm': round(mean_sat_dia_mm, 2),
+            'True_Contact_Line_y_px': y_contact,
+            'PreImpact_D0_px': d0_eq,
+            'Standard_D0_mm': STANDARD_DROPLET_DIA_MM,
+            'Standard_Scale_px_per_mm': round(scale, 4),
+            'mm_per_pixel': round(mm_per_px, 6),
+            'Camera_FPS': CAMERA_FPS
+        })
+
+    df_out = pd.DataFrame(records)
+    for dest_dir in [out_dir, raw_dir]:
+        csv_out = os.path.join(dest_dir, "measurements_data.csv")
+        xlsx_out = os.path.join(dest_dir, "measurements_data.xlsx")
+        df_out.to_csv(csv_out, index=False)
+        try:
+            df_out.to_excel(xlsx_out, index=False)
+        except Exception:
+            pass
+
+    max_dc = int(df_out['Contact_Diameter_px'].max())
+    max_dsp = int(df_out['Spreading_Diameter_px'].max())
+    print(f"  [DONE] {fluid} / {h_fld} / {c_fld}: y_contact={y_contact} px, Max_Dc={max_dc} px, Max_Dsp={max_dsp} px")
+    return {
+        'fluid': fluid,
+        'height_folder': h_fld,
+        'case_folder': c_fld,
+        'y_contact': y_contact,
+        'max_dc': max_dc,
+        'max_dsp': max_dsp
+    }
+
+def main():
+    tasks = []
+
+    # 1. 20 perc acetone / 09_11_2022_25.8cm / 100_C001H001S0001
+    tasks.append({
+        'fluid': '20 perc acetone',
+        'height_folder': '09_11_2022_25.8cm',
+        'case_folder': '100_C001H001S0001',
+        'temp_c': 100.0,
+        'y_contact': 482,
+        'd0_eq_px': 106.0,
+        'scale_px_per_mm': 33.97
+    })
+
+    # 2. 20 perc ethanol / 08_10_2022_2.9cm / all 11 temperatures
+    temps_eth = [100, 130, 160, 190, 220, 250, 280, 310, 340, 370, 400]
+    for t in temps_eth:
+        y_c = 566 if t <= 310 else 562
+        tasks.append({
+            'fluid': '20 perc ethanol',
+            'height_folder': '08_10_2022_2.9cm',
+            'case_folder': f'{t}_C001H001S0001',
+            'temp_c': float(t),
+            'y_contact': y_c,
+            'd0_eq_px': 107.0,
+            'scale_px_per_mm': 34.2904
+        })
+
+    # 3. 40 perc acetone / 09_11_2022_25.8cm / 100_C001H001S0001
+    tasks.append({
+        'fluid': '40 perc acetone',
+        'height_folder': '09_11_2022_25.8cm',
+        'case_folder': '100_C001H001S0001',
+        'temp_c': 100.0,
+        'y_contact': 547,
+        'd0_eq_px': 113.0,
+        'scale_px_per_mm': 36.2133
+    })
+
+    print(f"[*] Starting surgical rectification for {len(tasks)} targeted cases...")
+    t_start = time.time()
+
+    with ProcessPoolExecutor(max_workers=min(8, os.cpu_count() or 4)) as executor:
+        futures = {executor.submit(process_single_case, task): task for task in tasks}
+        for future in as_completed(futures):
+            res = future.result()
+
+    elapsed = time.time() - t_start
+    print(f"[SUCCESS] All {len(tasks)} cases rectified in {elapsed:.1f} seconds!")
+
+if __name__ == '__main__':
+    main()
