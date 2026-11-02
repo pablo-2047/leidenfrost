@@ -118,6 +118,16 @@ def main():
         lf_norm_com = lf_max_com_px / d0_px
         
         rec = dict(r)
+        
+        # Ensure values reflect latest rectified measurements_data.csv
+        if 'Contact_Diameter_px' in d:
+            rec['Max_Contact_Dia_px'] = int(d['Contact_Diameter_px'].max())
+            rec['Max_Contact_Dia_mm'] = round(d['Contact_Diameter_mm'].max(), 3) if 'Contact_Diameter_mm' in d else round(d['Contact_Diameter_px'].max() / scale, 3)
+            rec['Max_Beta_Contact_Dc_D0'] = round(d['Beta_Contact_Dc_D0'].max(), 4) if 'Beta_Contact_Dc_D0' in d else round(d['Contact_Diameter_px'].max() / d0_px, 4)
+        if 'True_Contact_Line_y_px' in d:
+            rec['Surface_Level_y_px'] = int(d['True_Contact_Line_y_px'].iloc[0])
+            rec['Contact_Line_y_px'] = int(d['True_Contact_Line_y_px'].iloc[0])
+
         rec['Camera_FPS_True'] = fps
         rec['Regime_4'] = regime_4
         rec['LF_PostLiftoff_Max_Apex_px'] = lf_max_apex_px
