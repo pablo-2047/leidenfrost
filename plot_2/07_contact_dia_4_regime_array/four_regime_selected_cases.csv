@@ -33,16 +33,16 @@ pure water,Pure Water (0%),340,Case II: Leidenfrost Film Boiling,8.0,67.3,Leiden
 40 perc acetone,Water + 40% Acetone,130,Case I: Sticking / Wetting Deposition,25.8,453.8,Sticking,09_11_2022_25.8cm,130_C001H001S0001,4.487,0
 40 perc acetone,Water + 40% Acetone,340,Case II: Leidenfrost Film Boiling,1.3,22.9,Leidenfrost,09_11_2022_1.3cm,340_C001H001S0001,2.529,0
 40 perc acetone,Water + 40% Acetone,340,Case II: Leidenfrost Film Boiling,2.9,51.0,Leidenfrost,09_11_2022_2.9cm,340_C001H001S0001,2.908,0
-60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,1.3,25.8,Sticking,14_11_2022_1.3cm,100_C001H001S0001,2.007,0
-60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,2.9,57.7,Sticking,14_11_2022_2.9cm,100_C001H001S0001,2.918,0
-60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,5.1,101.4,Sticking,14_11_2022_5.1cm,100_C001H001S0001,2.769,0
-60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,8.0,159.1,Sticking,14_11_2022_8cm,100_C001H001S0001,3.299,0
-60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,11.5,228.7,Sticking,13_11_2022_11.5cm,100_C001H001S0001,3.609,0
-60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,15.6,310.2,Sticking,13_11_2022_15.6cm,100_C001H001S0001,3.64,0
-60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,20.5,407.6,Sticking,13_11_2022_20.5cm,100_C001H001S0001,2.779,0
-60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,25.8,513.0,Sticking,13_11_2022_25.8cm,100_C001H001S0001,4.037,0
+60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,1.3,25.8,Sticking,14_11_2022_1.3cm,100_C001H001S0001,2.0,0
+60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,2.9,57.7,Sticking,14_11_2022_2.9cm,100_C001H001S0001,3.064,0
+60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,5.1,101.4,Sticking,14_11_2022_5.1cm,100_C001H001S0001,2.608,0
+60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,8.0,159.1,Sticking,14_11_2022_8cm,100_C001H001S0001,3.591,0
+60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,11.5,228.7,Sticking,13_11_2022_11.5cm,100_C001H001S0001,3.664,0
+60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,15.6,310.2,Sticking,13_11_2022_15.6cm,100_C001H001S0001,3.775,0
+60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,20.5,407.6,Sticking,13_11_2022_20.5cm,100_C001H001S0001,4.471,0
+60 perc acetone,Water + 60% Acetone,100,Case I: Sticking / Wetting Deposition,25.8,513.0,Sticking,13_11_2022_25.8cm,100_C001H001S0001,4.394,0
 60 perc acetone,Water + 60% Acetone,340,Case II: Leidenfrost Film Boiling,1.3,25.8,Leidenfrost,14_11_2022_1.3cm,340_C001H001S0001,1.639,0
-60 perc acetone,Water + 60% Acetone,340,Case II: Leidenfrost Film Boiling,2.9,57.7,Leidenfrost,14_11_2022_2.9cm,340_C001H001S0001,2.382,0
+60 perc acetone,Water + 60% Acetone,340,Case II: Leidenfrost Film Boiling,2.9,57.7,Leidenfrost,14_11_2022_2.9cm,340_C001H001S0001,2.397,0
 20 perc ethanol,Water + 20% Ethanol,130,Case I: Sticking / Wetting Deposition,1.3,18.8,Sticking,08_10_2022_1.3cm,130_C001H001S0001,1.679,0
 20 perc ethanol,Water + 20% Ethanol,130,Case I: Sticking / Wetting Deposition,2.9,42.0,Sticking,08_10_2022_2.9cm,130_C001H001S0001,2.627,0
 20 perc ethanol,Water + 20% Ethanol,130,Case I: Sticking / Wetting Deposition,5.1,73.8,Sticking,08_10_2022_5.1cm,130_C001H001S0001,3.3,0

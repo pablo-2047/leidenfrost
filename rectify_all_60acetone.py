@@ -40,28 +40,23 @@ Y_TOP_CUT = 135
 def get_calibrated_y_contact(height_folder, temp_c=None):
     temp = float(temp_c) if temp_c is not None else 100.0
     if "25.8" in height_folder:
-        return 554
+        return 533
     elif "20.5" in height_folder:
-        return 543
+        return 527
     elif "15.6" in height_folder:
-        return 571
+        return 562
     elif "11.5" in height_folder:
-        return 584
+        return 581
     elif "1.3" in height_folder:
-        return 683
+        return 680
     elif "2.9" in height_folder:
-        return 711
+        return 685
     elif "5.1" in height_folder:
-        return 691
+        return 678
     elif height_folder.endswith("_8cm") or height_folder.endswith(" 8cm") or "_8cm" in height_folder:
-        if temp <= 100:
-            return 682
-        elif temp <= 250:
-            return 650
-        else:
-            return 644
+        return 645 if temp <= 250 else 642
     else:
-        return 584
+        return 581
 
 def detect_case_t0(files, bg, y_c, y_top_cut=135):
     """
