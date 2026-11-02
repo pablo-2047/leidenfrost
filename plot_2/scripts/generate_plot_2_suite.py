@@ -45,6 +45,7 @@ SUBDIRS = {
     '3d_rebound': os.path.join(PLOT2_DIR, "04_3D_rebound_height_temp_weber"),
     'regime_maps': os.path.join(PLOT2_DIR, "05_impact_regime_maps_weber_vs_temp"),
     'novel': os.path.join(PLOT2_DIR, "06_novel_research_plots"),
+    'four_regimes': os.path.join(PLOT2_DIR, "07_contact_dia_4_regime_array"),
 }
 
 for sdir in SUBDIRS.values():
@@ -305,17 +306,92 @@ def get_height_color(h):
     return '#334155'
 
 
-def generate_category_1_spreading(df):
+def extract_clean_contact_dia(df_case, tau, regime, we, h_cm):
     """
-    Plot Category 1: Spreading factor vs. Dimensionless time (strictly non-bursting).
-    Multi-panel subplots: Each subplot represents a distinct temperature.
-    Curves show beta(t*) = D_spread / D0 for non-bursting drop heights.
+    Extract physical Contact Diameter ratio: beta_c(t*) = D_c(t) / D0
+    - Strictly 20 frames after initial substrate contact.
+    - Pre-impact touchdown: t* = 0, beta_c = 0.00
+    - Next 20 frames: captures the primary impact expansion and recoil.
+    - Liftoff (Leidenfrost): drops to 0.00 upon detachment.
     """
-    print("\n--- Generating Category 1: Spreading vs. Dimensionless Time (Non-Bursting Multi-Panel Subplots) ---")
+    df_c = df_case.sort_values('Time_s').reset_index(drop=True)
+    c_mask = (df_c['Beta_Contact_Dc_D0'] > 0.05) | (df_c['Contact_Status'] == 'IN CONTACT')
+    if not c_mask.any():
+        c_mask = (df_c['Beta_Spread_Dsp_D0'] > 1.10) | (df_c['Contact_Status'] != 'PRE-IMPACT (AIRBORNE)')
+    if not c_mask.any():
+        return None, None
+    first_c = int(c_mask.idxmax())
+    i0 = max(0, first_c - 1)
+    t0 = df_c.loc[i0, 'Time_s']
     
-    # Filter non-bursting cases
+    # Strictly 20 frames after initial contact:
+    # row i0 is pre-impact (airborne, beta_c = 0.0)
+    # rows from first_c to first_c + 19 are exactly 20 frames of contact
+    sub = df_c.loc[i0 : first_c + 19].copy().reset_index(drop=True)
+    if len(sub) < 3:
+        return None, None
+        
+    sub['t_star'] = (sub['Time_s'] - t0) / tau
+    beta_c = sub['Beta_Contact_Dc_D0'].values.astype(float).copy()
+    
+    # Pre-impact touchdown point is exactly 0.0
+    if i0 < first_c:
+        beta_c[0] = 0.0
+        
+    # Clamp extreme specular glare / optical reflection spikes
+    max_phys = max(2.5, 1.8 * (max(1.0, we) ** 0.25) + 0.8)
+    beta_c = np.where(beta_c > max_phys, np.nan, beta_c)
+    
+    if regime == 'Leidenfrost':
+        # Find primary contact liftoff:
+        # After initial contact duration >= 1.5 ms, when Contact_Status is AIRBORNE or CoM rises > 1.35 D0
+        lo_idx = None
+        for idx in range(1, len(sub)):
+            t_ms = sub.loc[idx, 'Time_ms'] - sub.loc[0, 'Time_ms']
+            com = sub.loc[idx, 'Normalized_CoM_Height_Hcm_D0']
+            st = sub.loc[idx, 'Contact_Status']
+            if t_ms >= 1.5 and (st == 'AIRBORNE' or com >= 1.35):
+                lo_idx = idx
+                break
+                
+        if lo_idx is not None:
+            contact_slice = beta_c[:lo_idx]
+            contact_slice = np.where(contact_slice <= 0.05, np.nan, contact_slice)
+            contact_slice = pd.Series(contact_slice).interpolate(method='linear').bfill().ffill().values
+            beta_c[:lo_idx] = contact_slice
+            # After liftoff, contact diameter on the substrate is strictly 0.00
+            beta_c[lo_idx:] = 0.0
+        else:
+            beta_c = np.where(beta_c <= 0.05, np.nan, beta_c)
+            beta_c = pd.Series(beta_c).interpolate(method='linear').bfill().ffill().values
+    else:
+        # Sticking: exclude extreme splash/shatter (We > 120 or h > 8.0 cm)
+        if we > 120 or h_cm > 8.0:
+            return None, None
+        # Interpolate any isolated optical dropout in the positive contact segment
+        if len(beta_c) > 1:
+            c_pos = beta_c[1:]
+            c_pos = np.where(c_pos <= 0.05, np.nan, c_pos)
+            c_pos = pd.Series(c_pos).interpolate(method='linear').bfill().ffill().values
+            beta_c[1:] = c_pos
+            
+    t_star = sub['t_star'].values
+    return t_star, np.maximum(0.0, beta_c)
+
+
+def generate_category_1_contact_dia(df):
+    """
+    Plot Category 1: Contact Diameter vs. Dimensionless time (strictly non-bursting, 20 frames after contact).
+    Multi-panel subplots: Each subplot represents a distinct temperature.
+    Curves show beta_c(t*) = D_contact / D0 for the first 20 frames after contact.
+    """
+    print("\n--- Generating Category 1: Contact Diameter vs. Dimensionless Time (First 20 Frames Post-Contact) ---")
+    
     df_non_burst = df[df['Final_Regime'] != 'Bursting']
     print(f"Total non-bursting cases available: {len(df_non_burst)}")
+    
+    contact_dir = os.path.join(PLOT2_DIR, "01_contact_dia_vs_time_non_bursting")
+    os.makedirs(contact_dir, exist_ok=True)
     
     for fl in FLUID_PROPS.keys():
         df_fl = df_non_burst[df_non_burst['Fluid_Folder'] == fl]
@@ -327,38 +403,26 @@ def generate_category_1_spreading(df):
             print(f"Skipping {fl} (no non-bursting cases).")
             continue
             
-        # Get unique temperatures with non-bursting data
         temps = sorted(df_fl['Temperature_C'].unique())
         n_temps = len(temps)
         
         if n_temps == 0:
             continue
             
-        # Determine grid dimensions
-        n_cols = min(4, n_temps)
-        n_rows = int(np.ceil(n_temps / n_cols))
+        # Pre-extract all valid curves for this fluid to determine optimal auto-scaled xlim
+        curve_data_by_temp = {}
+        all_t_stars = []
+        all_betas = []
         
-        fig, axes = plt.subplots(n_rows, n_cols, figsize=(5.0 * n_cols, 4.2 * n_rows), sharex=True, sharey=True)
-        axes = np.atleast_1d(axes).flatten()
-        
-        fig.suptitle(f"Hydrodynamic Spreading Dynamics (Non-Bursting Coherent Regimes)\n{label}",
-                     fontsize=15, fontweight='bold', y=0.98, color='#0f172a')
-                     
-        for ax_i, temp in enumerate(temps):
-            ax = axes[ax_i]
+        for temp in temps:
             cases_temp = df_fl[df_fl['Temperature_C'] == temp].sort_values('Drop_Height_cm')
-            
-            # Subplot title
-            ax.set_title(f"Substrate Temp: T = {int(temp)}°C", fontsize=11, fontweight='bold', color='#1e3a8a', pad=8)
-            ax.grid(True, linestyle='--', alpha=0.6)
-            ax.set_xlim(0, 15)
-            ax.set_ylim(0, 4.5)
-            
+            temp_curves = []
             for _, r_case in cases_temp.iterrows():
                 h_cm = r_case['Drop_Height_cm']
                 h_fld = r_case['Drop_Height_Folder']
                 c_fld = r_case['Case_Folder']
                 we = r_case['Weber_Number']
+                reg = r_case['Final_Regime']
                 
                 csv_path = os.path.join(fl_dir, h_fld, c_fld, 'measurements_data.csv')
                 if not os.path.isfile(csv_path):
@@ -369,30 +433,66 @@ def generate_category_1_spreading(df):
                 d0 = r_case['D0_m']
                 tau = d0 / max(0.01, v)
                 
-                t_star = df_case['Time_s'] / tau
-                beta = df_case['Beta_Spread_Dsp_D0']
-                
+                t_star, beta_c = extract_clean_contact_dia(df_case, tau, reg, we, h_cm)
+                if t_star is None or len(t_star) == 0:
+                    continue
+                    
+                temp_curves.append((h_cm, we, t_star, beta_c))
+                all_t_stars.extend(t_star)
+                all_betas.extend(beta_c)
+            curve_data_by_temp[temp] = temp_curves
+            
+        # Optimal auto-scaling for the 20-frame window
+        max_t_limit = max(1.0, float(np.ceil(max(all_t_stars) * 2) / 2)) if all_t_stars else 2.5
+        max_beta_limit = max(3.0, float(np.ceil(min(5.0, max(all_betas)) * 2) / 2)) if all_betas else 3.5
+        
+        n_cols = min(4, n_temps)
+        n_rows = int(np.ceil(n_temps / n_cols))
+        
+        fig, axes = plt.subplots(n_rows, n_cols, figsize=(5.0 * n_cols, 4.2 * n_rows), sharex=True, sharey=True)
+        axes = np.atleast_1d(axes).flatten()
+        
+        fig.suptitle(f"Substrate Contact Dynamics (First 20 Frames Post-Impact)\n{label}",
+                     fontsize=15, fontweight='bold', y=0.98, color='#0f172a')
+                     
+        for ax_i, temp in enumerate(temps):
+            ax = axes[ax_i]
+            temp_curves = curve_data_by_temp.get(temp, [])
+            
+            ax.set_title(f"Substrate Temp: T = {int(temp)}°C", fontsize=11, fontweight='bold', color='#1e3a8a', pad=8)
+            ax.grid(True, linestyle='--', alpha=0.6)
+            ax.set_xlim(0, max_t_limit)
+            ax.set_ylim(0, max_beta_limit)
+            
+            for h_cm, we, t_star, beta_c in temp_curves:
                 color = get_height_color(h_cm)
                 lbl = f"h = {h_cm:.1f} cm (We ≈ {we:.0f})"
+                ax.plot(t_star, beta_c, color=color, lw=2.0, alpha=0.9, label=lbl)
                 
-                ax.plot(t_star, beta, color=color, lw=1.8, alpha=0.9, label=lbl)
-                
-            ax.legend(fontsize=8, loc='upper right', framealpha=0.85)
+            handles, labels_leg = ax.get_legend_handles_labels()
+            if handles:
+                ax.legend(fontsize=7.5, loc='upper right', framealpha=0.88)
             
             if ax_i % n_cols == 0:
-                ax.set_ylabel(r"Spreading Ratio $\beta = D(t)/D_0$", fontsize=10, fontweight='bold')
+                ax.set_ylabel(r"Contact Ratio $\beta_c = D_c(t)/D_0$", fontsize=10, fontweight='bold')
             if ax_i >= (n_rows - 1) * n_cols or ax_i == n_temps - 1:
-                ax.set_xlabel(r"Dimensionless Time $t^* = t/\tau$", fontsize=10, fontweight='bold')
+                ax.set_xlabel(r"Dimensionless Time $t^* = (t - t_{\mathrm{contact}})/\tau$", fontsize=10, fontweight='bold')
                 
-        # Hide any unused axes
         for ax_empty in axes[n_temps:]:
             ax_empty.set_visible(False)
             
         plt.tight_layout(rect=[0.02, 0.03, 0.98, 0.93])
-        out_png = os.path.join(SUBDIRS['spreading'], f"spreading_non_bursting_{safe_name}.png")
-        plt.savefig(out_png, dpi=250)
+        out_png_spread = os.path.join(SUBDIRS['spreading'], f"spreading_non_bursting_{safe_name}.png")
+        out_png_contact = os.path.join(contact_dir, f"contact_dia_non_bursting_{safe_name}.png")
+        plt.savefig(out_png_spread, dpi=250)
+        plt.savefig(out_png_contact, dpi=250)
         plt.close()
-        print(f"  [+] Saved spreading plot: {out_png}")
+        print(f"  [+] Saved contact diameter plot: {out_png_spread}")
+        print(f"  [+] Saved contact diameter plot: {out_png_contact}")
+
+
+# Alias for backward compatibility
+generate_category_1_spreading = generate_category_1_contact_dia
 
 
 def generate_category_2_height_vs_weber(df):
@@ -943,16 +1043,16 @@ def generate_category_6_novel_plots(df):
     print("\n--- Generating Category 6: Novel High-Impact Research Plots ---")
     
     # ----------------------------------------------------
-    # Novel Plot 1: Clanet Universal Master Collapse
+    # Novel Plot 1: Universal Leidenfrost Contact Diameter Scaling: beta_c(t*) / We^(1/4)
     # ----------------------------------------------------
     fig1, ax1 = plt.subplots(figsize=(11, 7))
-    ax1.set_title(r"Universal Leidenfrost Spreading Collapse: $\beta(t^*) / \mathrm{We}^{1/4}$ vs. Dimensionless Time $t^*$" + "\n(All 10 Fluid Formulations in Coherent Film-Boiling Regime)",
+    ax1.set_title(r"Universal Leidenfrost Contact Diameter Scaling: $\beta_c(t^*) / \mathrm{We}^{1/4}$ vs. Dimensionless Time $t^*$" + "\n(All 10 Fluid Formulations in Coherent Film-Boiling Regime)",
                   fontsize=13, fontweight='bold', color='#0f172a', pad=12)
     ax1.grid(True, linestyle='--', alpha=0.6)
-    ax1.set_xlim(0, 8.0)
+    ax1.set_xlim(0, 4.0)
     ax1.set_ylim(0, 1.8)
     ax1.set_xlabel(r"Dimensionless Time $t^* = (t - t_{\mathrm{contact}}) / \tau$", fontsize=12, fontweight='bold')
-    ax1.set_ylabel(r"Rescaled Spreading Factor $\beta(t^*) / \mathrm{We}^{1/4}$", fontsize=12, fontweight='bold')
+    ax1.set_ylabel(r"Rescaled Contact Ratio $\beta_c(t^*) / \mathrm{We}^{1/4}$", fontsize=12, fontweight='bold')
     
     # Theoretical Clanet peak line
     ax1.axhline(1.34, color='#dc2626', ls='--', lw=2.0, label=r"Universal Peak Theory: $\beta_{\max}/\mathrm{We}^{1/4} \approx 1.34$ (Clanet et al.)")
@@ -981,8 +1081,10 @@ def generate_category_6_novel_plots(df):
             tau = d0 / max(0.01, v)
             we = r_c['Weber_Number']
             
-            t_star = df_c['Time_s'] / tau
-            beta_rescaled = df_c['Beta_Spread_Dsp_D0'] / (we ** 0.25)
+            t_star, beta_c = extract_clean_contact_dia(df_c, tau, 'Leidenfrost', we, r_c['Drop_Height_cm'])
+            if t_star is None or len(t_star) == 0:
+                continue
+            beta_rescaled = beta_c / (we ** 0.25)
             
             ax1.plot(t_star, beta_rescaled, color=p['color'], lw=1.4, alpha=0.5)
             
@@ -1145,15 +1247,221 @@ def generate_category_6_novel_plots(df):
     print(f"  [+] Saved: {out_nov3}")
 
 
+def extract_raw_20frame_contact_dia(df_case, tau):
+    """
+    Extract raw, unsmoothed Contact Diameter ratio beta_c(t*) = D_c(t) / D0
+    for the first 20 frames after initial substrate contact.
+    - Frame i0 (1 frame prior to contact): t* = 0.0, beta_c = 0.0
+    - Frames first_c .. first_c + 19: exact raw OpenCV measurements from CSV.
+    """
+    df_c = df_case.sort_values('Time_s').reset_index(drop=True)
+    c_mask = (df_c['Beta_Contact_Dc_D0'] > 0.05) | (df_c['Contact_Status'] == 'IN CONTACT')
+    if not c_mask.any():
+        c_mask = (df_c['Beta_Spread_Dsp_D0'] > 1.10) | (df_c['Contact_Status'] != 'PRE-IMPACT (AIRBORNE)')
+    if not c_mask.any():
+        return None, None
+    first_c = int(c_mask.idxmax())
+    i0 = max(0, first_c - 1)
+    t0 = df_c.loc[i0, 'Time_s']
+
+    sub = df_c.loc[i0 : first_c + 19].copy().reset_index(drop=True)
+    if len(sub) < 2:
+        return None, None
+
+    t_star = ((sub['Time_s'] - t0) / tau).values.astype(float)
+    beta_c = sub['Beta_Contact_Dc_D0'].values.astype(float).copy()
+    if i0 < first_c:
+        beta_c[0] = 0.0
+
+    return t_star, np.maximum(0.0, beta_c)
+
+
+def generate_category_7_four_regime_array(df):
+    """
+    Plot Category 7: 1x2 Array of Substrate Contact Dynamics per Fluid.
+    Compares the two well-defined thermodynamic boundaries:
+      1. Sticking / Wetting Deposition (130°C, or 100°C for 60% Acetone)
+      2. Leidenfrost Film Boiling Rebound (340°C)
+    (Bursting and Transition regimes are excluded because droplet fragmentation
+    renders baseline optical contact diameter chaotic/non-physical).
+    Within each panel, all drop release heights are plotted over the first 20 frames.
+    """
+    print("\n--- Generating Category 7: Sticking vs. Leidenfrost Contact Dynamics (1x2 Array, All Heights) ---")
+
+    out_dir = SUBDIRS['four_regimes']
+    os.makedirs(out_dir, exist_ok=True)
+
+    checklist_rows = []
+
+    for fl, p in FLUID_PROPS.items():
+        df_fl = df[df['Fluid_Folder'] == fl].copy()
+        fl_dir = os.path.join(ANALYSIS_DIR, fl)
+        safe_name = fl.replace(' ', '_')
+        label = p['label']
+
+        # Two well-defined thermodynamic boundaries: Sticking/Wetting and Leidenfrost Film Boiling
+        # (Bursting and Transition regimes are removed due to disintegrating/chaotic contact interfaces)
+        if fl == '60 perc acetone':
+            regime_panels = [
+                (100, "Case I: Sticking / Wetting Deposition", "#1e40af"),
+                (340, "Case II: Leidenfrost Film Boiling", "#15803d"),
+            ]
+        elif fl == '20 perc ethanol':
+            regime_panels = [
+                (130, "Case I: Sticking / Wetting Deposition", "#1e40af"),
+                (220, "Case II: Leidenfrost Film Boiling", "#15803d"),
+            ]
+        elif fl == 'pure water':
+            regime_panels = [
+                (130, "Case I: Sticking / Wetting Deposition", "#1e40af"),
+                (340, "Case II: Leidenfrost Film Boiling", "#15803d"),
+            ]
+        else:
+            regime_panels = [
+                (130, "Case I: Sticking / Wetting Deposition", "#1e40af"),
+                (340, "Case II: Leidenfrost Film Boiling", "#15803d"),
+            ]
+
+        panel_curves = {}
+        all_t_stars = []
+        all_betas = []
+
+        for temp_val, reg_title, _ in regime_panels:
+            sub_t = df_fl[df_fl['Temperature_C'] == temp_val].sort_values(['Drop_Height_cm', 'Case_Folder'])
+            # Deduplicate same Drop_Height_cm keeping first (S0001)
+            sub_t = sub_t.drop_duplicates(subset=['Drop_Height_cm'], keep='first')
+            curves = []
+
+            for _, r_case in sub_t.iterrows():
+                h_cm = float(r_case['Drop_Height_cm'])
+                h_fld = str(r_case['Drop_Height_Folder'])
+                c_fld = str(r_case['Case_Folder'])
+                we = float(r_case['Weber_Number'])
+                reg = str(r_case['Final_Regime'])
+
+                # In Leidenfrost panel, exclude cases where high impact inertia suppresses
+                # the vapor film causing thermal bursting rather than true film boiling
+                if (temp_val in [220, 340]) and reg != 'Leidenfrost':
+                    continue
+
+                csv_path = os.path.join(fl_dir, h_fld, c_fld, 'measurements_data.csv')
+                if not os.path.isfile(csv_path):
+                    continue
+
+                df_case = pd.read_csv(csv_path)
+                v = float(r_case['Velocity_m_s'])
+                d0 = float(r_case['D0_m'])
+                tau = d0 / max(0.01, v)
+
+                t_star, beta_c = extract_raw_20frame_contact_dia(df_case, tau)
+                if t_star is None or len(t_star) == 0:
+                    continue
+
+                curves.append((h_cm, we, reg, t_star, beta_c, h_fld, c_fld))
+                all_t_stars.extend(t_star)
+                # Filter out extreme full-frame glare (> 8.0) when computing axis y-limit
+                valid_b = [b for b in beta_c if b <= 8.0]
+                all_betas.extend(valid_b)
+
+                checklist_rows.append({
+                    'Fluid_Folder': fl,
+                    'Fluid_Label': label,
+                    'Panel_Temperature_C': int(temp_val),
+                    'Panel_Regime_Case': reg_title,
+                    'Drop_Height_cm': h_cm,
+                    'Weber_Number': round(we, 1),
+                    'Classified_Regime': reg,
+                    'Drop_Height_Folder': h_fld,
+                    'Case_Folder': c_fld,
+                    'Max_Beta_Contact_20frames': round(float(np.max(beta_c)), 3),
+                    'Zero_Dropouts_in_20frames': int(np.sum(beta_c[1:] == 0.0))
+                })
+
+            panel_curves[temp_val] = curves
+
+        max_t_limit = max(1.0, float(np.ceil(max(all_t_stars) * 2) / 2)) if all_t_stars else 3.0
+        p98_beta = float(np.percentile(all_betas, 98)) if all_betas else 4.0
+        max_beta_limit = max(3.5, min(6.5, float(np.ceil(p98_beta * 2) / 2) + 0.5))
+
+        fig, axes = plt.subplots(1, 2, figsize=(15, 6.2), sharex=True, sharey=True)
+
+        fig.suptitle(
+            f"Substrate Contact Dynamics: Sticking vs. Leidenfrost Regimes (First 20 Frames Post-Impact)\n"
+            f"{label} — Sticking (All Heights) & Leidenfrost (Film Boiling Cases)",
+            fontsize=14.0, fontweight='bold', y=0.98, color='#0f172a'
+        )
+
+        for idx, (temp_val, reg_title, title_color) in enumerate(regime_panels):
+            ax = axes[idx]
+            curves = panel_curves.get(temp_val, [])
+
+            ax.set_title(f"T = {int(temp_val)}°C — {reg_title}", fontsize=12.0, fontweight='bold', color=title_color, pad=9)
+            ax.grid(True, linestyle='--', alpha=0.65)
+            ax.set_xlim(0, max_t_limit)
+            ax.set_ylim(0, max_beta_limit)
+
+            for h_cm, we, reg, t_star, beta_c, _, _ in curves:
+                color = get_height_color(h_cm)
+                short_reg = "Stick" if reg == "Sticking" else ("LF" if reg == "Leidenfrost" else "Burst")
+                lbl = f"h = {h_cm:.1f} cm (We≈{we:.0f}) [{short_reg}]"
+                ax.plot(
+                    t_star, beta_c,
+                    color=color, lw=2.0, marker='o', markersize=3.4,
+                    alpha=0.9, label=lbl
+                )
+
+            handles, _ = ax.get_legend_handles_labels()
+            if handles:
+                ax.legend(fontsize=8.5, loc='upper right', ncol=2, framealpha=0.90, edgecolor='#cbd5e1')
+
+            if idx == 0:
+                ax.set_ylabel(r"Contact Diameter Ratio $\beta_c = D_c(t)/D_0$", fontsize=11, fontweight='bold')
+            ax.set_xlabel(r"Normalized Time $t^* = (t - t_{\mathrm{contact}})/\tau$", fontsize=11, fontweight='bold')
+
+        plt.tight_layout(rect=[0.02, 0.03, 0.98, 0.92])
+        out_png = os.path.join(out_dir, f"contact_dia_4_regimes_{safe_name}.png")
+        saved = False
+        for attempt in range(3):
+            try:
+                if os.path.exists(out_png):
+                    try: os.remove(out_png)
+                    except: pass
+                plt.savefig(out_png, dpi=250)
+                saved = True
+                break
+            except Exception as e:
+                import time
+                time.sleep(0.5)
+                if attempt == 2:
+                    print(f"  [-] Warning: could not save {out_png}: {e}")
+        plt.close()
+        if saved:
+            print(f"  [+] Saved 4-regime array plot: {out_png}")
+
+    df_check = pd.DataFrame(checklist_rows)
+    check_csv = os.path.join(out_dir, "four_regime_selected_cases.csv")
+    df_check.to_csv(check_csv, index=False)
+    print(f"  [+] Saved 4-regime case checklist CSV: {check_csv}")
+
+
 if __name__ == "__main__":
     df_master = load_and_calibrate_dataset()
+    cat = sys.argv[1].lower() if len(sys.argv) > 1 else 'all'
     
-    generate_category_1_spreading(df_master)
-    generate_category_2_height_vs_weber(df_master)
-    generate_category_3_height_vs_temp(df_master)
-    generate_category_4_3d_rebound(df_master)
-    generate_category_5_regime_maps(df_master)
-    generate_category_6_novel_plots(df_master)
+    if cat in ['1', 'cat1', 'spreading', 'all']:
+        generate_category_1_spreading(df_master)
+    if cat in ['2', 'cat2', 'all']:
+        generate_category_2_height_vs_weber(df_master)
+    if cat in ['3', 'cat3', 'all']:
+        generate_category_3_height_vs_temp(df_master)
+    if cat in ['4', 'cat4', 'all']:
+        generate_category_4_3d_rebound(df_master)
+    if cat in ['5', 'cat5', 'all']:
+        generate_category_5_regime_maps(df_master)
+    if cat in ['6', 'cat6', 'novel', 'all']:
+        generate_category_6_novel_plots(df_master)
+    if cat in ['7', 'cat7', 'four_regimes', '4regimes', 'all']:
+        generate_category_7_four_regime_array(df_master)
     
     print("\n=======================================================")
     print("ALL PLOT_2 SUITE GENERATIONS COMPLETED SUCCESSFULLY!")
