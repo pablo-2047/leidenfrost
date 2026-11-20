@@ -22,6 +22,7 @@ Features:
 
 import os
 import glob
+import re
 import time
 import cv2
 import numpy as np
@@ -34,10 +35,31 @@ BASE_ANALYSIS_DIR = r"C:\Users\Pablo\Desktop\Analysis"
 MASTER_PLOT2_CSV = r"C:\Users\Pablo\Desktop\Analysis\plot_2\master_summary_plot_2_rectified.csv"
 MASTER_PHYSICS_CSV = r"C:\Users\Pablo\Desktop\Analysis\plots\master_summary_with_physics.csv"
 
-CAMERA_FPS = 4000.0
+DEFAULT_CAMERA_FPS = 4000.0
 STANDARD_DROPLET_DIA_MM = 3.1204
 TOTAL_FRAMES_TO_PROCESS = 250
 Y_TOP_CUT = 40
+
+
+def read_camera_fps(raw_dir):
+    cih = glob.glob(os.path.join(raw_dir, "*.cih")) + glob.glob(os.path.join(raw_dir, "*.cihx"))
+    if not cih:
+        return DEFAULT_CAMERA_FPS
+    txt = open(cih[0], "r", errors="ignore").read()
+    mm = re.search(r"Record Rate\(fps\)\s*:\s*(\d+)", txt) or re.search(r"<recordRate>(\d+)<", txt)
+    return float(mm.group(1)) if mm else DEFAULT_CAMERA_FPS
+
+
+def detect_needle_boxes(img0_gray, W, y_contact):
+    max_y = min(max(60, y_contact - 160), 350)
+    n_mask = (img0_gray[:max_y, :] < 130).astype(np.uint8) * 255
+    ncnts, _ = cv2.findContours(n_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    boxes = []
+    for nc in ncnts:
+        nx, ny, nw, nh = cv2.boundingRect(nc)
+        if ny <= 15 and nh > 20 and 300 < nx < W - 300:
+            boxes.append((nx, ny, nw, nh))
+    return boxes
 
 
 def get_calibrated_y_contact(height_folder, temp_c=None):
@@ -92,32 +114,34 @@ def detect_case_t0(files, bg, y_c, y_top_cut=40):
     return t_contact
 
 
-def reconstruct_water_droplet_contour(im, bg, y_contact, y_top_cut, y_effective_clip=None):
+def reconstruct_water_droplet_contour(im, bg, y_contact, y_top_cut, y_effective_clip=None, needle_boxes=None):
     """
     Robust segmentation and contour reconstruction for pure water droplets,
-    preserving transparent liquid cores while strictly rejecting thin horizontal
-    surface shimmer slivers and isolated frame border noise.
+    preserving transparent liquid cores while strictly rejecting bright horizon
+    glare shimmer slivers, needle pendant drops, and isolated border noise.
     """
     clip_y = y_contact if y_effective_clip is None else min(y_contact, int(y_effective_clip))
     diff = cv2.subtract(bg, im)
 
-    sil = ((diff > 25) & (bg > 55)).astype(np.uint8) * 255
+    sil = ((diff > 28) & (im < 185) & (bg > 55)).astype(np.uint8) * 255
+    hor_y = max(y_top_cut + 2, clip_y - 14)
+    sil[hor_y:clip_y + 1, :] = ((diff[hor_y:clip_y + 1, :] > 35) & (im[hor_y:clip_y + 1, :] < 155) & (bg[hor_y:clip_y + 1, :] > 55)).astype(np.uint8) * 255
     sil[clip_y + 1:, :] = 0
     sil[:y_top_cut, :] = 0
+    if needle_boxes:
+        for nx, ny, nw, nh in needle_boxes:
+            sil[:min(clip_y - 160, ny + nh + 70), max(0, nx - 45):min(im.shape[1], nx + nw + 45)] = 0
     sil[:, :20] = 0
     sil[:, im.shape[1] - 20:] = 0
 
-    split_y = max(y_top_cut + 2, clip_y - 12)
-    top_part = cv2.morphologyEx(sil[:split_y, :], cv2.MORPH_CLOSE, np.ones((5, 45), np.uint8))
-    bot_part = cv2.morphologyEx(sil[split_y:, :], cv2.MORPH_CLOSE, np.ones((3, 15), np.uint8))
-    combined = np.vstack([top_part, bot_part])
+    combined = cv2.morphologyEx(sil, cv2.MORPH_CLOSE, np.ones((3, 9), np.uint8))
 
     cnts, _ = cv2.findContours(combined, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     valid_cnts = []
     for c in cnts:
         bx, by, bw, bh = cv2.boundingRect(c)
-        # Strictly reject thin horizontal shimmer slivers (e.g. height < 11 and aspect ratio > 4.5)
-        if bh < 11 and (bw > 25 or bw / max(1, bh) > 4.5):
+        # Strictly reject thin horizontal shimmer slivers (e.g. height < 10 and wide)
+        if bh < 10 and (bw > 20 or bw / max(1, bh) > 4.0):
             continue
         if cv2.contourArea(c) > 180:
             valid_cnts.append(c)
@@ -134,8 +158,8 @@ def reconstruct_water_droplet_contour(im, bg, y_contact, y_top_cut, y_effective_
         if c is main_c:
             continue
         cx, cy, cw, ch = cv2.boundingRect(c)
-        if cy < my + mh + 6 and cy + ch > my - 6:
-            if cx <= mx + mw + 40 and cx + cw >= mx - 40:
+        if cy < my + mh + 5 and cy + ch > my - 5:
+            if cx <= mx + mw + 12 and cx + cw >= mx - 12:
                 cv2.drawContours(droplet_mask, [c], -1, 255, -1)
 
     # Scanline horizontal fill ONLY within the bounds of the droplet
@@ -173,7 +197,13 @@ def process_single_case(case_info):
     raw_dir = os.path.join(BASE_EXP_DIR, "pure water", h_fld, c_fld)
     out_dir = os.path.join(BASE_ANALYSIS_DIR, "pure water", h_fld, c_fld)
     os.makedirs(out_dir, exist_ok=True)
+    for old_f in glob.glob(os.path.join(out_dir, "frame_*.jpg")):
+        try:
+            os.remove(old_f)
+        except OSError:
+            pass
 
+    camera_fps = read_camera_fps(raw_dir)
     files = sorted(glob.glob(os.path.join(raw_dir, "*.jpg")))
     if not files:
         return None
@@ -181,6 +211,7 @@ def process_single_case(case_info):
     img0 = cv2.imread(files[0])
     img0_gray = cv2.cvtColor(img0, cv2.COLOR_BGR2GRAY)
     H, W = img0_gray.shape
+    needle_boxes = detect_needle_boxes(img0_gray, W, y_contact)
 
     sample_idx = np.linspace(0, min(len(files) - 1, 180), 19, dtype=int)
     bg90_gray = np.percentile([cv2.imread(files[i], cv2.IMREAD_GRAYSCALE) for i in sample_idx], 90, axis=0).astype(np.uint8)
@@ -205,7 +236,7 @@ def process_single_case(case_info):
 
         rel_step = f_idx - t0
         frame_num = rel_step + 1
-        time_s = rel_step / CAMERA_FPS
+        time_s = rel_step / camera_fps
         time_ms = time_s * 1000.0
         step_name = f"t0+{rel_step:02d}"
         status = "PRE-IMPACT (AIRBORNE)" if rel_step == 0 else "AIRBORNE"
@@ -216,8 +247,21 @@ def process_single_case(case_info):
             dark_rows = np.where((col < 180) & (np.arange(H) < y_contact - 3))[0]
             y_effective_clip = int(dark_rows.max()) if len(dark_rows) > 0 else y_contact - 10
 
-        c, solid = reconstruct_water_droplet_contour(gray, bg, y_contact, y_top_cut, y_effective_clip)
+        c, solid = reconstruct_water_droplet_contour(gray, bg, y_contact, y_top_cut, y_effective_clip, needle_boxes)
         sat_contours, sat_stats = detect_burst_fragments(gray, bg, y_contact, y_top_cut, solid, x_hint)
+        if needle_boxes and sat_contours:
+            filt_c, filt_s = [], []
+            for sc, ss in zip(sat_contours, sat_stats):
+                sx, sy, sw, sh = cv2.boundingRect(sc)
+                in_needle = any(
+                    sy <= min(y_contact - 150, ny + nh + 70) and
+                    sx + sw >= nx - 45 and sx <= nx + nw + 45
+                    for (nx, ny, nw, nh) in needle_boxes
+                )
+                if not in_needle:
+                    filt_c.append(sc)
+                    filt_s.append(ss)
+            sat_contours, sat_stats = filt_c, filt_s
 
         d_contact_px = 0
         d_contact_mm = 0.0
@@ -359,7 +403,7 @@ def process_single_case(case_info):
                         cv2.FONT_HERSHEY_SIMPLEX, 0.45, (200, 200, 200), 1, cv2.LINE_AA)
 
         # Telemetry
-        box_w, box_h = 420, 260
+        box_w, box_h = 465, 260
         bx1, by1 = 15, 15
         bx2, by2 = bx1 + box_w, by1 + box_h
         cv2.rectangle(canvas, (bx1, by1), (bx2, by2), (20, 20, 20), -1)
@@ -368,7 +412,7 @@ def process_single_case(case_info):
         c_color = (0, 255, 0) if status == "IN CONTACT" else (0, 180, 255)
         lines = [
             (f"Case: {h_fld} / {c_fld}", (255, 255, 255), 0.52, 2),
-            (f"Frame #{frame_num:03d} ({step_name}) | t = {time_ms:.2f} ms ({CAMERA_FPS:.0f} fps) | {orig_fname}", (180, 180, 180), 0.38, 1),
+            (f"Frame #{frame_num:03d} ({step_name}) | t = {time_ms:.2f} ms ({camera_fps:.0f} fps) | {orig_fname}", (180, 180, 180), 0.38, 1),
             (f"Contact (Dc) : {d_contact_px}px | {d_contact_mm:.2f}mm | Beta={beta_contact:.3f} [{status}]", c_color, 0.46, 2),
             (f"Apex H (H) : {height_px}px | {height_mm:.2f}mm | H/D0={norm_height:.3f}", (0, 240, 255), 0.46, 2),
             (f"3D CoM (Hcm) : {com_height_px:.1f}px | {com_height_mm:.2f}mm | Hcm/D0={norm_com_height:.3f}", (255, 100, 255), 0.46, 2),
@@ -380,7 +424,7 @@ def process_single_case(case_info):
             cv2.putText(canvas, text, (bx1 + 12, curr_y), cv2.FONT_HERSHEY_SIMPLEX, font_scale, color, thickness, cv2.LINE_AA)
             curr_y += 32
 
-        out_fname = f"frame_{rel_step:04d}_{step_name}.jpg"
+        out_fname = f"frame_{frame_num:04d}_{step_name}_{time_ms:.2f}ms.jpg"
         cv2.imwrite(os.path.join(out_dir, out_fname), canvas)
 
         records.append({
@@ -414,7 +458,7 @@ def process_single_case(case_info):
             'Standard_D0_mm': STANDARD_DROPLET_DIA_MM,
             'Standard_Scale_px_per_mm': round(scale, 4),
             'mm_per_pixel': round(mm_per_px, 6),
-            'Camera_FPS': CAMERA_FPS
+            'Camera_FPS': camera_fps
         })
 
     df_out = pd.DataFrame(records)
